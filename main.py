@@ -11,5 +11,13 @@ def main():
     return render_template('main.html')
 
 
+@sock.route('/')
+def receiver(sock):
+    while True:
+        new_message = sock.receive()
+        print(new_message)
+        sock.send(new_message)
+
+
 if __name__ == "__main__":
     app.run(host='localhost', port=5000, debug=True)

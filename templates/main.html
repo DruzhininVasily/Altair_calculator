@@ -18,5 +18,115 @@
             <button>Расчет</button>
         </div>
     </header>
+    <main>
+        <h1>Конфигуратор системы вентиляции</h1>
+        <div class="img_container"></div>
+    </main>
+    <footer>
+        <div class="type options">
+            <h4>Тип системы</h4>
+            <div class="check radio">
+            <input type="radio" id="in_out" name="type_radio" value="In_out">
+            <label for="in_out">Приточно-вытяжная</label>
+            </div>
+            <div class="check radio">
+            <input type="radio" id="in" name="type_radio" value="In">
+            <label for="in">Приточная</label>
+            </div>
+            <div class="check radio">
+            <input type="radio" id="out" name="type_radio" value="Out">
+            <label for="out">Вытяжная</label>
+            </div>
+        </div>
+        <div class="ventilators options PV P V">
+            <h4>Вентиляторы</h4>
+            <button>Настройка</button>
+        </div>
+        <div class="heater options PV P">
+            <h4>Нагреватель</h4>
+            <select class="select">
+                <option>Нет</option>
+                <option>Да</option>
+            </select>
+            <button>Настройка</button>
+        </div>
+        <div class="cooler options PV P">
+            <h4>Охладитель</h4>
+            <select class="select">
+                <option>Нет</option>
+                <option>Да</option>
+            </select>
+            <button>Настройка</button>
+        </div>
+        <div class="humid options PV P">
+            <h4>Увлажнитель</h4>
+            <select class="select">
+                <option>Нет</option>
+                <option>Да</option>
+            </select>
+            <button>Настройка</button>
+        </div>
+        <div class="recuperator options">
+            <h4>Рекуператор</h4>
+            <select class="select">
+                <option>Нет</option>
+                <option>Да</option>
+            </select>
+            <button>Настройка</button>
+        </div>
+        <div class="recyrcling options">
+            <h4>Рециркуляция</h4>
+            <select class="select">
+                <option>Нет</option>
+                <option>Да</option>
+            </select>
+            <button>Настройка</button>
+        </div>
+        <div class="damper options PV P V">
+            <h4>Заслонки</h4>
+            <div class="check hide_V">
+            <input type="checkbox" id="damp_in">
+            <label for="damp_in">Приточная</label>
+            </div>
+            <div class="check hide_P">
+            <input type="checkbox" id="damp_out">
+            <label for="damp_out">Вытяжная</label>
+            </div>
+            <button>Настройка</button>
+        </div>
+        <div class="filters options PV P V">
+            <h4>Фильтры</h4>
+            <div class="check hide_V">
+            <input type="checkbox" id="filt_in">
+            <label for="damp_in">Приточная</label>
+            </div>
+            <div class="check hide_P">
+            <input type="checkbox" id="filt_out">
+            <label for="damp_out">Вытяжная</label>
+            </div>
+            <button>Настройка</button>
+        </div>
+        <div class="reserve options PV P V">
+            <h4>Резерв</h4>
+            <div class="check hide_V">
+            <input type="checkbox" id="res_in">
+            <label for="damp_in">Приточная</label>
+            </div>
+            <div class="check hide_P">
+            <input type="checkbox" id="res_out">
+            <label for="damp_out">Вытяжная</label>
+            </div>
+            <button>Настройка</button>
+        </div>
+        <div class="params options PV P V">
+            <h4>Параметры</h4>
+            <button>Настройка</button>
+        </div>
+        <div class="price_box">
+            <h4>Цена: </h4>
+            <p id="price"></p>
+        </div>
+    </footer>
+<script src="static/main.js"></script>
 </body>
 </html>
