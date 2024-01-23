@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_sock import Sock
 import json
+import data_handling
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'wdqfegsrdfgj,mnhgsefaw'
@@ -19,8 +20,10 @@ def receiver(sock):
         new_message = json.loads(new_message)
         print(new_message)
         if "type" in new_message:
+            new_message['price'] = data_handling.type_func(new_message["type"])
             new_message = json.dumps(new_message)
             sock.send(new_message)
+
 
 
 if __name__ == "__main__":
