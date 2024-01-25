@@ -19,8 +19,105 @@
         </div>
     </header>
     <main>
-        <h1>Конфигуратор системы вентиляции</h1>
-        <div class="img_container"></div>
+        <h2>Конфигуратор системы вентиляции</h2>
+        <div class="main_container">
+            <div class="img_container"></div>
+            <div class="parameters_container">
+                <datalist id="powerList">
+                        <option value="0" label="0.18"></option>
+                        <option value="1" label="0.22"></option>
+                        <option value="2" label="0.55"></option>
+                        <option value="3" label="1.5"></option>
+                        <option value="4" label="2.2"></option>
+                        <option value="5" label="4"></option>
+                        <option value="6" label="5.5"></option>
+                        <option value="7" label="7.5"></option>
+                        <option value="8" label="11"></option>
+                        <option value="9" label="15"></option>
+                        <option value="10" label="22"></option>
+                        <option value="11" label="30"></option>
+                    </datalist>
+                <div class="paramVent_in disabled">
+                    <h3>Приточный вентилятор</h3>
+                    <div>
+                        <input type="radio" id="380_in" name="voltage_vent" value="380_in">
+                        <label for="380_in">380 В</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="220_in" name="voltage_vent" value="220_in">
+                        <label for="220_in">220 В</label>
+                    </div><br>
+                    <div>
+                        <label for="power_in">Мощность: </label><span id="pow_span_in"></span><br>
+                        <input type="range" id="power_in" value="0" min="0" max="11" step="1" list="powerList">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="FC_in">
+                        <label for="FC_in">Наличие ПЧ</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="dif_in">
+                        <label for="dif_in">Подтверждение работы (дифф манометр)</label>
+                    </div>
+                    <br>
+                </div>
+                <div class="paramVent_out disabled">
+                    <h3>Вытяжной вентилятор</h3>
+                    <div>
+                        <input type="radio" id="380_out" name="voltage_vent_out" value="380_out">
+                        <label for="380_out">380 В</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="220_out" name="voltage_vent_out" value="220_out">
+                        <label for="220_out">220 В</label>
+                    </div><br>
+                    <div>
+                        <label for="power_out">Мощность: </label><span id="pow_span_out"></span><br>
+                        <input type="range" id="power_out" value="0" min="0" max="11" step="1" list="powerList">
+                    </div>
+                    <div>
+                        <input type="checkbox" id="FC_out">
+                        <label for="FC_out">Наличие ПЧ</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="dif_out">
+                        <label for="dif_out">Подтверждение работы (дифф манометр)</label>
+                    </div>
+                </div>
+                <div class="heat_container disabled">
+                    <h3>Нагреватель</h3>
+                    <input type="checkbox" id="water_heater">
+                    <label for="water_heater">Водяной нагреватель</label>
+                    <div class="water_heater_param">
+                        <input type="checkbox" id="pump_water_heater">
+                        <label for="pump_water_heater">Циркуляционный насос</label><br>
+                        <input type="checkbox" id="signal_water_heater">
+                        <label for="signal_water_heater">Управляющий сигнал (0-10В)</label><br>
+                        <input type="checkbox" id="sensor_water_heater">
+                        <label for="sensor_water_heater">Датчик температуры обратки воды</label><br>
+                        <input type="checkbox" id="thermostat_water_heater">
+                        <label for="thermostat_water_heater">Воздушный термостат</label><br>
+                        <p>Питание насоса</p>
+                        <input type="checkbox" id="pump_water_heater_220">
+                        <label for="pump_water_heater_220">220 В</label><br>
+                        <input type="checkbox" id="pump_water_heater_380">
+                        <label for="pump_water_heater_380">380 В</label><br>
+                        <p>Питание привода 3-х ходового клапана</p>
+                        <input type="checkbox" id="valve_water_heater_24">
+                        <label for="valve_water_heater_24">24 В</label><br>
+                        <input type="checkbox" id="valve_water_heater_220">
+                        <label for="valve_water_heater_220">220 В</label><br>
+                        <input type="checkbox" id="confirm_water_heater">
+                        <label for="confirm_water_heater">Подтверждение работы насоса</label><br>
+                    </div><br>
+                    <input type="checkbox" id="elect_heater">
+                    <label for="elect_heater">Электрический нагреватель</label>
+                    <div class="electrical_heater_param">
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer>
         <div class="type options">
@@ -40,7 +137,7 @@
         </div>
         <div class="ventilators options PV P V">
             <h4>Вентиляторы</h4>
-            <button>Настройка</button>
+            <button class="btn_PV btn_V" value="vents" disabled>Настройка</button>
         </div>
         <div class="heater options PV P">
             <h4>Нагреватель</h4>
@@ -48,7 +145,7 @@
                 <option value="false">Нет</option>
                 <option value="true">Да</option>
             </select>
-            <button>Настройка</button>
+            <button class="btn_PV" value="heaters" disabled>Настройка</button>
         </div>
         <div class="cooler options PV P">
             <h4>Охладитель</h4>
@@ -56,7 +153,7 @@
                 <option value="false">Нет</option>
                 <option value="true">Да</option>
             </select>
-            <button>Настройка</button>
+            <button class="btn_PV" value="coolers">Настройка</button>
         </div>
         <div class="humid options PV P">
             <h4>Увлажнитель</h4>
@@ -64,7 +161,7 @@
                 <option value="false">Нет</option>
                 <option value="true">Да</option>
             </select>
-            <button>Настройка</button>
+            <button class="btn_PV" value="humids">Настройка</button>
         </div>
         <div class="recuperator options">
             <h4>Рекуператор</h4>
@@ -92,7 +189,7 @@
             <input type="checkbox" id="damp_out">
             <label for="damp_out">Вытяжная</label>
             </div>
-            <button>Настройка</button>
+            <button class="btn_PV btn_V" value="dampers" disabled>Настройка</button>
         </div>
         <div class="filters options PV P V">
             <h4>Фильтры</h4>
@@ -104,7 +201,7 @@
             <input type="checkbox" id="filt_out">
             <label for="filt_out">Вытяжная</label>
             </div>
-            <button>Настройка</button>
+            <button class="btn_PV btn_V" value="filters" disabled>Настройка</button>
         </div>
         <div class="reserve options PV P V">
             <h4>Резерв</h4>
@@ -116,11 +213,11 @@
             <input type="checkbox" id="res_out">
             <label for="res_out">Вытяжная</label>
             </div>
-            <button>Настройка</button>
+            <button class="btn_PV btn_V" value="reserve" disabled>Настройка</button>
         </div>
         <div class="params options PV P V">
             <h4>Параметры</h4>
-            <button>Настройка</button>
+            <button class="btn_PV btn_V" value="cabinet" disabled>Настройка</button>
         </div>
         <div class="price_box">
             <h4>Цена: </h4>

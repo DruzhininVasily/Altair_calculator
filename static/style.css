@@ -11,7 +11,7 @@ body {
     align-items: center;
     padding: 1% 12% 1% 5%;
     color: #FFF;
-    font-size: 26px;
+    font-size: 19px;
 }
 
 .head_container button {
@@ -19,7 +19,7 @@ body {
     color: #FFF;
     border: 1px solid #FFF;
     border-radius: 20px;
-    font-size: 26px;
+    font-size: 19px;
     padding: 1% 4%;
     transition: all 0.3s linear;
 }
@@ -29,7 +29,7 @@ body {
 }
 
 .head_container img {
-    width: 20%;
+    width: 18%;
 }
 
 /* main */
@@ -37,6 +37,33 @@ body {
 main {
     padding: 1% 5%;
     color: #FFF;
+}
+
+.main_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.img_container {
+    width: 75%;
+    border: 1px solid silver;
+    background: #FFF;
+    height: 350px;
+}
+
+.parameters_container {
+    border: 1px solid silver;
+    width: 25%;
+    padding-left: 2%;
+    background: #FFF;
+    height: 350px;
+    color: #000;
+    font-size: 12px;
+    overflow: auto;
+}
+
+.disabled {
+    display: none;
 }
 
 
@@ -96,3 +123,5 @@ footer {
     opacity: 0;
     transition: opacity 0.5s linear;
 }
+
+

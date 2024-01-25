@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function(){
+    let typeSystem = null
+
     let messageData = {
         select_0: "false",
         select_1: "false",
@@ -11,6 +13,15 @@ document.addEventListener('DOMContentLoaded', function(){
         res_out: "false"
     }
 
+    let refButtons = {
+        heaters: "select_0",
+        coolers: "select_1",
+        humids: "select_2",
+        dampers: ["damp_in", 'damp_out'],
+        filters: ["filt_in", "filt_out"],
+        reserve: ["res_in", "res_out"]
+    }
+
     let price = document.querySelector("#price");
     let systemType = document.querySelectorAll(".radio input")
 
@@ -20,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function(){
         selIndex = {0: "select_0", 1: "select_1", 2: "select_2"}
         messageData[selIndex[index]] = e.target.value
         websocketClient.send(JSON.stringify(messageData));
-        console.log(e.target.value)
     };
 
     let onSelect = function () {
@@ -40,20 +50,6 @@ document.addEventListener('DOMContentLoaded', function(){
         };
     };
 
-    let hideElements = function(cl) {
-        let elements = document.getElementsByClassName(cl);
-        for (let index = 0; index<elements.length; index++) {
-            elements[index].style = "opacity: 0;";
-        };
-    };
-
-    let showElements = function(cl) {
-        let elements = document.getElementsByClassName(cl);
-        for (let index = 0; index<elements.length; index++) {
-            elements[index].style = "opacity: 1;";
-        };
-    };
-
     let onCheck = function(cl) {
         let elements = document.querySelectorAll(cl);
         for (let index = 0; index<elements.length; index++) {
@@ -61,8 +57,6 @@ document.addEventListener('DOMContentLoaded', function(){
             elements[index].removeAttribute('disabled');
             elements[index].checked = false;
             elements[index].onclick = () => {
-                console.log(elements[index].checked);
-                console.log(elements[index].id);
                 messageData[elements[index].id] = String(elements[index].checked)
                 websocketClient.send(JSON.stringify(messageData));
             }
@@ -77,8 +71,65 @@ document.addEventListener('DOMContentLoaded', function(){
         };
     };
 
+
+    let ventsFunc = function() {
+        console.log("ventil");
+    };
+
+    let commandsButtons = {
+        vents: ventsFunc,
+        heaters: "",
+        coolers: "",
+        humids: "",
+        dampers: "",
+        filters: "",
+        reserve: "",
+        cabinet: ""
+    }
+
+    let onButton = function(cl) {
+        let butts = document.querySelectorAll(cl);
+        for (let index = 0; index<butts.length; index++) {
+            butts[index].removeAttribute('disabled');
+            butts[index].onclick = () => {
+                if (butts[index].value == "vents" || butts[index].value == "cabinet") {
+                    console.log("ventelyator");
+                    commandsButtons[butts[index].value]();
+                }
+                else if (messageData[refButtons[butts[index].value]] == 'true') {
+                    console.log(butts[index].value);
+                    }
+                else if (messageData[refButtons[butts[index].value][0]] == 'true' || messageData[refButtons[butts[index].value][1]] == 'true') {
+                    console.log(butts[index].value);
+                };
+            };
+        };
+    }
+
+    let offButton = function(cl) {
+        let butts = document.querySelectorAll(cl);
+        for (let index = 0; index<butts.length; index++) {
+            butts[index].setAttribute('disabled', 'disabled');
+        };
+    }
+
+    let hideElements = function(cl) {
+        let elements = document.getElementsByClassName(cl);
+        for (let index = 0; index<elements.length; index++) {
+            elements[index].style = "opacity: 0;";
+        };
+    };
+
+    let showElements = function(cl) {
+        let elements = document.getElementsByClassName(cl);
+        for (let index = 0; index<elements.length; index++) {
+            elements[index].style = "opacity: 1;";
+        };
+    };
+
     for (let radio=0; radio<systemType.length; radio++) {
         systemType[radio].onclick = () => {
+            typeSystem = systemType[radio].value
             websocketClient.send(JSON.stringify({"type": systemType[radio].value}));
             for (el in messageData) {messageData[el] = "false"};
         };
@@ -86,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     websocketClient.onmessage = (message) => {
-        mes = JSON.parse(message.data)
+        mes = JSON.parse(message.data);
         document.getElementById('price').textContent = mes['price'];
         if (mes['type'] == "In_out") {
             showElements('PV');
@@ -95,6 +146,8 @@ document.addEventListener('DOMContentLoaded', function(){
             onCheck('.hide_V input');
             onCheck('.hide_P input');
             onSelect();
+            offButton(".btn_V")
+            onButton(".btn_PV")
         }
         else if (mes['type'] == "In") {
             showElements('P');
@@ -103,6 +156,8 @@ document.addEventListener('DOMContentLoaded', function(){
             hideElements('hide_P');
             offCheck('.hide_P input');
             onSelect();
+            offButton(".btn_V")
+            onButton(".btn_PV")
         }
         else if (mes['type'] == "Out") {
             hideElements('PV');
@@ -112,6 +167,8 @@ document.addEventListener('DOMContentLoaded', function(){
             hideElements('hide_V');
             offCheck('.hide_V input');
             offSelect();
+            offButton(".btn_PV")
+            onButton(".btn_V")
         }
     }
 })
