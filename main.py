@@ -28,11 +28,6 @@ def receiver(sock):
             new_message['price'] = handler.calculate()
         new_message = json.dumps(new_message)
         sock.send(new_message)
-        # if "type" in new_message:
-        #     new_message['price'] = data_handling.type_func(new_message["type"])
-        #     new_message = json.dumps(new_message)
-        #     sock.send(new_message)
-
 
 
 if __name__ == "__main__":
