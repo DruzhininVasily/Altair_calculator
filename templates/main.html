@@ -84,36 +84,245 @@
                         <label for="dif_out">Подтверждение работы (дифф манометр)</label>
                     </div>
                 </div>
-                <div class="heat_container disabled">
-                    <h3>Нагреватель</h3>
-                    <input type="checkbox" id="water_heater">
-                    <label for="water_heater">Водяной нагреватель</label>
-                    <div class="water_heater_param">
-                        <input type="checkbox" id="pump_water_heater">
-                        <label for="pump_water_heater">Циркуляционный насос</label><br>
-                        <input type="checkbox" id="signal_water_heater">
-                        <label for="signal_water_heater">Управляющий сигнал (0-10В)</label><br>
-                        <input type="checkbox" id="sensor_water_heater">
-                        <label for="sensor_water_heater">Датчик температуры обратки воды</label><br>
-                        <input type="checkbox" id="thermostat_water_heater">
-                        <label for="thermostat_water_heater">Воздушный термостат</label><br>
-                        <p>Питание насоса</p>
-                        <input type="checkbox" id="pump_water_heater_220">
-                        <label for="pump_water_heater_220">220 В</label><br>
-                        <input type="checkbox" id="pump_water_heater_380">
-                        <label for="pump_water_heater_380">380 В</label><br>
-                        <p>Питание привода 3-х ходового клапана</p>
-                        <input type="checkbox" id="valve_water_heater_24">
-                        <label for="valve_water_heater_24">24 В</label><br>
-                        <input type="checkbox" id="valve_water_heater_220">
-                        <label for="valve_water_heater_220">220 В</label><br>
-                        <input type="checkbox" id="confirm_water_heater">
-                        <label for="confirm_water_heater">Подтверждение работы насоса</label><br>
-                    </div><br>
-                    <input type="checkbox" id="elect_heater">
-                    <label for="elect_heater">Электрический нагреватель</label>
-                    <div class="electrical_heater_param">
-
+                <div class="heat_container hide_param disabled">
+                    <datalist id="heater_powerList">
+                        <option value="0"></option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                        <option value="6"></option>
+                        <option value="7"></option>
+                        <option value="8"></option>
+                        <option value="9"></option>
+                        <option value="10"></option>
+                        <option value="11"></option>
+                        <option value="12"></option>
+                    </datalist>
+                    <div class="first_container">
+                        <h3>Нагреватель</h3>
+                        <h4>Тип нагревателя</h4>
+                        <select class="heater_type_first" name="first_heater_type" >
+                            <option value="false">Водяной</option>
+                            <option value="true">Электрический</option>
+                        </select>
+                        <div class="water_first_container">
+                            <div>
+                                <input class="water_first_pump first_water_checkbox" name="first_pump" type="checkbox" id="first_pump" checked disabled>
+                                <label for="first_pump">Циркуляционный насос</label>
+                            </div>
+                            <div>
+                                <input class="water_first_signal first_water_checkbox" name="first_signal" type="checkbox" id="first_signal" checked disabled>
+                                <label for="first_signal">Управляющий сигнал 0-10В</label>
+                            </div>
+                            <div>
+                                <input class="water_first_sensor first_water_checkbox" name="first_sensor" type="checkbox" id="first_sensor" checked disabled>
+                                <label for="first_sensor">Датчик температуры обр. воды</label>
+                            </div>
+                            <div>
+                                <input class="water_first_thermostat first_water_checkbox" name="first_thermostat" type="checkbox" id="first_thermostat" checked>
+                                <label for="first_thermostat">Воздушный термостат</label>
+                            </div>
+                            <div>
+                                <span>Питание насоса</span>
+                                <select class="water_first_pump_voltage first_water_select" name="first_pump_voltage">
+                                    <option value="false">220 В</option>
+                                    <option value="true">380 В</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span>Питание привода 3-х ходового клапана</span>
+                                <select class="water_first_valve_voltage first_water_select" name="first_valve_voltage">
+                                    <option value="false">24 В</option>
+                                    <option value="true">220 В</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input class="water_first_confirm first_water_checkbox" name="first_confirm" type="checkbox" id="first_confirm">
+                                <label for="first_confirm">Подтверждение работы насоса</label>
+                            </div>
+                        </div>
+                        <div class="electrical_first_container disabled">
+                            <span>Количество ступеней: </span>
+                            <select class="electrical_first_steps first_electrical_select" name="first_steps">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                                <option value="4">5</option>
+                                <option value="5">6</option>
+                                <option value="6">7</option>
+                                <option value="7">8</option>
+                        </select>
+                            <span class="disabled" id="test"></span>
+                            <div>
+                                <label for="electrical_first_step_power">Мощность ступени: </label><span id="first_step_pow_span"></span><span> кВт</span><br>
+                                <input class="electrical_first_step_power first_electrical_range" name="electrical_first_step_power" type="range" id="electrical_first_step_power" value="0" min="0" max="12" step="1" list="heater_powerList">
+                            </div>
+                            <div>
+                                <input class="electrical_first_step_signal first_electrical_checkbox" name="electrical_first_step_signal" type="checkbox" id="electrical_first_step_signal">
+                                <label for="electrical_first_step_signal">Первая ступень 0-10В</label>
+                            </div>
+                            <span>Количество термовыключателей: </span>
+                            <select class="electrical_first_thermal first_electrical_select" name="first_electrical_thermal">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        <div>
+                                <input class="second_heat_choice" name="second_heat_choice" type="checkbox" id="second_heat_choice">
+                                <label for="second_heat_choice">Второй нагреватель</label>
+                        </div>
+                    </div>
+                    <div class="second_container disabled">
+                        <h4>Тип нагревателя</h4>
+                        <select class="heater_type_second" name="second_heat_type">
+                            <option value="false">Водяной</option>
+                            <option value="true">Электрический</option>
+                        </select>
+                        <div class="water_second_container">
+                            <div>
+                                <input class="water_second_pump second_water_checkbox" name="second_pump" type="checkbox" id="second_pump" checked disabled>
+                                <label for="second_pump">Циркуляционный насос</label>
+                            </div>
+                            <div>
+                                <input class="water_second_signal second_water_checkbox" name="second_signal" type="checkbox" id="second_signal" checked disabled>
+                                <label for="second_signal">Управляющий сигнал 0-10В</label>
+                            </div>
+                            <div>
+                                <input class="water_second_sensor second_water_checkbox" name="second_sensor" type="checkbox" id="second_sensor">
+                                <label for="second_sensor">Датчик температуры обр. воды</label>
+                            </div>
+                            <div>
+                                <input class="water_second_thermostat second_water_checkbox" name="second_thermostat" type="checkbox" id="second_thermostat">
+                                <label for="second_thermostat">Воздушный термостат</label>
+                            </div>
+                            <div>
+                                <span>Питание насоса</span>
+                                <select class="water_second_pump_voltage second_water_select" name="second_pump_voltage">
+                                    <option value="false">220 В</option>
+                                    <option value="true">380 В</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span>Питание привода 3-х ходового клапана</span>
+                                <select class="water_second_valve_voltage second_water_select" name="second_valve_voltage">
+                                    <option value="false">24 В</option>
+                                    <option value="true">220 В</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input class="water_second_confirm second_water_checkbox" name="second_confirm" type="checkbox" id="second_confirm">
+                                <label for="second_confirm">Подтверждение работы насоса</label>
+                            </div>
+                        </div>
+                        <div class="electrical_second_container disabled">
+                            <span>Количество ступеней: </span>
+                            <select class="electrical_second_steps second_electrical_select" name="second_steps">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                                <option value="4">5</option>
+                                <option value="5">6</option>
+                                <option value="6">7</option>
+                                <option value="7">8</option>
+                        </select>
+                            <div>
+                                <label for="electrical_second_step_power">Мощность ступени: </label><span id="second_step_pow_span"></span><span> кВт</span><br>
+                                <input class="electrical_second_step_power second_electrical_range" name="electrical_second_step_power" type="range" id="electrical_second_step_power" value="0" min="0" max="12" step="1" list="heater_powerList">
+                            </div>
+                            <div>
+                                <input class="electrical_second_step_signal second_electrical_checkbox" name="electrical_second_step_signal" type="checkbox" id="electrical_second_step_signal">
+                                <label for="electrical_second_step_signal">Первая ступень 0-10В</label>
+                            </div>
+                            <span>Количество термовыключателей: </span>
+                            <select class="electrical_second_thermal second_electrical_select" name="second_electrical_thermal">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="dampers_container hide_param disabled">
+                    <datalist id="damper_powerList">
+                        <option value="0"></option>
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                        <option value="6"></option>
+                        <option value="7"></option>
+                        <option value="8"></option>
+                        <option value="9"></option>
+                        <option value="10"></option>
+                        <option value="11"></option>
+                    </datalist>
+                    <div class="in_damper_container disabled">
+                        <h3>Приточная воздушная заслонка</h3>
+                        <div>
+                            <span>Питание заслонки</span>
+                            <select class="in_damper_voltage" name="in_damper_voltage">
+                                <option value="false">24 В</option>
+                                <option value="true">220 В</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input class="in_damper_confirm" name="in_damper_confirm" type="checkbox" id="in_damper_confirm">
+                            <label for="in_damper_confirm">Подтверждение открытия</label>
+                        </div>
+                        <div>
+                            <input class="in_damper_heat" name="in_damper_heat" type="checkbox" id="in_damper_heat">
+                            <label for="in_damper_heat">Обогрев заслонки</label>
+                        </div>
+                        <div class="in_damper_heat_parameter_container disabled">
+                            <div>
+                                <span>Питание обогрева</span>
+                                <select class="in_damper_heat_voltage" name="in_damper_heat_voltage">
+                                    <option value="false">220 В</option>
+                                    <option value="true">380 В</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="in_damper_heat_power">Мощность обогрева: </label><span id="in_damper_heat_power_span"></span><span> кВт</span><br>
+                                <input class="in_damper_heat_power" name="in_damper_heat_power" type="range" id="in_damper_heat_power" value="0" min="0" max="11" step="1" list="damper_powerList">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="out_damper_container disabled">
+                        <h3>Вытяжная воздушная заслонка</h3>
+                        <div>
+                            <span>Питание заслонки</span>
+                            <select class="out_damper_voltage" name="out_damper_voltage">
+                                <option value="false">24 В</option>
+                                <option value="true">220 В</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input class="out_damper_confirm" name="out_damper_confirm" type="checkbox" id="out_damper_confirm">
+                            <label for="out_damper_confirm">Подтверждение открытия</label>
+                        </div>
+                        <div>
+                            <input class="out_damper_heat" name="out_damper_heat" type="checkbox" id="out_damper_heat">
+                            <label for="out_damper_heat">Обогрев заслонки</label>
+                        </div>
+                        <div class="out_damper_heat_parameter_container disabled">
+                            <div>
+                                <span>Питание обогрева</span>
+                                <select class="out_damper_heat_voltage" name="out_damper_heat_voltage">
+                                    <option value="false">220 В</option>
+                                    <option value="true">380 В</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="out_damper_heat_power">Мощность обогрева: </label><span id="out_damper_heat_power_span"></span><span> кВт</span><br>
+                                <input class="out_damper_heat_power" name="out_damper_heat_power" type="range" id="out_damper_heat_power" value="0" min="0" max="11" step="1" list="damper_powerList">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

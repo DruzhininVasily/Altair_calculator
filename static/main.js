@@ -18,7 +18,32 @@ document.addEventListener('DOMContentLoaded', function(){
         dif_in: "false",
         dif_out: "false",
         vent_power_in: "0",
-        vent_power_out: "0"
+        vent_power_out: "0",
+        first_heater_type: "false",
+        first_pump: "false",
+        first_signal: "false",
+        first_sensor: "false",
+        first_thermostat: "false",
+        first_pump_voltage: "false",
+        first_valve_voltage: "false",
+        first_confirm: "false",
+        first_steps: "0",
+        electrical_first_step_power: "0",
+        electrical_first_step_signal: "false",
+        first_electrical_thermal: "0",
+        second_heat_choice: "false",
+        second_heat_type: "false",
+        second_pump: "false",
+        second_signal: "false",
+        second_sensor: "false",
+        second_thermostat: "false",
+        second_pump_voltage: "false",
+        second_valve_voltage: "false",
+        second_confirm: "false",
+        second_steps: "0",
+        electrical_second_step_power: "0",
+        electrical_second_step_signal: "false",
+        second_electrical_thermal: "0"
     }
 
     let refButtons = {
@@ -30,7 +55,41 @@ document.addEventListener('DOMContentLoaded', function(){
         reserve: ["res_in", "res_out"]
     };
 
-    let = powerData = {0: "0.18", 1: "0.22", 2: "0.55", 3: "1.5", 4: "2.2", 5: "4", 6: "5.5", 7: "7.5", 8: "11", 9: "15", 10: "22", 11: "30"}
+    let heaterFirstBoolDefault = {
+        first_heater_type: 'false',
+        first_pump: 'true',
+        first_signal: 'true',
+        first_sensor: 'true',
+        first_thermostat: 'true',
+        first_pump_voltage: 'false',
+        first_valve_voltage: 'false',
+        first_confirm: 'false',
+        electrical_first_step_signal: 'false',
+        second_heat_choice: 'false',
+        };
+
+    let heaterSecondBoolDefault = {
+        second_heat_type: 'false',
+        second_pump: 'true',
+        second_signal: 'true',
+        second_sensor: 'false',
+        second_thermostat: 'false',
+        second_pump_voltage: 'false',
+        second_valve_voltage: 'false',
+        second_confirm: 'false',
+        electrical_second_step_signal: 'false'
+    }
+
+    let heaterDecDefault = {
+        first_steps: '0',
+        electrical_first_step_power: '0',
+        first_electrical_thermal: '0',
+        second_steps: '0',
+        electrical_second_step_power: '0',
+        second_electrical_thermal: '0'
+    }
+
+    let = powerData = {0: "0.18", 1: "0.22", 2: "0.55", 3: "1.5", 4: "2.2", 5: "4", 6: "5.5", 7: "7.5", 8: "11", 9: "15", 10: "22", 11: "30", 12: "55"}
 
     let price = document.querySelector("#price");
     let systemType = document.querySelectorAll(".radio input")
@@ -42,6 +101,42 @@ document.addEventListener('DOMContentLoaded', function(){
     let selectFunc = function (index, e) {
         selIndex = {0: "select_0", 1: "select_1", 2: "select_2"}
         messageData[selIndex[index]] = e.target.value
+        if (e.target.value == 'false') {
+            switch (index) {
+                case 0:
+                    for (key in heaterFirstBoolDefault) {
+                        messageData[key] = 'false';
+                    };
+                    for (key in heaterSecondBoolDefault) {
+                        messageData[key] = 'false';
+                    };
+                    for (key in heaterDecDefault) {
+                        messageData[key] = '0';
+                    };
+                    break
+            };
+            hideParameters()
+        }
+        else {
+            switch (index) {
+                case 0:
+                    for (key in heaterFirstBoolDefault) {
+                        messageData[key] = heaterFirstBoolDefault[key];
+                    };
+                    for (key in heaterDecDefault) {
+                        messageData[key] = heaterDecDefault[key];
+                    };
+                    document.getElementsByClassName('electrical_first_container')[0].classList.add('disabled');
+                    document.getElementsByClassName('water_first_container')[0].classList.remove('disabled');
+                    document.getElementsByClassName('second_container')[0].classList.add('disabled');
+                    document.getElementsByClassName('electrical_second_container')[0].classList.add('disabled');
+                    document.getElementsByClassName('water_second_container')[0].classList.remove('disabled');
+                    document.getElementsByClassName('heater_type_first')[0].value = 'false';
+                    document.getElementsByClassName('heater_type_second')[0].value = 'false';
+                    document.getElementsByClassName('second_heat_choice')[0].checked = false;
+                    break
+            };
+        }
         websocketClient.send(JSON.stringify(messageData));
     };
 
@@ -101,38 +196,50 @@ document.addEventListener('DOMContentLoaded', function(){
 // Функция для добавки обработчиков в окне параметров
 
     let addListeners = function (array, outValue, dataSet) {
-        let radioObjects = document.querySelectorAll(array[0]);
-        let checkObjects = document.querySelectorAll(array[1]);
-        let rangeObjects = document.querySelectorAll(array[2]);
-        let rangeOut = document.querySelector(outValue);
+        let radioObjects = array[0]!='' ? document.querySelectorAll(array[0]) : [];
+        let checkObjects = array[1]!='' ? document.querySelectorAll(array[1]) : [];
+        let rangeObjects = array[2]!='' ? document.querySelectorAll(array[2]) : [];
+        let selectObjects = array[3]!='' ? document.querySelectorAll(array[3]) : [];
+        let rangeOut = outValue!='' ? document.querySelector(outValue) : document.querySelector('#test');
         for (let index=0; index<radioObjects.length; index++) {
             if (radioObjects[index].classList.contains('default')) {
+                if (messageData[radioObjects[index].name] == 'false') {
                 radioObjects[index].checked = true;
-            }
+            }}
             else {
-                radioObjects[index].checked = false;
+                if (messageData[radioObjects[index].name] == "true")
+                {radioObjects[index].checked = true;}
+                else {radioObjects[index].checked = false;}
             }
             radioObjects[index].addEventListener('change', function(e) {
                 sendData(radioObjects[index].name, radioObjects[index].value);
             });
         };
         for (let index=0; index<checkObjects.length; index++) {
+            if (messageData[checkObjects[index].name] == "false"){
             checkObjects[index].checked = false;
+            }
+            else {checkObjects[index].checked = true;}
             checkObjects[index].addEventListener('click', function(e) {
                 sendData(checkObjects[index].name, String(checkObjects[index].checked))
             });
         };
         for (let index=0; index<rangeObjects.length; index++) {
-            rangeOut.textContent = dataSet['0']
-            rangeObjects[index].value = 0;
+            rangeOut.textContent = dataSet[messageData[rangeObjects[index].name]]
+            rangeObjects[index].value = messageData[rangeObjects[index].name];
             rangeObjects[index].addEventListener('change', function(e) {
                 rangeOut.textContent = dataSet[rangeObjects[index].value]
                 sendData(rangeObjects[index].name, rangeObjects[index].value)
             });
         };
+        for (let index=0; index<selectObjects.length; index++) {
+            selectObjects[index].value = messageData[selectObjects[index].name];
+            selectObjects[index].addEventListener('change', function(e) {
+                sendData(selectObjects[index].name, selectObjects[index].value)
+            });
+        };
     }
 
-// Учесть обнуление всех параметров при повторном нажатии кнопки!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // Функция кнопки параметры вентилятора
 
     let ventsFunc = function() {
@@ -141,26 +248,68 @@ document.addEventListener('DOMContentLoaded', function(){
         if (typeSystem == "In_out") {
             paramVent_in.classList.remove('disabled');
             paramVent_out.classList.remove('disabled');
-            addListeners(['.vent_radio_info_in', '.vent_check_info_in', '.vent_range_info_in'], "#pow_span_in", powerData);
-            addListeners(['.vent_radio_info_out', '.vent_check_info_out', '.vent_range_info_out'], "#pow_span_out", powerData)
+            addListeners(['.vent_radio_info_in', '.vent_check_info_in', '.vent_range_info_in', ''], "#pow_span_in", powerData);
+            addListeners(['.vent_radio_info_out', '.vent_check_info_out', '.vent_range_info_out', ''], "#pow_span_out", powerData)
         }
         else if (typeSystem == "In") {
             paramVent_in.classList.remove('disabled');
             paramVent_out.className = ("paramVent_out hide_param disabled");
-            addListeners(['.vent_radio_info_in', '.vent_check_info_in', '.vent_range_info_in'], "#pow_span_in", powerData);
+            addListeners(['.vent_radio_info_in', '.vent_check_info_in', '.vent_range_info_in', ''], "#pow_span_in", powerData);
         }
         else if (typeSystem == "Out") {
             paramVent_out.classList.remove('disabled');
             paramVent_in.className = ("paramVent_in hide_param disabled");
-            addListeners(['.vent_radio_info_out', '.vent_check_info_out', '.vent_range_info_out'], "#pow_span_out", powerData)
+            addListeners(['.vent_radio_info_out', '.vent_check_info_out', '.vent_range_info_out', ''], "#pow_span_out", powerData)
         };
     };
+
+// Функция выбора типа нагревателя
+
+    let typeHeatChoice = function (e, elClass, waterClass, list_water, list_elect) {
+        let electricalContainer = document.querySelector(elClass);
+        let waterContainer = document.querySelector(waterClass);
+        if (e.target.value == "true") {
+                electricalContainer.classList.remove('disabled');
+                waterContainer.classList.add('disabled');
+                sendData(e.target.name, e.target.value);
+                addListeners([list_elect[0], list_elect[1], list_elect[2], list_elect[3]], list_elect[4], list_elect[5]);
+        }
+        else {
+                electricalContainer.classList.add('disabled');
+                waterContainer.classList.remove('disabled');
+                addListeners([list_water[0], list_water[1], list_water[2], list_water[3]], list_water[4], list_water[5])
+                sendData(e.target.name, e.target.value);
+        };
+    }
+
+
+// Функция для обработки окна нагреватели
+
+    let heatersFunc = function () {
+        let heatContainer = document.querySelector(".heat_container");
+        let secondChoice = document.querySelector(".second_heat_choice");
+        let firstTypeHeatChoice = document.querySelector('.heater_type_first')
+        heatContainer.classList.remove('disabled');
+        addListeners(['', '.first_water_checkbox', '', '.first_water_select'], '', '')
+        firstTypeHeatChoice.addEventListener('change', () => typeHeatChoice(event, '.electrical_first_container', '.water_first_container', ['', '.first_water_checkbox', '', '.first_water_select', '', ''], ['', '.first_electrical_checkbox', '.first_electrical_range', '.first_electrical_select', '#first_step_pow_span', powerData]));
+        secondChoice.onclick = () => {
+            sendData(secondChoice.name, String(secondChoice.checked));
+            let secondContainer = document.querySelector(".second_container");
+            if (secondChoice.checked == true) {
+            secondContainer.classList.remove('disabled');
+            addListeners(['', '.second_water_checkbox', '', '.second_water_select'], '', '')
+            let secondTypeHeatChoice = document.querySelector(".heater_type_second");
+            secondTypeHeatChoice.addEventListener('change', () => typeHeatChoice(event, '.electrical_second_container', '.water_second_container', ['', '.second_water_checkbox', '', '.second_water_select', '', ''], ['', '.second_electrical_checkbox', '.second_electrical_range', '.second_electrical_select', '#second_step_pow_span', powerData]));
+            }
+            else {secondContainer.classList.add('disabled')};
+        };
+    }
 
 // Команды кнопок параметры
 
     let commandsButtons = {
         vents: ventsFunc,
-        heaters: "",
+        heaters: heatersFunc,
         coolers: "",
         humids: "",
         dampers: "",
@@ -176,11 +325,12 @@ document.addEventListener('DOMContentLoaded', function(){
         for (let index = 0; index<butts.length; index++) {
             butts[index].removeAttribute('disabled');
             butts[index].onclick = () => {
+                hideParameters();
                 if (butts[index].value == "vents" || butts[index].value == "cabinet") {
                     commandsButtons[butts[index].value]();
                 }
                 else if (messageData[refButtons[butts[index].value]] == 'true') {
-                    console.log(butts[index].value);
+                    commandsButtons[butts[index].value]();
                     }
                 else if (messageData[refButtons[butts[index].value][0]] == 'true' || messageData[refButtons[butts[index].value][1]] == 'true') {
                     console.log(butts[index].value);
@@ -234,6 +384,12 @@ document.addEventListener('DOMContentLoaded', function(){
             for (el in messageData) {messageData[el] = "false"};
             messageData['vent_power_in'] = "0";
             messageData['vent_power_out'] = "0";
+            messageData['first_steps'] = "0";
+            messageData['electrical_first_step_power'] = "0";
+            messageData['first_electrical_thermal'] = "0";
+            messageData['second_steps'] = "0";
+            messageData['electrical_second_step_power'] = "0";
+            messageData['second_electrical_thermal'] = "0";
             hideParameters();
         };
     };
