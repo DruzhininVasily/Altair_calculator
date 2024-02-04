@@ -44,7 +44,19 @@ class PriceHandler:
         "second_steps": {"0": 0, "1": 1000, "2": 2000, "3": 3000, "4": 4000, "5": 5000, "6": 6000, "7": 7000},
         "electrical_second_step_power": {"0": 0, "1": 1000, "2": 2000, "3": 3000, "4": 4000, "5": 5000, "6": 6000, "7": 7000, "8": 8000, "9": 9000, "10": 10000, "11": 11000, "12": 12000},
         "electrical_second_step_signal": 1000,
-        "second_electrical_thermal": {"0": 0, "1": 1000, "2": 2000}
+        "second_electrical_thermal": {"0": 0, "1": 1000, "2": 2000},
+        'in_damper_voltage': 1000,
+        'in_damper_confirm': 1000,
+        'in_damper_heat': 1000,
+        'in_damper_heat_voltage': 1000,
+        'in_damper_heat_power': {"0": 0, "1": 1000, "2": 2000, "3": 3000, "4": 4000, "5": 5000, "6": 6000, "7": 7000, "8": 8000, "9": 9000, "10": 10000, "11": 11000},
+        'out_damper_voltage': 1000,
+        'out_damper_confirm': 1000,
+        'out_damper_heat': 1000,
+        'out_damper_heat_voltage': 1000,
+        'out_damper_heat_power': {"0": 0, "1": 1000, "2": 2000, "3": 3000, "4": 4000, "5": 5000, "6": 6000, "7": 7000, "8": 8000, "9": 9000, "10": 10000, "11": 11000},
+        'in_filter_quantity': {"0": 0, "1": 1000, "2": 2000},
+        'out_filter_quantity': {"0": 0, "1": 1000, "2": 2000},
     }
 
     def __init__(self):

@@ -266,13 +266,13 @@
                         <h3>Приточная воздушная заслонка</h3>
                         <div>
                             <span>Питание заслонки</span>
-                            <select class="in_damper_voltage" name="in_damper_voltage">
+                            <select class="in_damper_voltage in_damper_select" name="in_damper_voltage">
                                 <option value="false">24 В</option>
                                 <option value="true">220 В</option>
                             </select>
                         </div>
                         <div>
-                            <input class="in_damper_confirm" name="in_damper_confirm" type="checkbox" id="in_damper_confirm">
+                            <input class="in_damper_confirm in_damper_checkbox" name="in_damper_confirm" type="checkbox" id="in_damper_confirm">
                             <label for="in_damper_confirm">Подтверждение открытия</label>
                         </div>
                         <div>
@@ -282,14 +282,14 @@
                         <div class="in_damper_heat_parameter_container disabled">
                             <div>
                                 <span>Питание обогрева</span>
-                                <select class="in_damper_heat_voltage" name="in_damper_heat_voltage">
+                                <select class="in_damper_heat_voltage in_damper_heat_select" name="in_damper_heat_voltage" id="in_damper_heat_voltage">
                                     <option value="false">220 В</option>
                                     <option value="true">380 В</option>
                                 </select>
                             </div>
                             <div>
                                 <label for="in_damper_heat_power">Мощность обогрева: </label><span id="in_damper_heat_power_span"></span><span> кВт</span><br>
-                                <input class="in_damper_heat_power" name="in_damper_heat_power" type="range" id="in_damper_heat_power" value="0" min="0" max="11" step="1" list="damper_powerList">
+                                <input class="in_damper_heat_power in_damper_heat_range" name="in_damper_heat_power" type="range" id="in_damper_heat_power" value="0" min="0" max="11" step="1" list="damper_powerList">
                             </div>
                         </div>
                     </div>
@@ -297,13 +297,13 @@
                         <h3>Вытяжная воздушная заслонка</h3>
                         <div>
                             <span>Питание заслонки</span>
-                            <select class="out_damper_voltage" name="out_damper_voltage">
+                            <select class="out_damper_voltage out_damper_select" name="out_damper_voltage">
                                 <option value="false">24 В</option>
                                 <option value="true">220 В</option>
                             </select>
                         </div>
                         <div>
-                            <input class="out_damper_confirm" name="out_damper_confirm" type="checkbox" id="out_damper_confirm">
+                            <input class="out_damper_confirm out_damper_checkbox" name="out_damper_confirm" type="checkbox" id="out_damper_confirm">
                             <label for="out_damper_confirm">Подтверждение открытия</label>
                         </div>
                         <div>
@@ -313,15 +313,39 @@
                         <div class="out_damper_heat_parameter_container disabled">
                             <div>
                                 <span>Питание обогрева</span>
-                                <select class="out_damper_heat_voltage" name="out_damper_heat_voltage">
+                                <select class="out_damper_heat_voltage out_damper_heat_select" name="out_damper_heat_voltage" id="out_damper_heat_voltage">
                                     <option value="false">220 В</option>
                                     <option value="true">380 В</option>
                                 </select>
                             </div>
                             <div>
                                 <label for="out_damper_heat_power">Мощность обогрева: </label><span id="out_damper_heat_power_span"></span><span> кВт</span><br>
-                                <input class="out_damper_heat_power" name="out_damper_heat_power" type="range" id="out_damper_heat_power" value="0" min="0" max="11" step="1" list="damper_powerList">
+                                <input class="out_damper_heat_power out_damper_heat_range" name="out_damper_heat_power" type="range" id="out_damper_heat_power" value="0" min="0" max="11" step="1" list="damper_powerList">
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filters_container hide_param disabled">
+                    <div class="in_filter disabled">
+                        <h3>Приточный воздушный фильтр</h3>
+                        <div>
+                            <p>Количество приточных фильтров</p>
+                            <select class="in_filter_quantity in_filter_select" name="in_filter_quantity">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="out_filter disabled">
+                        <h3>Вытяжной воздушный фильтр</h3>
+                        <div>
+                            <p>Количество вытяжных фильтров</p>
+                            <select class="out_filter_quantity out_filter_select" name="out_filter_quantity">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                            </select>
                         </div>
                     </div>
                 </div>
