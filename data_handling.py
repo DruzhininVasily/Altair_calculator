@@ -57,6 +57,17 @@ class PriceHandler:
         'out_damper_heat_power': {"0": 0, "1": 1000, "2": 2000, "3": 3000, "4": 4000, "5": 5000, "6": 6000, "7": 7000, "8": 8000, "9": 9000, "10": 10000, "11": 11000},
         'in_filter_quantity': {"0": 0, "1": 1000, "2": 2000},
         'out_filter_quantity': {"0": 0, "1": 1000, "2": 2000},
+        'switch_type': 1000,
+        'base_controller': {"0": 0, "1": 1000, "2": 2000},
+        'shutdown_fire_signal': 1000,
+        'sensor_temp_outdoor': 1000,
+        'sensor_temp_indoor': 1000,
+        'sensor_humid': 1000,
+        'sensor_hood': 1000,
+        'signal_work': 1000,
+        'signal_alarm': 1000,
+        'work_on_sched': 1000,
+        'remote_control': 1000
     }
 
     def __init__(self):

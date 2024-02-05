@@ -55,7 +55,18 @@ document.addEventListener('DOMContentLoaded', function(){
         out_damper_heat_voltage: 'false',
         out_damper_heat_power: '0',
         in_filter_quantity: '0',
-        out_filter_quantity: '0'
+        out_filter_quantity: '0',
+        switch_type: 'false',
+        base_controller: '0',
+        shutdown_fire_signal: 'false',
+        sensor_temp_outdoor: 'false',
+        sensor_temp_indoor: 'false',
+        sensor_humid: 'false',
+        sensor_hood: 'false',
+        signal_work: 'false',
+        signal_alarm: 'false',
+        work_on_sched: 'false',
+        remote_control: 'false'
     }
 
     let refButtons = {
@@ -478,7 +489,6 @@ document.addEventListener('DOMContentLoaded', function(){
         if (checkIn == 'true') {
             let inFilterContainer = document.querySelector('.in_filter');
             inFilterContainer.classList.remove('disabled');
-            document.getElementsByClassName('in_filter_quantity')[0].value = '0';
             addListeners(['', '', '', '.in_filter_select', '', ''])
         }
         else if (checkIn == 'false') {
@@ -489,13 +499,19 @@ document.addEventListener('DOMContentLoaded', function(){
             let outFilterContainer = document.querySelector('.out_filter');
             outFilterContainer.classList.remove('disabled');
             addListeners(['', '', '', '.out_filter_select', '', '']);
-            document.getElementsByClassName('out_filter_quantity')[0].value = '0';
         }
         else if (checkOut == 'false') {
             let outFilterContainer = document.querySelector('.out_filter');
             outFilterContainer.classList.add('disabled');
         };
-    }
+    };
+
+    let cabinetFunc = function () {
+        hideParameters();
+        let cabinetContainer = document.querySelector('.cabinet_container');
+        cabinetContainer.classList.remove('disabled');
+        addListeners(['', '.cabinet_checkbox', '', '.cabinet_select', '', '']);
+    };
 
 // Команды кнопок параметры
 
@@ -507,7 +523,7 @@ document.addEventListener('DOMContentLoaded', function(){
         dampers: dampersFunc,
         filters: filtersFunc,
         reserve: "",
-        cabinet: ""
+        cabinet: cabinetFunc
     }
 
 // Функция включения кнопок параметры
@@ -586,6 +602,7 @@ document.addEventListener('DOMContentLoaded', function(){
             messageData['out_damper_heat_power'] = "0";
             messageData['in_filter_quantity'] = "0";
             messageData['out_filter_quantity'] = "0";
+            messageData['base_controller'] = "0";
             hideParameters();
         };
     };

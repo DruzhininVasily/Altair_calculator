@@ -349,6 +349,60 @@
                         </div>
                     </div>
                 </div>
+                <div class="cabinet_container hide_param disabled">
+                    <h3>Параметры</h3>
+                    <div>
+                        <span>Тип переключения</span>
+                        <select class="switch_type cabinet_select" name="switch_type">
+                            <option value="false">Переключатель Пуск/Стоп</option>
+                            <option value="true">Кнопки Пуск/Стоп</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Базовый контроллер</p>
+                        <select class="base_controller cabinet_select" name="base_controller">
+                            <option value="0">Контроллер 1</option>
+                            <option value="1">Контроллер 2</option>
+                            <option value="2">Контроллер 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input class="shutdown_fire_signal cabinet_checkbox" name="shutdown_fire_signal" type="checkbox" id="shutdown_fire_signal">
+                        <label for="shutdown_fire_signal">Отключение по сигналу пожар</label>
+                    </div>
+                    <div>
+                        <input class="sensor_temp_outdoor cabinet_checkbox" name="sensor_temp_outdoor" type="checkbox" id="sensor_temp_outdoor">
+                        <label for="sensor_temp_outdoor">Датчик наружной температуры</label>
+                    </div>
+                    <div>
+                        <input class="sensor_temp_indoor cabinet_checkbox" name="sensor_temp_indoor" type="checkbox" id="sensor_temp_indoor">
+                        <label for="sensor_temp_indoor">Комнатный датчик температуры</label>
+                    </div>
+                    <div>
+                        <input class="sensor_humid cabinet_checkbox" name="sensor_humid" type="checkbox" id="sensor_humid">
+                        <label for="sensor_humid">Канальный датчик влажности</label>
+                    </div>
+                    <div>
+                        <input class="sensor_hood cabinet_checkbox" name="sensor_hood" type="checkbox" id="sensor_hood">
+                        <label for="sensor_hood">Канальный датчик вытяжка</label>
+                    </div>
+                    <div>
+                        <input class="signal_work cabinet_checkbox" name="signal_work" type="checkbox" id="signal_work">
+                        <label for="signal_work">Сигнал "Работа"</label>
+                    </div>
+                    <div>
+                        <input class="signal_alarm cabinet_checkbox" name="signal_alarm" type="checkbox" id="signal_alarm">
+                        <label for="signal_alarm">Сигнал "Авария"</label>
+                    </div>
+                    <div>
+                        <input class="work_on_sched cabinet_checkbox" name="work_on_sched" type="checkbox" id="work_on_sched">
+                        <label for="work_on_sched">Работа по расписанию</label>
+                    </div>
+                    <div>
+                        <input class="remote_control cabinet_checkbox" name="remote_control" type="checkbox" id="remote_control">
+                        <label for="remote_control">Дистанционное управление</label>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
