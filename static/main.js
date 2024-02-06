@@ -128,6 +128,22 @@ document.addEventListener('DOMContentLoaded', function(){
         out_damper_heat_power: '0'
     }
 
+    let defaultNumeric = {
+        vent_power_in: '0',
+        vent_power_out: '0',
+        first_steps: '0',
+        electrical_first_step_power: '0',
+        first_electrical_thermal: '0',
+        second_steps: '0',
+        electrical_second_step_power: '0',
+        second_electrical_thermal: '0',
+        in_damper_heat_power: '0',
+        out_damper_heat_power: '0',
+        in_filter_quantity: '0',
+        out_filter_quantity: '0',
+        base_controller: '0'
+    }
+
     let = powerData = {0: "0.18", 1: "0.22", 2: "0.55", 3: "1.5", 4: "2.2", 5: "4", 6: "5.5", 7: "7.5", 8: "11", 9: "15", 10: "22", 11: "30", 12: "55"}
     let = powerDamperHeatData = {0: "0.1", 1: "0.2", 2: "0.3", 3: "0.4", 4: "0.5", 5: "0.6", 6: "0.7", 7: "0.8", 8: "0.9", 9: "1.0", 10: "1.1", 11: "1.2"}
 
@@ -135,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let systemType = document.querySelectorAll(".radio input")
 
     let websocketClient  = new WebSocket("ws://127.0.0.1:5000");
+
 
 // Функция для обработки input type="select" на основном экране
 
@@ -460,6 +477,8 @@ document.addEventListener('DOMContentLoaded', function(){
         dampersContainer.classList.remove('disabled');
         if (checkIn == 'true') {
             let inDamperContainer = document.querySelector('.in_damper_container');
+            let inDamperHeatContainer = document.querySelector('.in_damper_heat_parameter_container');
+            if (messageData['in_damper_heat'] == 'false'){inDamperHeatContainer.classList.add('disabled')}
             inDamperContainer.classList.remove('disabled');
             addListeners(['', '.in_damper_checkbox', '', '.in_damper_select', '', ''])
             let inDamperHeatChoice = document.querySelector('.in_damper_heat')
@@ -471,6 +490,8 @@ document.addEventListener('DOMContentLoaded', function(){
         };
         if (checkOut == 'true') {
             let outDamperContainer = document.querySelector('.out_damper_container');
+            let outDamperHeatContainer = document.querySelector('.out_damper_heat_parameter_container');
+            if (messageData['out_damper_heat'] == 'false'){outDamperHeatContainer.classList.add('disabled')}
             outDamperContainer.classList.remove('disabled');
             addListeners(['', '.out_damper_checkbox', '', '.out_damper_select', '', '']);
             let outDamperHeatChoice = document.querySelector('.out_damper_heat')
@@ -583,6 +604,25 @@ document.addEventListener('DOMContentLoaded', function(){
         };
     }
 
+    let hideAllImages = function () {
+        let allImages = document.querySelector(".img_container")
+        allImages.innerHTML = '';
+
+    };
+
+    let showImages = function (lst) {
+        let container = document.querySelector(".img_container")
+        hideAllImages();
+        for (let index=0; index<lst.length; index++) {
+            if (lst[index] != '') {
+                const imgElement = document.createElement('img');
+                imgElement.src = lst[index];
+                container.appendChild(imgElement);
+                };
+        };
+    };
+
+
 // обработка выбора типа системы
 
     for (let radio=0; radio<systemType.length; radio++) {
@@ -590,22 +630,12 @@ document.addEventListener('DOMContentLoaded', function(){
             typeSystem = systemType[radio].value
             websocketClient.send(JSON.stringify({"type": systemType[radio].value}));
             for (el in messageData) {messageData[el] = "false"};
-            messageData['vent_power_in'] = "0";
-            messageData['vent_power_out'] = "0";
-            messageData['first_steps'] = "0";
-            messageData['electrical_first_step_power'] = "0";
-            messageData['first_electrical_thermal'] = "0";
-            messageData['second_steps'] = "0";
-            messageData['electrical_second_step_power'] = "0";
-            messageData['second_electrical_thermal'] = "0";
-            messageData['in_damper_heat_power'] = "0";
-            messageData['out_damper_heat_power'] = "0";
-            messageData['in_filter_quantity'] = "0";
-            messageData['out_filter_quantity'] = "0";
-            messageData['base_controller'] = "0";
+            for (el in defaultNumeric) {messageData[el] = defaultNumeric[el]};
             hideParameters();
+            hideAllImages();
         };
     };
+
 
 // Обработка сообщений
 
@@ -630,7 +660,7 @@ document.addEventListener('DOMContentLoaded', function(){
             offCheck('.hide_P input');
             onSelect();
             offButton(".btn_V");
-            onButton(".btn_PV");;
+            onButton(".btn_PV");
         }
         else if (mes['type'] == "Out") {
             hideElements('PV');
@@ -643,5 +673,6 @@ document.addEventListener('DOMContentLoaded', function(){
             offButton(".btn_PV");
             onButton(".btn_V");
         }
+        showImages(mes['img_list']);
     }
 })

@@ -15,19 +15,23 @@ def main():
 
 @sock.route('/')
 def receiver(sock):
-    handler = data_handling.PriceHandler()
+    handler = data_handling.MessageHandler()
     while True:
+        receive_message = {}
         new_message = sock.receive()
         new_message = json.loads(new_message)
         print(new_message)
         if "type" in new_message:
-            handler.add_type(new_message['type'])
-            new_message['price'] = handler.calculate()
+            receive_message['type'] = new_message['type']
+            receive_message['img_list'] = handler.add_type(new_message['type'])
+            receive_message['price'] = handler.calculate()
         else:
             handler.add_parameters(new_message)
-            new_message['price'] = handler.calculate()
-        new_message = json.dumps(new_message)
-        sock.send(new_message)
+            receive_message['price'] = handler.calculate()
+            receive_message['img_list'] = handler.img_list
+        print(receive_message)
+        receive_message = json.dumps(receive_message)
+        sock.send(receive_message)
 
 
 if __name__ == "__main__":

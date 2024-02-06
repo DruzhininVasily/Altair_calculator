@@ -46,9 +46,16 @@ main {
 
 .img_container {
     width: 75%;
+    padding: 0 1%;
     border: 1px solid silver;
     background: #FFF;
     height: 350px;
+    overflow: auto;
+    display: flex;
+}
+
+.img_container img {
+    max-width: 12%;
 }
 
 .parameters_container {
