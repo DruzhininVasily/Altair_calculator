@@ -9,13 +9,16 @@
     <title>Altair</title>
 </head>
 <body>
+    <div class="exel_frame">
+        <a href ="" class="exel_button">Скачать</a>
+    </div>
     <header>
         <div class="head_container">
             <img src="static/image/image1.png" alt="logo">
-            <span>Система</span>
-            <span>Схема</span>
-            <span>Подключение</span>
-            <button>Расчет</button>
+            <span class="disabled">Система</span>
+            <span class="disabled">Схема</span>
+            <span class="disabled">Подключение</span>
+            <button id="spec">Спецификация</button>
         </div>
     </header>
     <main>
@@ -36,20 +39,25 @@
                         <option value="9"></option>
                         <option value="10"></option>
                         <option value="11"></option>
+                        <option value="12"></option>
+                        <option value="13"></option>
+                        <option value="14"></option>
+                        <option value="15"></option>
+                        <option value="16"></option>
                     </datalist>
                 <div class="paramVent_in hide_param disabled">
                     <h3>Приточный вентилятор</h3>
                     <div>
-                        <input class="vent_radio_info_in default" type="radio" id="220_in" name="voltage_vent_in" value="false">
+                        <input class="vent_radio_info_in default" type="radio" id="220_in" name="voltage_vent_in" value="false" disabled>
                         <label for="220_in">220 В</label>
                     </div>
                     <div>
-                        <input class="vent_radio_info_in" type="radio" id="380_in" name="voltage_vent_in" value="true">
+                        <input class="vent_radio_info_in default" type="radio" id="380_in" name="voltage_vent_in" value="true">
                         <label for="380_in">380 В</label>
                     </div><br>
                     <div>
                         <label for="power_in">Мощность: </label><span id="pow_span_in"></span><span> кВт</span><br>
-                        <input class="vent_range_info_in" name="vent_power_in" type="range" id="power_in" value="0" min="0" max="11" step="1" list="powerList">
+                        <input class="vent_range_info_in" name="vent_power_in" type="range" id="power_in" value="0" min="0" max="16" step="1" list="powerList">
                     </div>
                     <div>
                         <input class="vent_check_info_in" name="FC_in" type="checkbox" id="FC_in">
@@ -64,16 +72,16 @@
                 <div class="paramVent_out hide_param disabled">
                     <h3>Вытяжной вентилятор</h3>
                     <div>
-                        <input class="vent_radio_info_out default" type="radio" id="220_out" name="voltage_vent_out" value="false">
+                        <input class="vent_radio_info_out" type="radio" id="220_out" name="voltage_vent_out" value="false" disabled>
                         <label for="220_out">220 В</label>
                     </div>
                     <div>
-                        <input class="vent_radio_info_out" type="radio" id="380_out" name="voltage_vent_out" value="true">
+                        <input class="vent_radio_info_out default" type="radio" id="380_out" name="voltage_vent_out" value="true">
                         <label for="380_out">380 В</label>
                     </div><br>
                     <div>
                         <label for="power_out">Мощность: </label><span id="pow_span_out"></span><span> кВт</span><br>
-                        <input class="vent_range_info_out" name="vent_power_out" type="range" id="power_out" value="0" min="0" max="11" step="1" list="powerList">
+                        <input class="vent_range_info_out" name="vent_power_out" type="range" id="power_out" value="0" min="0" max="16" step="1" list="powerList">
                     </div>
                     <div>
                         <input class="vent_check_info_out" type="checkbox" id="FC_out" name="FC_out">
@@ -341,7 +349,7 @@
                         <h3>Вытяжной воздушный фильтр</h3>
                         <div>
                             <p>Количество вытяжных фильтров</p>
-                            <select class="out_filter_quantity out_filter_select" name="out_filter_quantity">
+                            <select class="out_filter_quantity out_filter_select" name="out_filter_quantity" disabled>
                                 <option value="0">1</option>
                                 <option value="1">2</option>
                                 <option value="2">3</option>

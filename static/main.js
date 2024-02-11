@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function(){
         res_out: "false",
         voltage_vent_in: "false",
         voltage_vent_out: "false",
-        FC_in: "false",
-        FC_out: "false",
+        FC_in: "true",
+        FC_out: "true",
         dif_in: "false",
         dif_out: "false",
         vent_power_in: "0",
@@ -144,11 +144,12 @@ document.addEventListener('DOMContentLoaded', function(){
         base_controller: '0'
     }
 
-    let = powerData = {0: "0.18", 1: "0.22", 2: "0.55", 3: "1.5", 4: "2.2", 5: "4", 6: "5.5", 7: "7.5", 8: "11", 9: "15", 10: "22", 11: "30", 12: "55"}
+    let = powerData = {0: "0.18", 1: "0.25", 2: "0.37", 3: "0.55", 4: "0.75", 5: "1.1", 6: "1.5", 7: "2.2", 8: "3", 9: "4", 10: "5.5", 11: "7.5", 12: "11", 13: '15', 14: '18', 15: '22', 16: '30'}
     let = powerDamperHeatData = {0: "0.1", 1: "0.2", 2: "0.3", 3: "0.4", 4: "0.5", 5: "0.6", 6: "0.7", 7: "0.8", 8: "0.9", 9: "1.0", 10: "1.1", 11: "1.2"}
 
     let price = document.querySelector("#price");
     let systemType = document.querySelectorAll(".radio input")
+    let specButton = document.querySelector("#spec")
 
     let websocketClient  = new WebSocket("ws://127.0.0.1:5000");
 
@@ -532,6 +533,10 @@ document.addEventListener('DOMContentLoaded', function(){
         let cabinetContainer = document.querySelector('.cabinet_container');
         cabinetContainer.classList.remove('disabled');
         addListeners(['', '.cabinet_checkbox', '', '.cabinet_select', '', '']);
+        if (typeSystem != 'In_out') {
+            document.getElementById('sensor_hood').setAttribute('disabled', 'disabled')
+        }
+        else {document.getElementById('sensor_hood').removeAttribute("disabled")}
     };
 
 // Команды кнопок параметры
@@ -605,8 +610,14 @@ document.addEventListener('DOMContentLoaded', function(){
     }
 
     let hideAllImages = function () {
-        let allImages = document.querySelector(".img_container")
-        allImages.innerHTML = '';
+        let allImagesContainer = document.querySelector(".img_container")
+        let allImages = document.querySelectorAll('.img_container img')
+        if (allImages.length != 0) {
+            for (let i = 0; i<allImages.length; i++) {
+                allImages[i].style.opacity = '0'
+            }
+        }
+        allImagesContainer.innerHTML = '';
 
     };
 
@@ -617,8 +628,10 @@ document.addEventListener('DOMContentLoaded', function(){
             if (lst[index] != '') {
                 const imgElement = document.createElement('img');
                 imgElement.src = lst[index];
+                imgElement.style.opacity = '0'
                 container.appendChild(imgElement);
-                };
+                imgElement.style.opacity = '1'
+            };
         };
     };
 
@@ -630,12 +643,38 @@ document.addEventListener('DOMContentLoaded', function(){
             typeSystem = systemType[radio].value
             websocketClient.send(JSON.stringify({"type": systemType[radio].value}));
             for (el in messageData) {messageData[el] = "false"};
+            if (typeSystem == 'In_out') {
+                messageData['FC_in'] = "true";
+                messageData['FC_out'] = "true";
+            }
+            else if (typeSystem == "In") {
+                messageData['FC_in'] = "true";
+                messageData['FC_out'] = "false";
+            }
+            else if (typeSystem == "Out") {
+                messageData['FC_in'] = "false";
+                messageData['FC_out'] = "true";
+            };
             for (el in defaultNumeric) {messageData[el] = defaultNumeric[el]};
             hideParameters();
             hideAllImages();
         };
     };
 
+    specButton.onclick = () => {
+        websocketClient.send(JSON.stringify({'get_exel': 'true'}));
+    }
+
+    let exelDownload = function (string) {
+        let frame = document.querySelector(".exel_frame")
+        frame.style.top = "0"
+        let buttExel = document.querySelector('.exel_button')
+        buttExel.href = "http://127.0.0.1:5000/" + string
+        buttExel.download = string
+        buttExel.onclick = () => {
+            frame.style.top = '-300px';
+        }
+    }
 
 // Обработка сообщений
 
@@ -673,6 +712,11 @@ document.addEventListener('DOMContentLoaded', function(){
             offButton(".btn_PV");
             onButton(".btn_V");
         }
-        showImages(mes['img_list']);
+        if (mes["href"] != undefined) {
+            exelDownload(mes['href'])
+        }
+        if (mes["img_list"] != undefined) {
+            showImages(mes['img_list']);
+        }
     }
 })

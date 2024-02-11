@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, send_file, request, redirect
 from flask_sock import Sock
 import json
 import data_handling
@@ -13,6 +13,11 @@ def main():
     return render_template('main.html')
 
 
+@app.route('/specification.xlsx')
+def download_file():
+    return send_file('specification.xlsx')
+
+
 @sock.route('/')
 def receiver(sock):
     handler = data_handling.MessageHandler()
@@ -25,6 +30,8 @@ def receiver(sock):
             receive_message['type'] = new_message['type']
             receive_message['img_list'] = handler.add_type(new_message['type'])
             receive_message['price'] = handler.calculate()
+        elif 'get_exel' in new_message:
+            receive_message = handler.create_exel()
         else:
             handler.add_parameters(new_message)
             receive_message['price'] = handler.calculate()

@@ -4,6 +4,37 @@ body {
     font-family: "Inter", sans-serif;
     background: #6CCDEC;
 }
+
+.exel_frame {
+    position: absolute;
+    left: 40%;
+    top: -300px;
+    padding: 3% 5%;
+    background: #f0f4fa;
+    border: 1px solid silver;
+    border-radius: 0 0 20px 20px;
+    transition: all 0.5s linear;
+}
+
+.exel_button {
+    border 2px solid silver;
+    background: #6CCDEC;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    padding: 5% 30%;
+    position: relative;
+    left: -25%;
+    font-size: 19px;
+    transition: all 0.5s linear;
+}
+
+.exel_button:hover {
+    color: white;
+    background: #00AEEF;
+}
+
+
 /* header */
 .head_container {
     display: flex;
@@ -22,6 +53,7 @@ body {
     font-size: 19px;
     padding: 1% 4%;
     transition: all 0.3s linear;
+    cursor: pointer;
 }
 
 .head_container button:hover {
@@ -49,13 +81,49 @@ main {
     padding: 0 1%;
     border: 1px solid silver;
     background: #FFF;
-    height: 350px;
     overflow: auto;
     display: flex;
+    @media (max-height: 780px) {
+        height: 350px;
+    };
+    @media (min-height: 781px) {
+        height: 380px;
+    };
+    @media (min-height: 871px) {
+        height: 420px;
+    };
+    @media (min-height: 931px) {
+        height: 500px;
+    };
+    @media (min-height: 991px) {
+        height: 560px;
+    };
 }
 
 .img_container img {
+    margin-top: 20px;
     max-width: 12%;
+    transition: all 3s ease;
+    @media (max-height: 780px) {
+        max-height: 90%;
+        max-width: 12%;
+    };
+    @media (min-height: 781px) {
+        max-height: 85%;
+        max-width: 13%;
+    };
+    @media (min-height: 871px) {
+        max-height: 80%;
+        max-width: 14%;
+    };
+    @media (min-height: 931px) {
+        max-height: 75%;
+        max-width: 15%;
+    };
+    @media (min-height: 991px) {
+        max-height: 70%;
+        max-width: 16%;
+    };
 }
 
 .parameters_container {
@@ -63,10 +131,24 @@ main {
     width: 25%;
     padding-left: 2%;
     background: #FFF;
-    height: 350px;
     color: #000;
     font-size: 12px;
     overflow: auto;
+    @media (max-height: 780px) {
+        height: 350px;
+    };
+    @media (min-height: 781px) {
+        height: 380px;
+    };
+    @media (min-height: 871px) {
+        height: 420px;
+    };
+    @media (min-height: 931px) {
+        height: 500px;
+    };
+    @media (min-height: 991px) {
+        height: 560px;
+    };
 }
 
 .disabled {
