@@ -79,7 +79,7 @@ cursor.execute('''CREATE TABLE electro_heater(
                price DECIMAL(10, 2)
                )''')
 
-cursor.execute('''CREATE TABLE PLC(
+cursor.execute('''CREATE TABLE plc(
                id INT PRIMARY KEY AUTO_INCREMENT,
                name VARCHAR(60),
                manufacturer VARCHAR(60),
