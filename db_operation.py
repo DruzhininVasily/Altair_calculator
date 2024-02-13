@@ -14,7 +14,7 @@ data_base = mysql.connector.connect(
 )
 
 cursor = data_base.cursor()
-dxfcghjbmkl;,.
+
 cursor.execute('''CREATE TABLE motors(
                id INT PRIMARY KEY AUTO_INCREMENT,
                name VARCHAR(60),
