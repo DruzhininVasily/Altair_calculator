@@ -20,10 +20,10 @@ def fc_price(fc_id):
 
 
 def fc_obj(br_id):
-    sql = "SELECT article, name, power, price FROM fc WHERE id = %s"
+    sql = "SELECT name, manufacturer, article, parameter, price FROM fc WHERE id = %s"
     cursor.execute(sql, br_id)
     res = cursor.fetchone()
-    return list(res)
+    return res
 
 
 def contactor_price(cont_id):
@@ -34,10 +34,10 @@ def contactor_price(cont_id):
 
 
 def contactor_obj(br_id):
-    sql = "SELECT manufacturer, article, current, price, purchase_price FROM contactors WHERE id = %s"
+    sql = "SELECT name, manufacturer, article, parameter, price FROM contactors WHERE id = %s"
     cursor.execute(sql, br_id)
     res = cursor.fetchone()
-    return list(res)
+    return res
 
 
 def diff_price():
@@ -47,9 +47,9 @@ def diff_price():
 
 
 def diff_obj():
-    cursor.execute("SELECT name, article, price FROM other WHERE id = 8")
+    cursor.execute("SELECT name, manufacturer, article, parameter, price FROM other WHERE id = 8")
     res = cursor.fetchone()
-    return list(res)
+    return res
 
 
 def breaker_price(br_id):
@@ -60,10 +60,10 @@ def breaker_price(br_id):
 
 
 def breaker_obj(br_id):
-    sql = "SELECT manufacturer, article, name, price, purchase_price FROM breakers WHERE id = %s"
+    sql = "SELECT name, manufacturer, article, parameter, price FROM breakers WHERE id = %s"
     cursor.execute(sql, br_id)
     res = cursor.fetchone()
-    return list(res)
+    return res
 
 
 def relay_price():
@@ -73,7 +73,7 @@ def relay_price():
 
 
 def relay_obj():
-    cursor.execute("SELECT  manufacturer, article, name, price, purchase_price FROM relay")
+    cursor.execute("SELECT  name, manufacturer, article, parameter, price FROM relay")
     res = cursor.fetchall()
     return res
 

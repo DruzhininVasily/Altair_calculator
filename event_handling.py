@@ -321,9 +321,9 @@ def vent_power_in(system_type, parameters, num_param, img_list, specification):
         dif = 0
     relay = 2 * db_handler.relay_price()
     for i in db_handler.relay_obj():
-        specification.append(list(i))
+        specification.append(i)
     for i in db_handler.relay_obj():
-        specification.append(list(i))
+        specification.append(i)
     # plc = db_handler.plc_price((3,))
     return power_price + dif + breaker + relay
 
@@ -358,9 +358,9 @@ def vent_power_out(system_type, parameters, num_param, img_list, specification):
         dif = 0
     relay = 2 * db_handler.relay_price()
     for i in db_handler.relay_obj():
-        specification.append(list(i))
+        specification.append(i)
     for i in db_handler.relay_obj():
-        specification.append(list(i))
+        specification.append(i)
     return power_price + dif + breaker + relay
 
 
