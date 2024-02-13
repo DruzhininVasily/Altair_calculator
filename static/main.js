@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let systemType = document.querySelectorAll(".radio input")
     let specButton = document.querySelector("#spec")
 
-    let websocketClient  = new WebSocket("ws://127.0.0.1:5000");
+    let websocketClient  = new WebSocket("wss://altaircalculator.ru:80");
 
 
 // Функция для обработки input type="select" на основном экране
