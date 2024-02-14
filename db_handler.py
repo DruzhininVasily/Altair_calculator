@@ -13,14 +13,14 @@ cursor = data_base.cursor()
 
 
 def fc_price(fc_id):
-    sql = "SELECT price FROM fc WHERE id = %s"
+    sql = "SELECT price FROM FC WHERE id = %s"
     cursor.execute(sql, fc_id)
     res = float(cursor.fetchone()[0])
     return res
 
 
 def fc_obj(br_id):
-    sql = "SELECT name, manufacturer, article, parameter, price FROM fc WHERE id = %s"
+    sql = "SELECT name, manufacturer, article, parameter, price FROM FC WHERE id = %s"
     cursor.execute(sql, br_id)
     res = cursor.fetchone()
     return res
