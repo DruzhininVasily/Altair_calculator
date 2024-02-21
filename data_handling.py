@@ -1,6 +1,46 @@
 from img_data import img_data
 import event_handling
 import create_specification
+import db_handler
+
+
+class Plc:
+    def __init__(self, system_type):
+        self.config = [1, 1, 0, 1, 1, 0]
+        self.di = 3 if system_type == "In_out" else 2
+        self.pt = 0
+        self.ai = 0
+        self.ao = 1
+        self.do = 4 if system_type == "In_out" else 2
+
+    def add_signals(self, di=0, pt=0, ai=0, ao=0, do=0):
+        self.di += di
+        self.pt += pt
+        self.ai += ai
+        self.ao += ao
+        self.do += do
+        self.config_plc()
+
+    def config_plc(self):
+        self.config[1] += self.di // 16
+        self.config[2] += self.pt // 4
+        self.config[3] += self.ai // 4 if self.ai // 4 >= self.ao // 4 else self.ao // 4
+        self.config[4] += self.do // 8
+
+    def get_plc_price(self, connection):
+        price = db_handler.plc_price((1, ), connection)
+        for i,j in enumerate(self.config[1:]):
+            if j > 0:
+                price += db_handler.plc_price((i+2, ), connection)
+        print(self.di, self.do, self.ai, self.ao, self.pt)
+        return price
+
+    def get_spec_plc(self, connection):
+        res = []
+        for i,j in enumerate(self.config):
+            for x in range(j):
+                res.append(db_handler.plc_obj((i+1, ), connection))
+        return res
 
 
 class MessageHandler:
@@ -30,7 +70,7 @@ class MessageHandler:
         "first_pump_voltage": 1000,
         "first_valve_voltage": 1000,
         "first_confirm": event_handling.first_heater,
-        "first_steps": {"0": 0, "1": 1000, "2": 2000, "3": 3000, "4": 4000, "5": 5000, "6": 6000, "7": 7000},
+        "first_steps": {"0": 0, "1": 1000, "2": 2000},
         "electrical_first_step_power": {"0": 0, "1": 1000, "2": 2000, "3": 3000, "4": 4000, "5": 5000, "6": 6000, "7": 7000, "8": 8000, "9": 9000, "10": 10000, "11": 11000, "12": 12000},
         "electrical_first_step_signal": 1000,
         "first_electrical_thermal": {"0": 0, "1": 1000, "2": 2000},
@@ -43,7 +83,7 @@ class MessageHandler:
         "second_pump_voltage": 1000,
         "second_valve_voltage": 1000,
         "second_confirm": event_handling.second_heater,
-        "second_steps": {"0": 0, "1": 1000, "2": 2000, "3": 3000, "4": 4000, "5": 5000, "6": 6000, "7": 7000},
+        "second_steps": {"0": 0, "1": 1000, "2": 2000},
         "electrical_second_step_power": {"0": 0, "1": 1000, "2": 2000, "3": 3000, "4": 4000, "5": 5000, "6": 6000, "7": 7000, "8": 8000, "9": 9000, "10": 10000, "11": 11000, "12": 12000},
         "electrical_second_step_signal": 1000,
         "second_electrical_thermal": {"0": 0, "1": 1000, "2": 2000},
@@ -79,6 +119,11 @@ class MessageHandler:
         self.img_list = []
         self.system_type = None
         self.specification = []
+        self.data_base = db_handler.connect_db()
+        self.plc = None
+
+    def __del__(self):
+        self.data_base.close()
 
     def add_parameters(self, message):
         for mes in message:
@@ -89,7 +134,7 @@ class MessageHandler:
                 if mes in self.parameters:
                     self.parameters.remove(mes)
                     try:
-                        self.price_data[mes](self.system_type, self.parameters, self.numer_param, self.img_list)
+                        self.price_data[mes](self)
                     except Exception:
                         pass
             else:
@@ -107,7 +152,7 @@ class MessageHandler:
         print(self.parameters)
         print(self.numer_param)
         try:
-            res = self.price_data[param](self.system_type, self.parameters, self.numer_param, self.img_list)
+            res = self.price_data[param](self)
             return res
         except Exception:
             res = self.price_data[param]
@@ -116,7 +161,7 @@ class MessageHandler:
     def get_price_num(self, key, value):
         try:
             print(self.price_data[key][value])
-            res = self.price_data[key][value](self.system_type, self.parameters, self.numer_param, self.img_list, self.specification)
+            res = self.price_data[key][value](self)
             print(res)
             return res
         except Exception:
@@ -124,11 +169,14 @@ class MessageHandler:
 
     def calculate(self):
         self.specification = []
+        self.plc = Plc(self.system_type)
         price = 0
         for param in self.parameters:
             price += self.get_price(param)
         for param in self.numer_param:
             price += self.get_price_num(param, self.numer_param[param])
+        price += self.plc.get_plc_price(self.data_base)
+        self.specification.extend(self.plc.get_spec_plc(self.data_base))
         print(self.specification)
         return price
 

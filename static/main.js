@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let systemType = document.querySelectorAll(".radio input")
     let specButton = document.querySelector("#spec")
 
-    let websocketClient  = new WebSocket("ws://altaircalculator.ru:80");
+    let websocketClient  = new WebSocket("ws://127.0.0.1:5000/");
 
 
 // Функция для обработки input type="select" на основном экране
@@ -464,6 +464,8 @@ document.addEventListener('DOMContentLoaded', function(){
             let secondContainer = document.querySelector(".second_container");
             if (secondChoice.checked == true) {
             secondContainer.classList.remove('disabled');
+            messageData['second_pump'] = 'true';
+            messageData['second_signal'] = 'true';
             addListeners(['', '.second_water_checkbox', '', '.second_water_select'], '', '')
             let secondTypeHeatChoice = document.querySelector(".heater_type_second");
             secondTypeHeatChoice.addEventListener('change', () => typeHeatChoice(event, '.electrical_second_container', '.water_second_container', ['', '.second_water_checkbox', '', '.second_water_select', '', ''], ['', '.second_electrical_checkbox', '.second_electrical_range', '.second_electrical_select', '#second_step_pow_span', powerData]));
@@ -655,6 +657,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 messageData['FC_in'] = "false";
                 messageData['FC_out'] = "true";
             };
+            messageData['shutdown_fire_signal'] = 'true';
             for (el in defaultNumeric) {messageData[el] = defaultNumeric[el]};
             hideParameters();
             hideAllImages();
@@ -669,7 +672,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let frame = document.querySelector(".exel_frame")
         frame.style.top = "0"
         let buttExel = document.querySelector('.exel_button')
-        buttExel.href = "http://altaircalculator.ru:80/" + string
+        buttExel.href = "http://127.0.0.1:5000/" + string
         buttExel.download = string
         buttExel.onclick = () => {
             frame.style.top = '-300px';

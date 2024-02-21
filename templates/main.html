@@ -140,13 +140,6 @@
                                 </select>
                             </div>
                             <div>
-                                <span>Питание привода 3-х ходового клапана</span>
-                                <select class="water_first_valve_voltage first_water_select" name="first_valve_voltage">
-                                    <option value="false">24 В</option>
-                                    <option value="true">220 В</option>
-                                </select>
-                            </div>
-                            <div>
                                 <input class="water_first_confirm first_water_checkbox" name="first_confirm" type="checkbox" id="first_confirm">
                                 <label for="first_confirm">Подтверждение работы насоса</label>
                             </div>
@@ -157,11 +150,6 @@
                                 <option value="0">1</option>
                                 <option value="1">2</option>
                                 <option value="2">3</option>
-                                <option value="3">4</option>
-                                <option value="4">5</option>
-                                <option value="5">6</option>
-                                <option value="6">7</option>
-                                <option value="7">8</option>
                         </select>
                             <span class="disabled" id="test"></span>
                             <div>
@@ -215,13 +203,6 @@
                                 </select>
                             </div>
                             <div>
-                                <span>Питание привода 3-х ходового клапана</span>
-                                <select class="water_second_valve_voltage second_water_select" name="second_valve_voltage">
-                                    <option value="false">24 В</option>
-                                    <option value="true">220 В</option>
-                                </select>
-                            </div>
-                            <div>
                                 <input class="water_second_confirm second_water_checkbox" name="second_confirm" type="checkbox" id="second_confirm">
                                 <label for="second_confirm">Подтверждение работы насоса</label>
                             </div>
@@ -232,11 +213,6 @@
                                 <option value="0">1</option>
                                 <option value="1">2</option>
                                 <option value="2">3</option>
-                                <option value="3">4</option>
-                                <option value="4">5</option>
-                                <option value="5">6</option>
-                                <option value="6">7</option>
-                                <option value="7">8</option>
                         </select>
                             <div>
                                 <label for="electrical_second_step_power">Мощность ступени: </label><span id="second_step_pow_span"></span><span> кВт</span><br>
@@ -368,8 +344,8 @@
                     </div>
                     <div>
                         <p>Базовый контроллер</p>
-                        <select class="base_controller cabinet_select" name="base_controller">
-                            <option value="0">Контроллер 1</option>
+                        <select class="base_controller cabinet_select" name="base_controller" disabled>
+                            <option value="0">Контроллер EKF F200-16-R-P20</option>
                             <option value="1">Контроллер 2</option>
                             <option value="2">Контроллер 3</option>
                         </select>

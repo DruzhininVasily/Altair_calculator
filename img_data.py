@@ -2,10 +2,12 @@
 img_data = {
     'In_out': [
         'static/image/in_out_wall.png', '', '', '', '', '', '', '', 'static/image/in_out_in_fc_disc.png',
-        'static/image/in_out_out_fc_disc.png', '', '', '', '', '', '', '', 'static/image/in_out_switch_type_0.png', '', '',
+        'static/image/in_out_out_fc_disc.png', '', '', '', 'static/image/in_out_fire.png', '', '', '',
+        'static/image/in_out_switch_type_0.png', '', '',
         'static/image/in_out_empty_room.png'
     ],
-    'In': ['static/image/in_wall.png', '', '', '', '', '', '', '', 'static/image/in_in_fc_disc.png', '', '', '', '', '', '',
+    'In': ['static/image/in_wall.png', '', '', '', '', '', '', '', 'static/image/in_in_fc_disc.png', '', '',
+           'static/image/in_fire.png', '', '', '',
            'static/image/in_switch_type_0.png', '',
            'static/image/in_empty_room.png'
            ],
