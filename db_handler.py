@@ -101,3 +101,29 @@ def plc_obj(plc_id, connection):
     cursor.execute(sql, plc_id)
     res = cursor.fetchone()
     return res
+
+
+def other_price(other_id, connection):
+    cursor = connection.cursor()
+    sql = "SELECT price FROM other WHERE id = %s"
+    cursor.execute(sql, other_id)
+    res = float(cursor.fetchone()[0])
+    return res
+
+
+def other_obj(other_id, connection):
+    cursor = connection.cursor()
+    sql = "SELECT name, manufacturer, article, parameter, price FROM other WHERE id = %s"
+    cursor.execute(sql, other_id)
+    res = cursor.fetchone()
+    return res
+
+
+def get_static_el(connection):
+    cursor = connection.cursor()
+    sql = 'SELECT name, manufacturer, article, parameter, price FROM other WHERE id > %s'
+    cursor.execute(sql, (11,))
+    res = cursor.fetchall()
+    for i, j in enumerate(res):
+        res[i] = list(j)
+    return res

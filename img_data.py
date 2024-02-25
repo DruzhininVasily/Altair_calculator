@@ -1,12 +1,12 @@
 
 img_data = {
     'In_out': [
-        'static/image/in_out_wall.png', '', '', '', '', '', '', '', 'static/image/in_out_in_fc_disc.png',
+        'static/image/in_out_wall.png', '', '', '', '', '', '', '', '', 'static/image/in_out_in_fc_disc.png',
         'static/image/in_out_out_fc_disc.png', '', '', '', 'static/image/in_out_fire.png', '', '', '',
         'static/image/in_out_switch_type_0.png', '', '',
         'static/image/in_out_empty_room.png'
     ],
-    'In': ['static/image/in_wall.png', '', '', '', '', '', '', '', 'static/image/in_in_fc_disc.png', '', '',
+    'In': ['static/image/in_wall.png', '', '', '', '', '', '', '', '', 'static/image/in_in_fc_disc.png', '', '',
            'static/image/in_fire.png', '', '', '',
            'static/image/in_switch_type_0.png', '',
            'static/image/in_empty_room.png'
@@ -25,7 +25,11 @@ vent_in_img = {
     '4': 'static/image/in_in_notfc.png',
     '5': 'static/image/in_in_notfc_conf.png',
     '6': 'static/image/in_in_fc_disc.png',
-    '7': 'static/image/in_in_fc_disc_conf.png'
+    '7': 'static/image/in_in_fc_disc_conf.png',
+    '8': 'static/image/in_out_fc_smooth.png',
+    '9': 'static/image/in_out_in_dif_fc_smooth.png',
+    '10': 'static/image/in_in_fc_smooth.png',
+    '11': 'static/image/in_in_diff_fc_smooth.png'
 }
 
 vent_out_img = {
@@ -36,7 +40,9 @@ vent_out_img = {
     '4': 'static/image/in_in_notfc.png',
     '5': 'static/image/in_in_notfc_conf.png',
     '6': 'static/image/in_in_fc_disc.png',
-    '7': 'static/image/in_in_fc_disc_conf.png'
+    '7': 'static/image/in_in_fc_disc_conf.png',
+    '8': 'static/image/in_out_out_fc_smooth.png',
+    '9': 'static/image/in_out_out_diff_fc_smooth.png'
 }
 
 heater_img = {
@@ -45,7 +51,7 @@ heater_img = {
     '2': 'static/image/first_el_heater.png',
     '3': 'static/image/first_el_heater_termal1.png',
     '4': 'static/image/first_el_heater_termal2.png',
-    '5': 'static/image/in_first_water_heater_confirm.png',
+    '5': 'static/image/in_first_water_heater_confirm.npg',
     '6': 'static/image/in_first_water_heater.png',
     '7': 'static/image/in_first_el_heater.png',
     '8': 'static/image/in_first_el_heater_termal1.png',
@@ -104,4 +110,13 @@ cabinet_img = {
     '20': 'static/image/in_signal_work.png',
     '21': 'static/image/in_signal_alarm.png',
     '22': 'static/image/in_remote_control.png'
+}
+
+
+cooler_img = {
+    '0': 'static/image/frion_cooler.png',
+    '1': 'static/image/in_out_frion_cooler_alarm.png',
+    '2': 'static/image/in_frion_cooler.png',
+    '3': 'static/image/in_frion_cooler_alarm.png',
+    '4': ''
 }

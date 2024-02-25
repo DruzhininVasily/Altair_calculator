@@ -208,7 +208,9 @@ footer {
 .hide_P,
 .hide_V,
 .recuperator,
-.recyrcling{
+.recyrcling,
+.humid,
+.reserve{
     opacity: 0;
     transition: opacity 0.5s linear;
 }

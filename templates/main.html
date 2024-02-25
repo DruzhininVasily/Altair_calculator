@@ -63,6 +63,10 @@
                         <input class="vent_check_info_in" name="FC_in" type="checkbox" id="FC_in">
                         <label for="FC_in">Наличие ПЧ</label>
                     </div>
+                    <div id="smooth_in_container">
+                        <input class="vent_check_info_in" name="smooth_in" type="checkbox" id="smooth_in">
+                        <label for="smooth_in">Регулировка скорости 0-10В</label>
+                    </div>
                     <div>
                         <input class="vent_check_info_in" name="dif_in" type="checkbox" id="dif_in">
                         <label for="dif_in">Подтверждение работы (дифф манометр)</label>
@@ -87,6 +91,10 @@
                         <input class="vent_check_info_out" type="checkbox" id="FC_out" name="FC_out">
                         <label for="FC_out">Наличие ПЧ</label>
                     </div>
+                    <div id="smooth_out_container">
+                        <input class="vent_check_info_out" name="smooth_out" type="checkbox" id="smooth_out">
+                        <label for="smooth_out">Регулировка скорости 0-10В</label>
+                    </div>
                     <div>
                         <input class="vent_check_info_out" type="checkbox" id="dif_out" name="dif_out">
                         <label for="dif_out">Подтверждение работы (дифф манометр)</label>
@@ -99,14 +107,6 @@
                         <option value="2"></option>
                         <option value="3"></option>
                         <option value="4"></option>
-                        <option value="5"></option>
-                        <option value="6"></option>
-                        <option value="7"></option>
-                        <option value="8"></option>
-                        <option value="9"></option>
-                        <option value="10"></option>
-                        <option value="11"></option>
-                        <option value="12"></option>
                     </datalist>
                     <div class="first_container">
                         <h3>Нагреватель</h3>
@@ -154,7 +154,7 @@
                             <span class="disabled" id="test"></span>
                             <div>
                                 <label for="electrical_first_step_power">Мощность ступени: </label><span id="first_step_pow_span"></span><span> кВт</span><br>
-                                <input class="electrical_first_step_power first_electrical_range" name="electrical_first_step_power" type="range" id="electrical_first_step_power" value="0" min="0" max="12" step="1" list="heater_powerList">
+                                <input class="electrical_first_step_power first_electrical_range" name="electrical_first_step_power" type="range" id="electrical_first_step_power" value="0" min="0" max="4" step="1" list="heater_powerList">
                             </div>
                             <div>
                                 <input class="electrical_first_step_signal first_electrical_checkbox" name="electrical_first_step_signal" type="checkbox" id="electrical_first_step_signal">
@@ -216,7 +216,7 @@
                         </select>
                             <div>
                                 <label for="electrical_second_step_power">Мощность ступени: </label><span id="second_step_pow_span"></span><span> кВт</span><br>
-                                <input class="electrical_second_step_power second_electrical_range" name="electrical_second_step_power" type="range" id="electrical_second_step_power" value="0" min="0" max="12" step="1" list="heater_powerList">
+                                <input class="electrical_second_step_power second_electrical_range" name="electrical_second_step_power" type="range" id="electrical_second_step_power" value="0" min="0" max="4" step="1" list="heater_powerList">
                             </div>
                             <div>
                                 <input class="electrical_second_step_signal second_electrical_checkbox" name="electrical_second_step_signal" type="checkbox" id="electrical_second_step_signal">
@@ -229,6 +229,19 @@
                                 <option value="2">2</option>
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div class="cool_container hide_param disabled">
+                    <div>
+                        <h5>Тип охладителя</h5>
+                        <select class="cool_type cool_select" disabled>
+                            <option value="false">Фреоновый</option>
+                            <option value="true">Водяной</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input class="cool_alarm cool_checkbox" name="cool_alarm" type="checkbox" id="cool_alarm">
+                        <label for="cool_alarm">Аварийный сигнал</label>
                     </div>
                 </div>
                 <div class="dampers_container hide_param disabled">
@@ -379,8 +392,8 @@
                         <label for="signal_alarm">Сигнал "Авария"</label>
                     </div>
                     <div>
-                        <input class="work_on_sched cabinet_checkbox" name="work_on_sched" type="checkbox" id="work_on_sched">
-                        <label for="work_on_sched">Работа по расписанию</label>
+                        <input class="touchpad cabinet_checkbox" name="touchpad" type="checkbox" id="touchpad">
+                        <label for="touchpad">Панель оператора</label>
                     </div>
                     <div>
                         <input class="remote_control cabinet_checkbox" name="remote_control" type="checkbox" id="remote_control">
@@ -426,13 +439,13 @@
             </select>
             <button class="btn_PV" value="coolers">Настройка</button>
         </div>
-        <div class="humid options PV P">
+        <div class="humid options">
             <h4>Увлажнитель</h4>
             <select class="select select_style" disabled>
                 <option value="false">Нет</option>
                 <option value="true">Да</option>
             </select>
-            <button class="btn_PV" value="humids">Настройка</button>
+            <button class="" value="humids">Настройка</button>
         </div>
         <div class="recuperator options">
             <h4>Рекуператор</h4>
@@ -474,7 +487,7 @@
             </div>
             <button class="btn_PV btn_V" value="filters" disabled>Настройка</button>
         </div>
-        <div class="reserve options PV P V">
+        <div class="reserve options">
             <h4>Резерв</h4>
             <div class="check hide_V">
             <input type="checkbox" id="res_in">

@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function(){
         FC_out: "true",
         dif_in: "false",
         dif_out: "false",
+        smooth_in: 'false',
+        smooth_out: 'false',
         vent_power_in: "0",
         vent_power_out: "0",
         first_heater_type: "false",
@@ -65,8 +67,9 @@ document.addEventListener('DOMContentLoaded', function(){
         sensor_hood: 'false',
         signal_work: 'false',
         signal_alarm: 'false',
-        work_on_sched: 'false',
-        remote_control: 'false'
+        touchpad: 'false',
+        remote_control: 'false',
+        cool_alarm: 'false'
     }
 
     let refButtons = {
@@ -146,6 +149,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     let = powerData = {0: "0.18", 1: "0.25", 2: "0.37", 3: "0.55", 4: "0.75", 5: "1.1", 6: "1.5", 7: "2.2", 8: "3", 9: "4", 10: "5.5", 11: "7.5", 12: "11", 13: '15', 14: '18', 15: '22', 16: '30'}
     let = powerDamperHeatData = {0: "0.1", 1: "0.2", 2: "0.3", 3: "0.4", 4: "0.5", 5: "0.6", 6: "0.7", 7: "0.8", 8: "0.9", 9: "1.0", 10: "1.1", 11: "1.2"}
+    let = powerHeatData = {0: '3', 1: '6', 2: '9', 3: '12', 4: '15'}
 
     let price = document.querySelector("#price");
     let systemType = document.querySelectorAll(".radio input")
@@ -172,6 +176,9 @@ document.addEventListener('DOMContentLoaded', function(){
                         messageData[key] = '0';
                     };
                     break
+                case 1:
+                    messageData['cool_alarm'] = 'false';
+                    break
             };
             hideParameters()
         }
@@ -193,6 +200,9 @@ document.addEventListener('DOMContentLoaded', function(){
                     document.getElementsByClassName('heater_type_second')[0].value = 'false';
                     document.getElementsByClassName('second_heat_choice')[0].checked = false;
                     break
+                case 1:
+                    messageData['cool_alarm'] = 'false'
+                    document.getElementById('cool_alarm').checked = false;
             };
         }
         websocketClient.send(JSON.stringify(messageData));
@@ -412,21 +422,71 @@ document.addEventListener('DOMContentLoaded', function(){
     let ventsFunc = function() {
         let paramVent_in = document.querySelector(".paramVent_in")
         let paramVent_out = document.querySelector(".paramVent_out")
+        let fc_in = document.querySelector('#FC_in');
+        let fc_out = document.querySelector('#FC_out');
+        let smooth_in_container = document.querySelector('#smooth_in_container');
+        let smooth_out_container = document.querySelector('#smooth_out_container');
+        let smooth_in = document.querySelector('#smooth_in');
+        let smooth_out = document.querySelector('#smooth_out');
         if (typeSystem == "In_out") {
             paramVent_in.classList.remove('disabled');
             paramVent_out.classList.remove('disabled');
             addListeners(['.vent_radio_info_in', '.vent_check_info_in', '.vent_range_info_in', ''], "#pow_span_in", powerData);
             addListeners(['.vent_radio_info_out', '.vent_check_info_out', '.vent_range_info_out', ''], "#pow_span_out", powerData)
+            fc_in.onclick = () => {
+                if (fc_in.checked == true) {
+                    smooth_in_container.classList.remove('disabled');
+                    addListeners(['', '.smooth_in', '', ''], '', powerData)
+                }
+                else {
+                    smooth_in_container.classList.add('disabled');
+                    smooth_in.checked = false;
+                    sendData('smooth_in', 'false')
+                }
+            };
+            fc_out.onclick = () => {
+                if (fc_out.checked == true) {
+                    smooth_out_container.classList.remove('disabled');
+                    addListeners(['', '.smooth_out', '', ''], '', powerData)
+                }
+                else {
+                    smooth_out_container.classList.add('disabled');
+                    smooth_out.checked = false;
+                    sendData('smooth_out', 'false')
+                }
+            };
         }
         else if (typeSystem == "In") {
             paramVent_in.classList.remove('disabled');
             paramVent_out.className = ("paramVent_out hide_param disabled");
             addListeners(['.vent_radio_info_in', '.vent_check_info_in', '.vent_range_info_in', ''], "#pow_span_in", powerData);
+            fc_in.onclick = () => {
+                if (fc_in.checked == true) {
+                    smooth_in_container.classList.remove('disabled');
+                    addListeners(['', '.smooth_in', '', ''], '', powerData)
+                }
+                else {
+                    smooth_in_container.classList.add('disabled');
+                    smooth_in.checked = false;
+                    sendData('smooth_in', 'false')
+                }
+            };
         }
         else if (typeSystem == "Out") {
             paramVent_out.classList.remove('disabled');
             paramVent_in.className = ("paramVent_in hide_param disabled");
-            addListeners(['.vent_radio_info_out', '.vent_check_info_out', '.vent_range_info_out', ''], "#pow_span_out", powerData)
+            addListeners(['.vent_radio_info_out', '.vent_check_info_out', '.vent_range_info_out', ''], "#pow_span_out", powerData);
+            fc_out.onclick = () => {
+                if (fc_out.checked == true) {
+                    smooth_out_container.classList.remove('disabled');
+                    addListeners(['', '.smooth_out', '', ''], '', powerData)
+                }
+                else {
+                    smooth_out_container.classList.add('disabled');
+                    smooth_out.checked = false;
+                    sendData('smooth_out', 'false')
+                }
+            };
         };
     };
 
@@ -458,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let firstTypeHeatChoice = document.querySelector('.heater_type_first')
         heatContainer.classList.remove('disabled');
         addListeners(['', '.first_water_checkbox', '', '.first_water_select'], '', '')
-        firstTypeHeatChoice.addEventListener('change', () => typeHeatChoice(event, '.electrical_first_container', '.water_first_container', ['', '.first_water_checkbox', '', '.first_water_select', '', ''], ['', '.first_electrical_checkbox', '.first_electrical_range', '.first_electrical_select', '#first_step_pow_span', powerData]));
+        firstTypeHeatChoice.addEventListener('change', () => typeHeatChoice(event, '.electrical_first_container', '.water_first_container', ['', '.first_water_checkbox', '', '.first_water_select', '', ''], ['', '.first_electrical_checkbox', '.first_electrical_range', '.first_electrical_select', '#first_step_pow_span', powerHeatData]));
         secondChoice.onclick = () => {
             sendData(secondChoice.name, String(secondChoice.checked));
             let secondContainer = document.querySelector(".second_container");
@@ -468,7 +528,7 @@ document.addEventListener('DOMContentLoaded', function(){
             messageData['second_signal'] = 'true';
             addListeners(['', '.second_water_checkbox', '', '.second_water_select'], '', '')
             let secondTypeHeatChoice = document.querySelector(".heater_type_second");
-            secondTypeHeatChoice.addEventListener('change', () => typeHeatChoice(event, '.electrical_second_container', '.water_second_container', ['', '.second_water_checkbox', '', '.second_water_select', '', ''], ['', '.second_electrical_checkbox', '.second_electrical_range', '.second_electrical_select', '#second_step_pow_span', powerData]));
+            secondTypeHeatChoice.addEventListener('change', () => typeHeatChoice(event, '.electrical_second_container', '.water_second_container', ['', '.second_water_checkbox', '', '.second_water_select', '', ''], ['', '.second_electrical_checkbox', '.second_electrical_range', '.second_electrical_select', '#second_step_pow_span', powerHeatData]));
             }
             else {secondContainer.classList.add('disabled')};
         };
@@ -541,12 +601,18 @@ document.addEventListener('DOMContentLoaded', function(){
         else {document.getElementById('sensor_hood').removeAttribute("disabled")}
     };
 
+    let coolerFunc = function () {
+        let cool_container = document.querySelector('.cool_container');
+        cool_container.classList.remove('disabled');
+        addListeners(['', '.cool_checkbox', '', '', '', ''])
+    }
+
 // Команды кнопок параметры
 
     let commandsButtons = {
         vents: ventsFunc,
         heaters: heatersFunc,
-        coolers: "",
+        coolers: coolerFunc,
         humids: "",
         dampers: dampersFunc,
         filters: filtersFunc,
