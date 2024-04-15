@@ -2,9 +2,13 @@ from flask import Flask, render_template, send_file, request, redirect
 from flask_sock import Sock
 import json
 import data_handling
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'wdqfegsrdfgj,mnhgsefaw'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 sock = Sock(app)
 
 
@@ -36,7 +40,6 @@ def receiver(sock):
             handler.add_parameters(new_message)
             receive_message['price'] = handler.calculate()
             receive_message['img_list'] = handler.img_list
-        print(receive_message)
         receive_message = json.dumps(receive_message)
         sock.send(receive_message)
 
