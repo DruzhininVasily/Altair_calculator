@@ -11,8 +11,8 @@ img_data = {
            'static/image/in_switch_type_0.png', '',
            'static/image/in_empty_room.png'
            ],
-    'Out': ['static/image/in_wall.png', '', '', '', '', '', '', 'static/image/in_in_fc_disc.png',
-            'static/image/in_switch_type_0.png',
+    'Out': ['static/image/in_wall.png', '', 'static/image/in_in_fc_disc.png', '', '', '', '', '',
+            'static/image/in_switch_type_0.png', '',
             'static/image/in_empty_room.png'
            ]
 }
@@ -42,16 +42,18 @@ vent_out_img = {
     '6': 'static/image/in_in_fc_disc.png',
     '7': 'static/image/in_in_fc_disc_conf.png',
     '8': 'static/image/in_out_out_fc_smooth.png',
-    '9': 'static/image/in_out_out_diff_fc_smooth.png'
+    '9': 'static/image/in_out_out_diff_fc_smooth.png',
+    '10': 'static/image/in_in_fc_smooth.png',
+    '11': 'static/image/in_in_diff_fc_smooth.png'
 }
 
 heater_img = {
     '0': 'static/image/first_water_heater_confirm.png',
     '1': 'static/image/first_water_heater.png',
-    '2': 'static/image/first_el_heater.png',
+    '2': 'static/image/first_el_heater.jpg',
     '3': 'static/image/first_el_heater_termal1.png',
     '4': 'static/image/first_el_heater_termal2.png',
-    '5': 'static/image/in_first_water_heater_confirm.npg',
+    '5': 'static/image/in_first_water_heater_confirm.png',
     '6': 'static/image/in_first_water_heater.png',
     '7': 'static/image/in_first_el_heater.png',
     '8': 'static/image/in_first_el_heater_termal1.png',

@@ -43,7 +43,7 @@ def vent_in(obj):
 
 
 def vent_out(obj):
-    index = 10 if obj.system_type == 'In_out' else 8
+    index = 10 if obj.system_type == 'In_out' else 2
     if 'dif_out' in obj.parameters:
         if 'FC_out' in obj.parameters:
             if obj.system_type == 'In_out':
@@ -52,7 +52,10 @@ def vent_out(obj):
                 else:
                     key = '3'
             elif obj.system_type == "Out":
-                key = '7'
+                if 'smooth_out' in obj.parameters:
+                    key = '11'
+                else:
+                    key = '7'
         else:
             if obj.system_type == 'In_out':
                 key = '1'
@@ -66,7 +69,10 @@ def vent_out(obj):
                 else:
                     key = '2'
             elif obj.system_type == "Out":
-                key = '6'
+                if 'smooth_out' in obj.parameters:
+                    key = '10'
+                else:
+                    key = '6'
         else:
             if obj.system_type == 'In_out':
                 key = '0'
@@ -285,7 +291,7 @@ def cooler(obj):
         else:
             key = '4'
     elif obj.system_type == 'In':
-        index = 5
+        index = 6
         if 'select_1' in obj.parameters:
             sign[4] += 1
             if 'cool_alarm' in obj.parameters:
@@ -440,7 +446,7 @@ def second_heater(obj):
                 key = '13'
                 sign[0] += 1
             if 'second_thermostat' in obj.parameters:
-                obj.img_list[7] = img_data.heater_img['11']
+                obj.img_list[8] = img_data.heater_img['11']
                 sign[0] += 1
                 price += db_handler.other_price((9,), obj.data_base)
                 spec.append(db_handler.other_obj((9,), obj.data_base))
@@ -589,7 +595,6 @@ def dampers(obj):
         else:
             obj.img_list[2] = ''
     elif obj.system_type == 'In':
-        obj.img_list[2] = ''
         if 'damp_in' in obj.parameters:
             price += db_handler.relay_price(obj.data_base)
             for i in db_handler.relay_obj(obj.data_base):
@@ -616,6 +621,35 @@ def dampers(obj):
             elif 'in_damper_confirm' not in obj.parameters and 'in_damper_heat' not in obj.parameters:
                 key_in = '11'
             obj.img_list[1] = img_data.dampers_img[key_in]
+        else:
+            obj.img_list[1] = ''
+    elif obj.system_type == 'Out':
+        if 'damp_out' in obj.parameters:
+            price += db_handler.relay_price(obj.data_base)
+            for i in db_handler.relay_obj(obj.data_base):
+                spec.append(i)
+            sign[4] += 1
+            if 'out_damper_confirm' in obj.parameters and 'out_damper_heat' in obj.parameters:
+                key_out = '8'
+                sign[0] += 1
+                sign[4] += 1
+                price += db_handler.breaker_price((5,), obj.data_base)
+                spec.append(db_handler.breaker_obj((5,), obj.data_base))
+                price += db_handler.contactor_price((1,), obj.data_base)
+                spec.append(db_handler.contactor_obj((1,), obj.data_base))
+            elif 'out_damper_confirm' in obj.parameters and 'otu_damper_heat' not in obj.parameters:
+                key_out = '9'
+                sign[0] += 1
+            elif 'out_damper_confirm' not in obj.parameters and 'out_damper_heat' in obj.parameters:
+                key_out = '10'
+                sign[4] += 1
+                price += db_handler.breaker_price((5,), obj.data_base)
+                spec.append(db_handler.breaker_obj((5,), obj.data_base))
+                price += db_handler.contactor_price((1,), obj.data_base)
+                spec.append(db_handler.contactor_obj((1,), obj.data_base))
+            elif 'out_damper_confirm' not in obj.parameters and 'out_damper_heat' not in obj.parameters:
+                key_out = '11'
+            obj.img_list[1] = img_data.dampers_img[key_out]
         else:
             obj.img_list[1] = ''
     return [price, sign, spec]
@@ -652,6 +686,12 @@ def filters(obj):
                 sign[0] += int(obj.numer_param['in_filter_quantity']) + 1
         elif "filt_in" not in obj.parameters:
             obj.img_list[3], obj.img_list[10], obj.img_list[11] = '', '', ''
+    elif obj.system_type == 'Out':
+        if 'filt_out' in obj.parameters:
+            obj.img_list[3] = img_data.filters_img['2']
+            sign[0] += 1
+        else:
+            obj.img_list[3] = ''
     return [price, sign, spec]
 
 
@@ -763,6 +803,55 @@ def cabinet(obj):
             sign[0] += 1
         else:
             obj.img_list[15] = ''
+        if 'touchpad' in obj.parameters:
+            price += db_handler.plc_price((6, ), obj.data_base)
+            spec.append(db_handler.plc_obj((6, ), obj.data_base))
+    elif obj.system_type == 'Out':
+        if "switch_type" in obj.parameters:
+            obj.img_list[8] = img_data.cabinet_img['13']
+        else:
+            obj.img_list[8] = img_data.cabinet_img['12']
+        if 'shutdown_fire_signal' in obj.parameters:
+            obj.img_list[4] = img_data.cabinet_img['14']
+            sign[0] += 1
+        else:
+            obj.img_list[4] = ''
+        if 'sensor_temp_outdoor' in obj.parameters:
+            obj.img_list[0] = img_data.cabinet_img['16']
+            sign[1] += 1
+            price += db_handler.other_price((3,), obj.data_base)
+            spec.append(db_handler.other_obj((3,), obj.data_base))
+        else:
+            obj.img_list[0] = img_data.cabinet_img['15']
+        if 'sensor_temp_indoor' in obj.parameters:
+            obj.img_list[10] = img_data.cabinet_img['17']
+            sign[1] += 1
+            price += db_handler.other_price((3,), obj.data_base)
+            spec.append(db_handler.other_obj((3,), obj.data_base))
+        else:
+            obj.img_list[10] = img_data.cabinet_img['18']
+        if 'sensor_hood' in obj.parameters:
+            obj.img_list[9] = img_data.cabinet_img['8']
+            sign[1] += 1
+            price += db_handler.other_price((2,), obj.data_base)
+            spec.append(db_handler.other_obj((2,), obj.data_base))
+        else:
+            obj.img_list[9] = ''
+        if 'signal_work' in obj.parameters:
+            obj.img_list[5] = img_data.cabinet_img['20']
+            sign[4] += 1
+        else:
+            obj.img_list[5] = ''
+        if 'signal_alarm' in obj.parameters:
+            obj.img_list[6] = img_data.cabinet_img['21']
+            sign[4] += 1
+        else:
+            obj.img_list[6] = ''
+        if 'remote_control' in obj.parameters:
+            obj.img_list[7] = img_data.cabinet_img['22']
+            sign[0] += 1
+        else:
+            obj.img_list[7] = ''
         if 'touchpad' in obj.parameters:
             price += db_handler.plc_price((6, ), obj.data_base)
             spec.append(db_handler.plc_obj((6, ), obj.data_base))
@@ -890,7 +979,7 @@ def add_static_elements(obj):
     data[13].insert(4, 1)
 
     for i, j in enumerate(data):
-        summa = float(j[-1]) * j[-2]
+        summa = float(j[-1]) * j[-3]
         obj.price += summa
         data[i].append(summa)
     obj.static_elements = data

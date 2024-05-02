@@ -106,4 +106,4 @@ class MessageHandler:
 
     def create_exel(self):
         create_specification.create_exel(self.specification, self.static_elements)
-        return {"href": "specification.xlsx"}
+        return {"href": "specification.xlsx", 'href2': "TCP.xlsx", 'price': self.calculate()}

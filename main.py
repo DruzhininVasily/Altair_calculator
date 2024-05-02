@@ -4,6 +4,7 @@ import json
 import data_handling
 from dotenv import load_dotenv
 import os
+import datetime
 
 load_dotenv()
 
@@ -19,7 +20,14 @@ def main():
 
 @app.route('/specification.xlsx')
 def download_file():
-    return send_file('specification.xlsx')
+    query = request.args.get('name')
+    return send_file('specification.xlsx', download_name=query+'_' + str(datetime.date.today()) + '.xlsx')
+
+
+@app.route('/TCP.xlsx')
+def download_second_file():
+    query = request.args.get('name')
+    return send_file('TCP.xlsx', download_name=query+'_' + str(datetime.date.today()) + '.xlsx')
 
 
 @sock.route('/')
@@ -29,7 +37,6 @@ def receiver(sock):
         receive_message = {}
         new_message = sock.receive()
         new_message = json.loads(new_message)
-        print(new_message)
         if "type" in new_message:
             receive_message['type'] = new_message['type']
             receive_message['img_list'] = handler.add_type(new_message['type'])

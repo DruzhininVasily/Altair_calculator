@@ -21,7 +21,8 @@ cursor.execute('''CREATE TABLE motors(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(30)
                )''')
 
 cursor.execute('''CREATE TABLE contactors(
@@ -30,7 +31,8 @@ cursor.execute('''CREATE TABLE contactors(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 
@@ -40,7 +42,8 @@ cursor.execute('''CREATE TABLE FC(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE motor_protection(
@@ -49,7 +52,8 @@ cursor.execute('''CREATE TABLE motor_protection(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE other(
@@ -58,7 +62,8 @@ cursor.execute('''CREATE TABLE other(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE water_heater(
@@ -67,7 +72,8 @@ cursor.execute('''CREATE TABLE water_heater(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE electro_heater(
@@ -76,7 +82,8 @@ cursor.execute('''CREATE TABLE electro_heater(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE plc(
@@ -85,7 +92,8 @@ cursor.execute('''CREATE TABLE plc(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE breakers(
@@ -94,7 +102,8 @@ cursor.execute('''CREATE TABLE breakers(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE relay(
@@ -103,7 +112,8 @@ cursor.execute('''CREATE TABLE relay(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE cable(
@@ -112,7 +122,8 @@ cursor.execute('''CREATE TABLE cable(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE terminals(
@@ -121,7 +132,8 @@ cursor.execute('''CREATE TABLE terminals(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 cursor.execute('''CREATE TABLE panels(
@@ -130,7 +142,8 @@ cursor.execute('''CREATE TABLE panels(
                manufacturer VARCHAR(60),
                article VARCHAR(30),
                parameter VARCHAR(30),
-               price DECIMAL(10, 2)
+               price DECIMAL(10, 2),
+               groups VARCHAR(20)
                )''')
 
 print(workbook.get_sheet_names())
@@ -152,7 +165,7 @@ for i in range(len(data_panels)):
 
 print(res_panels)
 for i in res_panels:
-    sql = "INSERT INTO panels (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO panels (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 data_base.commit()
@@ -175,7 +188,7 @@ for i in range(len(data_contactors)):
 
 print(res_contactors)
 for i in res_contactors:
-    sql = "INSERT INTO contactors (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO contactors (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 data_base.commit()
@@ -198,7 +211,7 @@ for i in range(len(data_plc)):
 
 print(res_plc)
 for i in res_plc:
-    sql = "INSERT INTO plc (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO plc (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -222,7 +235,7 @@ for i in range(len(data_breakers)):
 
 print(res_breakers)
 for i in res_breakers:
-    sql = "INSERT INTO breakers (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO breakers (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -245,7 +258,7 @@ for i in range(len(data_relay)):
 
 print(res_relay)
 for i in res_relay:
-    sql = "INSERT INTO relay (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO relay (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -268,7 +281,7 @@ for i in range(len(data_cable)):
 
 print(res_cable)
 for i in res_cable:
-    sql = "INSERT INTO cable (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO cable (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -292,7 +305,7 @@ for i in range(len(data_terminals)):
 
 print(res_terminals)
 for i in res_terminals:
-    sql = "INSERT INTO terminals (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO terminals (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -318,7 +331,7 @@ for i in range(len(data_motors)):
 
 print(res_motors)
 for i in res_motors:
-    sql = "INSERT INTO motors (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO motors (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -342,7 +355,7 @@ for i in range(len(data_motor_protection)):
 
 print(res_motor_protection)
 for i in res_motor_protection:
-    sql = "INSERT INTO motor_protection (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO motor_protection (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -366,7 +379,7 @@ for i in range(len(data_FC)):
 
 print(res_FC)
 for i in res_FC:
-    sql = "INSERT INTO FC (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO FC (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -390,7 +403,7 @@ for i in range(len(data_heater_water)):
 
 print(res_heater_water)
 for i in res_heater_water:
-    sql = "INSERT INTO water_heater (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO water_heater (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -414,7 +427,7 @@ for i in range(len(data_heater_el)):
 
 print(res_heater_el)
 for i in res_heater_el:
-    sql = "INSERT INTO electro_heater (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO electro_heater (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 
@@ -437,7 +450,7 @@ for i in range(len(data_other)):
 
 print(res_other)
 for i in res_other:
-    sql = "INSERT INTO other (name, manufacturer, article, parameter, price) VALUES (%s, %s, %s, %s, %s)"
+    sql = "INSERT INTO other (name, manufacturer, article, parameter, price, groups) VALUES (%s, %s, %s, %s, %s, %s)"
     val = tuple(i)
     cursor.execute(sql, val)
 

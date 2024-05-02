@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let systemType = document.querySelectorAll(".radio input")
     let specButton = document.querySelector("#spec")
 
-    let websocketClient  = new WebSocket("wss://altaircalculator.ru/");
+    let websocketClient  = new WebSocket("ws://127.0.0.1:5000");
 
 
 // Функция для обработки input type="select" на основном экране
@@ -595,10 +595,20 @@ document.addEventListener('DOMContentLoaded', function(){
         let cabinetContainer = document.querySelector('.cabinet_container');
         cabinetContainer.classList.remove('disabled');
         addListeners(['', '.cabinet_checkbox', '', '.cabinet_select', '', '']);
-        if (typeSystem != 'In_out') {
-            document.getElementById('sensor_hood').setAttribute('disabled', 'disabled')
+        let sensor_hood = document.getElementById('sensor_hood')
+        let sensor_humid = document.getElementById('sensor_humid')
+        if (typeSystem == 'In') {
+            sensor_hood.setAttribute('disabled', 'disabled')
+            sensor_humid.removeAttribute("disabled")
         }
-        else {document.getElementById('sensor_hood').removeAttribute("disabled")}
+        else if (typeSystem == 'Out') {
+            sensor_humid.setAttribute('disabled', 'disabled')
+            sensor_hood.removeAttribute("disabled")
+        }
+        else {
+            sensor_hood.removeAttribute("disabled")
+            sensor_humid.removeAttribute("disabled")
+        }
     };
 
     let coolerFunc = function () {
@@ -731,17 +741,27 @@ document.addEventListener('DOMContentLoaded', function(){
     };
 
     specButton.onclick = () => {
-        websocketClient.send(JSON.stringify({'get_exel': 'true'}));
+        if (typeSystem != null) {
+            websocketClient.send(JSON.stringify({'get_exel': 'true'}));
+        }
     }
 
-    let exelDownload = function (string) {
+    let exelDownload = function (string, string2) {
         let frame = document.querySelector(".exel_frame")
+        let companyName = document.querySelector('.exel_input')
         frame.style.top = "0"
-        let buttExel = document.querySelector('.exel_button')
-        buttExel.href = "https://altaircalculator.ru/" + string
-        buttExel.download = string
-        buttExel.onclick = () => {
+        let buttSpec = document.querySelector('#spec_button')
+        let buttTcp = document.querySelector('#tcp_button')
+        let buttKrest = document.querySelector('#krest')
+        buttKrest.onclick = () => {
             frame.style.top = '-300px';
+        }
+        buttSpec.download = string
+        buttSpec.onclick = () => {
+            buttSpec.href = "http://127.0.0.1:5000/" + string + '?name=' + companyName.value;
+        };
+        buttTcp.onclick = () => {
+          buttTcp.href = "http://127.0.0.1:5000/" + string2 + '?name=' + companyName.value;
         }
     }
 
@@ -782,7 +802,7 @@ document.addEventListener('DOMContentLoaded', function(){
             onButton(".btn_V");
         }
         if (mes["href"] != undefined) {
-            exelDownload(mes['href'])
+            exelDownload(mes['href'], mes['href2'])
         }
         if (mes["img_list"] != undefined) {
             showImages(mes['img_list']);

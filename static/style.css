@@ -7,9 +7,11 @@ body {
 
 .exel_frame {
     position: absolute;
-    left: 40%;
+    left: 32.5%;
+    width: 25%;
     top: -300px;
     padding: 3% 5%;
+    text-align: center;
     background: #f0f4fa;
     border: 1px solid silver;
     border-radius: 0 0 20px 20px;
@@ -22,16 +24,34 @@ body {
     border-radius: 20px;
     color: white;
     text-decoration: none;
-    padding: 5% 30%;
-    position: relative;
-    left: -25%;
-    font-size: 19px;
+    padding: 2% 5%;
+    font-size: 14px;
     transition: all 0.5s linear;
 }
 
 .exel_button:hover {
     color: white;
     background: #00AEEF;
+}
+
+.exel_input {
+    width: 80%;
+    padding: 3% 5%;
+    border-radius: 20px;
+    border: 1px solid silver;
+    margin-bottom: 8%;
+}
+
+.exel_h {
+    font-size: 19px;
+}
+
+#krest {
+    width: 15px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    cursor: pointer;
 }
 
 

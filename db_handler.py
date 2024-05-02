@@ -21,7 +21,7 @@ def fc_price(fc_id, connection):
 
 def fc_obj(br_id, connection):
     cursor = connection.cursor()
-    sql = "SELECT name, manufacturer, article, parameter, price FROM FC WHERE id = %s"
+    sql = "SELECT name, manufacturer, article, parameter, groups, price FROM FC WHERE id = %s"
     cursor.execute(sql, br_id)
     res = cursor.fetchone()
     return res
@@ -37,7 +37,7 @@ def contactor_price(cont_id, connection):
 
 def contactor_obj(br_id, connection):
     cursor = connection.cursor()
-    sql = "SELECT name, manufacturer, article, parameter, price FROM contactors WHERE id = %s"
+    sql = "SELECT name, manufacturer, article, parameter, groups, price FROM contactors WHERE id = %s"
     cursor.execute(sql, br_id)
     res = cursor.fetchone()
     return res
@@ -52,7 +52,7 @@ def diff_price(connection):
 
 def diff_obj(connection):
     cursor = connection.cursor()
-    cursor.execute("SELECT name, manufacturer, article, parameter, price FROM other WHERE id = 6")
+    cursor.execute("SELECT name, manufacturer, article, parameter, groups, price FROM other WHERE id = 6")
     res = cursor.fetchone()
     return res
 
@@ -67,7 +67,7 @@ def breaker_price(br_id, connection):
 
 def breaker_obj(br_id, connection):
     cursor = connection.cursor()
-    sql = "SELECT name, manufacturer, article, parameter, price FROM breakers WHERE id = %s"
+    sql = "SELECT name, manufacturer, article, parameter, groups, price FROM breakers WHERE id = %s"
     cursor.execute(sql, br_id)
     res = cursor.fetchone()
     return res
@@ -82,7 +82,7 @@ def relay_price(connection):
 
 def relay_obj(connection):
     cursor = connection.cursor()
-    cursor.execute("SELECT  name, manufacturer, article, parameter, price FROM relay")
+    cursor.execute("SELECT  name, manufacturer, article, parameter, groups, price FROM relay")
     res = cursor.fetchall()
     return res
 
@@ -97,7 +97,7 @@ def plc_price(plc_id, connection):
 
 def plc_obj(plc_id, connection):
     cursor = connection.cursor()
-    sql = "SELECT name, manufacturer, article, parameter, price FROM plc WHERE id = %s"
+    sql = "SELECT name, manufacturer, article, parameter, groups, price FROM plc WHERE id = %s"
     cursor.execute(sql, plc_id)
     res = cursor.fetchone()
     return res
@@ -113,7 +113,7 @@ def other_price(other_id, connection):
 
 def other_obj(other_id, connection):
     cursor = connection.cursor()
-    sql = "SELECT name, manufacturer, article, parameter, price FROM other WHERE id = %s"
+    sql = "SELECT name, manufacturer, article, parameter, groups, price FROM other WHERE id = %s"
     cursor.execute(sql, other_id)
     res = cursor.fetchone()
     return res
@@ -121,7 +121,7 @@ def other_obj(other_id, connection):
 
 def get_static_el(connection):
     cursor = connection.cursor()
-    sql = 'SELECT name, manufacturer, article, parameter, price FROM other WHERE id > %s'
+    sql = 'SELECT name, manufacturer, article, parameter, groups, price FROM other WHERE id > %s'
     cursor.execute(sql, (11,))
     res = cursor.fetchall()
     for i, j in enumerate(res):
