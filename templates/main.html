@@ -14,8 +14,9 @@
         <p class="exel_h">Введите название компании</p>
         <input type="text" class="exel_input">
         <div class="butts_document">
-            <a href ="" id="spec_button" class="exel_button">Скачать спецификацию</a>
-            <a href ="" id="tcp_button" class="exel_button">Скачать ТКП</a>
+            <a href ="" id="spec_button" class="exel_button">Спецификация</a>
+            <a href ="" id="tcp_button" class="exel_button">ТКП</a>
+            <a href ="" id="pdf_button" target="_blank" class="exel_button">Схема</a>
         </div>
     </div>
     <header>
@@ -30,7 +31,18 @@
     <main>
         <h2>Конфигуратор системы вентиляции</h2>
         <div class="main_container">
-            <div class="img_container"></div>
+            <div class="cont">
+                <div class="img_container"></div>
+                <div class="signals">
+                        <ul>
+                            <li>di - <span class="sig_list"></span></li>
+                            <li>do - <span class="sig_list"></span></li>
+                            <li>ai - <span class="sig_list"></span></li>
+                            <li>ao - <span class="sig_list"></span></li>
+                            <li>pt - <span class="sig_list"></span></li>
+                        </ul>
+                </div>
+            </div>
             <div class="parameters_container">
                 <datalist id="powerList">
                         <option value="0"></option>

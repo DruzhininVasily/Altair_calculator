@@ -170,7 +170,10 @@ def first_heater(obj):
                             spec.append(db_handler.breaker_obj((1,), obj.data_base))
             if 'first_electrical_thermal' in obj.numer_param:
                 variant = {'0': '2', '1': '3', '2': '4'}
-                key = variant[obj.numer_param['first_electrical_thermal']]
+                if obj.numer_param['first_electrical_thermal'] == '0' and 'electrical_first_step_signal' in obj.parameters:
+                    key = '17'
+                else:
+                    key = variant[obj.numer_param['first_electrical_thermal']]
                 sign[0] += int(obj.numer_param['first_electrical_thermal'])
     elif obj.system_type == 'In':
         if 'first_heater_type' not in obj.parameters and 'select_0' in obj.parameters:
@@ -267,7 +270,10 @@ def first_heater(obj):
                             spec.append(db_handler.breaker_obj((1,), obj.data_base))
             if 'first_electrical_thermal' in obj.numer_param:
                 variant = {'0': '7', '1': '8', '2': '9'}
-                key = variant[obj.numer_param['first_electrical_thermal']]
+                if obj.numer_param['first_electrical_thermal'] == '0' and 'electrical_first_step_signal' in obj.parameters:
+                    key = '18'
+                else:
+                    key = variant[obj.numer_param['first_electrical_thermal']]
     try:
         obj.img_list[4] = img_data.heater_img[key]
     except Exception:
@@ -413,7 +419,10 @@ def second_heater(obj):
                             spec.append(db_handler.breaker_obj((1,), obj.data_base))
             if 'second_electrical_thermal' in obj.numer_param:
                 variant = {'0': '2', '1': '3', '2': '4'}
-                key = variant[obj.numer_param['second_electrical_thermal']]
+                if obj.numer_param['second_electrical_thermal'] == '0' and 'electrical_second_step_signal' in obj.parameters:
+                    key = '17'
+                else:
+                    key = variant[obj.numer_param['second_electrical_thermal']]
         elif 'second_heat_choice' not in obj.parameters:
             key = '16'
             obj.img_list[8] = ''
@@ -522,7 +531,10 @@ def second_heater(obj):
                             spec.append(db_handler.breaker_obj((1,), obj.data_base))
             if 'select_0' in obj.parameters and 'second_electrical_thermal' in obj.numer_param:
                 variant = {'0': '7', '1': '8', '2': '9'}
-                key = variant[obj.numer_param['second_electrical_thermal']]
+                if obj.numer_param['second_electrical_thermal'] == '0' and 'electrical_second_step_signal' in obj.parameters:
+                    key = '18'
+                else:
+                    key = variant[obj.numer_param['second_electrical_thermal']]
         elif 'second_heat_choice' not in obj.parameters:
             key = '16'
             obj.img_list[8] = ''
@@ -630,25 +642,25 @@ def dampers(obj):
                 spec.append(i)
             sign[4] += 1
             if 'out_damper_confirm' in obj.parameters and 'out_damper_heat' in obj.parameters:
-                key_out = '8'
+                key_out = '15'
                 sign[0] += 1
                 sign[4] += 1
                 price += db_handler.breaker_price((5,), obj.data_base)
                 spec.append(db_handler.breaker_obj((5,), obj.data_base))
                 price += db_handler.contactor_price((1,), obj.data_base)
                 spec.append(db_handler.contactor_obj((1,), obj.data_base))
-            elif 'out_damper_confirm' in obj.parameters and 'otu_damper_heat' not in obj.parameters:
-                key_out = '9'
+            elif 'out_damper_confirm' in obj.parameters and 'out_damper_heat' not in obj.parameters:
+                key_out = '14'
                 sign[0] += 1
             elif 'out_damper_confirm' not in obj.parameters and 'out_damper_heat' in obj.parameters:
-                key_out = '10'
+                key_out = '13'
                 sign[4] += 1
                 price += db_handler.breaker_price((5,), obj.data_base)
                 spec.append(db_handler.breaker_obj((5,), obj.data_base))
                 price += db_handler.contactor_price((1,), obj.data_base)
                 spec.append(db_handler.contactor_obj((1,), obj.data_base))
             elif 'out_damper_confirm' not in obj.parameters and 'out_damper_heat' not in obj.parameters:
-                key_out = '11'
+                key_out = '12'
             obj.img_list[1] = img_data.dampers_img[key_out]
         else:
             obj.img_list[1] = ''
@@ -688,7 +700,7 @@ def filters(obj):
             obj.img_list[3], obj.img_list[10], obj.img_list[11] = '', '', ''
     elif obj.system_type == 'Out':
         if 'filt_out' in obj.parameters:
-            obj.img_list[3] = img_data.filters_img['2']
+            obj.img_list[3] = img_data.filters_img['3']
             sign[0] += 1
         else:
             obj.img_list[3] = ''
@@ -808,47 +820,47 @@ def cabinet(obj):
             spec.append(db_handler.plc_obj((6, ), obj.data_base))
     elif obj.system_type == 'Out':
         if "switch_type" in obj.parameters:
-            obj.img_list[8] = img_data.cabinet_img['13']
+            obj.img_list[8] = img_data.cabinet_img['33']
         else:
-            obj.img_list[8] = img_data.cabinet_img['12']
+            obj.img_list[8] = img_data.cabinet_img['32']
         if 'shutdown_fire_signal' in obj.parameters:
-            obj.img_list[4] = img_data.cabinet_img['14']
+            obj.img_list[4] = img_data.cabinet_img['27']
             sign[0] += 1
         else:
             obj.img_list[4] = ''
         if 'sensor_temp_outdoor' in obj.parameters:
-            obj.img_list[0] = img_data.cabinet_img['16']
+            obj.img_list[0] = img_data.cabinet_img['24']
             sign[1] += 1
             price += db_handler.other_price((3,), obj.data_base)
             spec.append(db_handler.other_obj((3,), obj.data_base))
         else:
-            obj.img_list[0] = img_data.cabinet_img['15']
+            obj.img_list[0] = img_data.cabinet_img['23']
         if 'sensor_temp_indoor' in obj.parameters:
-            obj.img_list[10] = img_data.cabinet_img['17']
+            obj.img_list[10] = img_data.cabinet_img['26']
             sign[1] += 1
             price += db_handler.other_price((3,), obj.data_base)
             spec.append(db_handler.other_obj((3,), obj.data_base))
         else:
-            obj.img_list[10] = img_data.cabinet_img['18']
+            obj.img_list[10] = img_data.cabinet_img['25']
         if 'sensor_hood' in obj.parameters:
-            obj.img_list[9] = img_data.cabinet_img['8']
+            obj.img_list[9] = img_data.cabinet_img['28']
             sign[1] += 1
             price += db_handler.other_price((2,), obj.data_base)
             spec.append(db_handler.other_obj((2,), obj.data_base))
         else:
             obj.img_list[9] = ''
         if 'signal_work' in obj.parameters:
-            obj.img_list[5] = img_data.cabinet_img['20']
+            obj.img_list[5] = img_data.cabinet_img['29']
             sign[4] += 1
         else:
             obj.img_list[5] = ''
         if 'signal_alarm' in obj.parameters:
-            obj.img_list[6] = img_data.cabinet_img['21']
+            obj.img_list[6] = img_data.cabinet_img['30']
             sign[4] += 1
         else:
             obj.img_list[6] = ''
         if 'remote_control' in obj.parameters:
-            obj.img_list[7] = img_data.cabinet_img['22']
+            obj.img_list[7] = img_data.cabinet_img['31']
             sign[0] += 1
         else:
             obj.img_list[7] = ''

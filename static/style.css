@@ -16,6 +16,7 @@ body {
     border: 1px solid silver;
     border-radius: 0 0 20px 20px;
     transition: all 0.5s linear;
+    z-index: 100;
 }
 
 .exel_button {
@@ -24,8 +25,9 @@ body {
     border-radius: 20px;
     color: white;
     text-decoration: none;
-    padding: 2% 5%;
+    padding: 2% 6%;
     font-size: 14px;
+    margin-right: 5%;
     transition: all 0.5s linear;
 }
 
@@ -36,7 +38,7 @@ body {
 
 .exel_input {
     width: 80%;
-    padding: 3% 5%;
+    padding: 2% 5%;
     border-radius: 20px;
     border: 1px solid silver;
     margin-bottom: 8%;
@@ -96,13 +98,18 @@ main {
     justify-content: space-between;
 }
 
-.img_container {
+.cont {
+    position: relative;
     width: 75%;
-    padding: 0 1%;
     border: 1px solid silver;
     background: #FFF;
+    z-index: 0;
+}
+
+.img_container {
     overflow: auto;
     display: flex;
+    padding: 0 1%;
     @media (max-height: 780px) {
         height: 350px;
     };
@@ -144,6 +151,20 @@ main {
         max-height: 70%;
         max-width: 16%;
     };
+}
+
+.signals {
+    position: absolute;
+    font-size: 12px;
+    right: 0px;
+    bottom: 10px;
+    color: black;
+    opacity: 0;
+    transition: opacity 0.5s linear;
+}
+
+.signals ul {
+    list-style-type: none;
 }
 
 .parameters_container {

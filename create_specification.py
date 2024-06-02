@@ -2,6 +2,7 @@ from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Font, Side, Border
 from openpyxl.drawing.image import Image
 from datetime import date
+from fpdf import FPDF
 
 
 def data_processing(data, static):
@@ -142,3 +143,40 @@ def create_exel(data, static):
     sheet = wb1.active
     create_tcp(sheet, (sum_panel+kip_sum), kip_list, sum_panel)
     wb1.save('TCP.xlsx')
+
+
+def create_pdf(data):
+    short_img = [
+        'fire', 'damp_in', 'damp_out', 'switch_type', 'termostat',
+        'humid', 'hood', 'signal_work', 'signal_alarm', 'remote_control'
+    ]
+    long_img = [
+        'water', 'el_heater', 'in_out', 'in_in'
+    ]
+    pdf = FPDF(orientation='landscape')
+    pdf.add_page()
+    x = 5
+    for i in data:
+        short = False
+        long = False
+        for j in short_img:
+            if j in i:
+                short = True
+        else:
+            for n in long_img:
+                if n in i:
+                    long = True
+        if short:
+            w = 7
+            step = 7
+        elif long:
+            w = 21
+            step = 21
+        else:
+            w = 17
+            step = 17
+        if i != '':
+            pdf.image(i, x=x, y=60, w=w, h=70)
+            x += step
+    pdf.output('schema.pdf')
+

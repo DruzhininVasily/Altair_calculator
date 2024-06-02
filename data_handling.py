@@ -34,7 +34,7 @@ class Plc:
             if j > 0:
                 for x in range(j):
                     price += db_handler.plc_price((i+2, ), connection)
-        print(self.di, self.pt, self.ai, self.ao, self.do )
+        # print(self.di, self.pt, self.ai, self.ao, self.do )
         return price
 
     def get_spec_plc(self, connection):
@@ -43,6 +43,9 @@ class Plc:
             for x in range(j):
                 res.append(db_handler.plc_obj((i+1, ), connection))
         return res
+
+    def get_signals(self):
+        return [self.di, self.do, self.ai, self.ao, self.pt]
 
 
 class MessageHandler:
@@ -101,9 +104,10 @@ class MessageHandler:
         self.plc.add_signals(di=signals[0], pt=signals[1], ai=signals[2], ao=signals[3], do=signals[4])
         price += self.plc.get_plc_price(self.data_base)
         self.specification.extend(self.plc.get_spec_plc(self.data_base))
-        print(self.specification)
-        return price
+        return price, self.plc.get_signals()
 
-    def create_exel(self):
+    def create_docs(self):
         create_specification.create_exel(self.specification, self.static_elements)
-        return {"href": "specification.xlsx", 'href2': "TCP.xlsx", 'price': self.calculate()}
+        create_specification.create_pdf(self.img_list)
+        price, signals = self.calculate()
+        return {"href": "specification.xlsx", 'href2': "TCP.xlsx", "href3": 'schema.pdf', 'price': price, 'signals': signals}

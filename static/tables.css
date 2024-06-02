@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #6CCDEC;
+    padding: 2% 3%;
+}
+
+.tables_hrefs_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.tables_hrefs_container span{
+    background: white;
+    width: 30%;
+    padding: 0.5% 1%;
+    margin-bottom: 2%;
+    border-radius: 20px;
+    border: 1px solid silver;
+}
+
+.admin_head {
+    color: white;
+    text-align: center;
+}
+
+.tables_button {
+    background: #6CCDEC;
+    text-decoration: none;
+    color: #FFF;
+    padding: 0.5% 1%;
+    border: 1px solid #FFF;
+    border-radius: 15px;
+    font-size: 14px;
+    margin-bottom: 2%;
+    transition: all 0.3s linear;
+    cursor: pointer;
+}
+
+.tables_button:hover {
+    background: #00AEEF;
+}
+
+.table_detail_h {
+    color: white;
+    text-align: center;
+}
+
+.table_detail_container {
+    padding: 2% 0;
+}
+
+.table_detail_row {
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(7, 190px);
+}
+
+.table_detail_row span {
+    margin-bottom: 5%;
+}
+
+.table_detail_row input {
+    background: white;
+    border: 1px solid silver;
+    border-radius: 15px;
+    padding: 1% 5%;
+}

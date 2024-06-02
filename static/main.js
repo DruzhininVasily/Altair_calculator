@@ -740,18 +740,21 @@ document.addEventListener('DOMContentLoaded', function(){
         };
     };
 
+// Фрэйм для загрузки документов
+
     specButton.onclick = () => {
         if (typeSystem != null) {
             websocketClient.send(JSON.stringify({'get_exel': 'true'}));
         }
     }
 
-    let exelDownload = function (string, string2) {
+    let exelDownload = function (string, string2, string3) {
         let frame = document.querySelector(".exel_frame")
         let companyName = document.querySelector('.exel_input')
         frame.style.top = "0"
         let buttSpec = document.querySelector('#spec_button')
         let buttTcp = document.querySelector('#tcp_button')
+        let buttPdf = document.querySelector('#pdf_button')
         let buttKrest = document.querySelector('#krest')
         buttKrest.onclick = () => {
             frame.style.top = '-300px';
@@ -762,14 +765,35 @@ document.addEventListener('DOMContentLoaded', function(){
         };
         buttTcp.onclick = () => {
           buttTcp.href = "http://127.0.0.1:5000/" + string2 + '?name=' + companyName.value;
+        };
+        buttPdf.onclick = () => {
+            buttPdf.href = "http://127.0.0.1:5000/" + string3 + '?name=' + companyName.value;
         }
     }
+
+// Вывод сигнало ПЛК
+
+let showSignals = function (signals) {
+    let signalsContainer = document.querySelector('.signals')
+    let signalsSpan = document.querySelectorAll('.sig_list')
+    for (let index=0; index<signals.length; index++) {
+        signalsSpan[index].textContent = signals[index];
+    }
+    signalsContainer.style.opacity = '1';
+}
+
+// Вывод цены
+
+let showPrice = function (numPrice) {
+    let textPrice = String(numPrice).slice(0, 3) + ' ' + String(numPrice).slice(3) + ' руб.'
+    document.getElementById('price').textContent = textPrice;
+}
 
 // Обработка сообщений
 
     websocketClient.onmessage = (message) => {
         mes = JSON.parse(message.data);
-        document.getElementById('price').textContent = mes['price'];
+        showPrice(mes['price']);
         if (mes['type'] == "In_out") {
             showElements('PV');
             showElements('hide_V');
@@ -802,10 +826,11 @@ document.addEventListener('DOMContentLoaded', function(){
             onButton(".btn_V");
         }
         if (mes["href"] != undefined) {
-            exelDownload(mes['href'], mes['href2'])
+            exelDownload(mes['href'], mes['href2'], mes['href3'])
         }
         if (mes["img_list"] != undefined) {
             showImages(mes['img_list']);
         }
+        showSignals(mes['signals']);
     }
 })

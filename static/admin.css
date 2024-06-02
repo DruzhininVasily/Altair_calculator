@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #6CCDEC;
+    text-align: center;
+    padding: 10% 5%;
+}
+
+.admin_head {
+    color: white;
+    margin-bottom: 3%;
+}
+
+.admin_head_1 {
+    color: white;
+}
+
+.admin_pass {
+    width: 30%;
+    padding: 1% 2%;
+    border-radius: 20px;
+    border: 1px solid silver;
+    margin-bottom: 3%;
+}
+
+.admin_button {
+    background: #6CCDEC;
+    color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 20px;
+    font-size: 19px;
+    padding: 1% 4%;
+    transition: all 0.3s linear;
+}
+
+.admin_button:hover {
+    background: #00AEEF;
+}
+
+.logo {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    max-width: 15%;
+}
