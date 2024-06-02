@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function(){
     let systemType = document.querySelectorAll(".radio input")
     let specButton = document.querySelector("#spec")
 
-    let websocketClient  = new WebSocket("ws://127.0.0.1:5000");
+    let websocketClient  = new WebSocket("wss://altaircalculator.ru/");
 
 
 // Функция для обработки input type="select" на основном экране
@@ -761,13 +761,13 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         buttSpec.download = string
         buttSpec.onclick = () => {
-            buttSpec.href = "http://127.0.0.1:5000/" + string + '?name=' + companyName.value;
+            buttSpec.href = "https://altaircalculator.ru/" + string + '?name=' + companyName.value;
         };
         buttTcp.onclick = () => {
-          buttTcp.href = "http://127.0.0.1:5000/" + string2 + '?name=' + companyName.value;
+          buttTcp.href = "https://altaircalculator.ru/" + string2 + '?name=' + companyName.value;
         };
         buttPdf.onclick = () => {
-            buttPdf.href = "http://127.0.0.1:5000/" + string3 + '?name=' + companyName.value;
+            buttPdf.href = "https://altaircalculator.ru/" + string3 + '?name=' + companyName.value;
         }
     }
 
