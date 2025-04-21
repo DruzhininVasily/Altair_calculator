@@ -7,28 +7,111 @@ body {
 
 .exel_frame {
     position: absolute;
-    left: 32.5%;
-    width: 25%;
-    top: -300px;
-    padding: 3% 5%;
-    text-align: center;
+    left: 25%;
+    width: 45%;
+    top: -550px;
+    padding: 3% 3%;
     background: #f0f4fa;
     border: 1px solid silver;
     border-radius: 0 0 20px 20px;
     transition: all 0.5s linear;
     z-index: 100;
+    @media (max-width: 1600px) {
+        width: 45%;
+    };
+    @media (max-width: 1400px) {
+        width: 45%;
+    };
+    @media (max-width: 1200px) {
+        width: 45%;
+    };
+    @media (max-width: 1000px) {
+        width: 45%;
+    };
+    @media (max-width: 900px) {
+        width: 45%;
+    };
+    @media (max-width: 800px) {
+        width: 60%;
+        left: 18%;
+    };
+    @media (max-width: 700px) {
+        width: 60%;
+        left: 18%;
+    };
+    @media (max-width: 600px) {
+        width: 60%;
+        left: 18%;
+    };
+    @media (max-width: 500px) {
+        width: 70%;
+        left: 12%;
+    };
+    @media (max-width: 400px) {
+        width: 70%;
+        left: 12%;
+    };
 }
 
 .exel_button {
-    border 2px solid silver;
+    border: none;
     background: #6CCDEC;
     border-radius: 20px;
     color: white;
     text-decoration: none;
-    padding: 2% 6%;
-    font-size: 14px;
-    margin-right: 5%;
+    padding: 1.2% 4%;
+    font-size: 17px;
+    margin-top: 3%;
     transition: all 0.5s linear;
+    @media (max-width: 1600px) {
+        padding: 1.2% 4%;
+        font-size: 14px;
+    };
+    @media (max-width: 1400px) {
+        padding: 1.2% 3%;
+        font-size: 13px;
+    };
+    @media (max-width: 1200px) {
+        padding: 1.2% 3%;
+        font-size: 12px;
+    };
+    @media (max-width: 1100px) {
+        padding: 1.2% 3%;
+        font-size: 11px;
+    };
+    @media (max-width: 1000px) {
+        padding: 1.2% 2.5%;
+    };
+    @media (max-width: 900px) {
+        padding: 1.2% 2.5%;
+        font-size: 10px;
+    };
+    @media (max-width: 800px) {
+        padding: 1.2% 4%;
+    };
+    @media (max-width: 700px) {
+        padding: 1.2% 3%;
+    };
+    @media (max-width: 600px) {
+       padding: 1% 2.5%;
+       font-size: 9px;
+    };
+    @media (max-width: 500px) {
+        padding: 1% 2%;
+    };
+    @media (max-width: 400px) {
+        padding: 1% 2.5%;
+        font-size: 7px;
+    };
+    @media (max-width: 300px) {
+        padding: 1% 1.5%;
+        font-size: 7px;
+    };
+}
+
+.butts_document {
+    display: flex;
+    justify-content: space-between;
 }
 
 .exel_button:hover {
@@ -36,16 +119,108 @@ body {
     background: #00AEEF;
 }
 
-.exel_input {
-    width: 80%;
-    padding: 2% 5%;
-    border-radius: 20px;
-    border: 1px solid silver;
-    margin-bottom: 8%;
+#config_button {
+    position: relative;
+    left: 30%;
 }
 
-.exel_h {
+.exel_input {
+    width: 60%;
+    padding: 1% 2%;
+    border-radius: 10px;
     font-size: 19px;
+    border: 1px solid silver;
+    @media (max-width: 1600px) {
+        font-size: 17px;
+    };
+    @media (max-width: 1400px) {
+        font-size: 16px;
+    };
+    @media (max-width: 1200px) {
+        font-size: 15px;
+    };
+    @media (max-width: 1000px) {
+        font-size: 15px;
+    };
+    @media (max-width: 900px) {
+        font-size: 14px;
+    };
+    @media (max-width: 800px) {
+        font-size: 14px;
+    };
+    @media (max-width: 700px) {
+        font-size: 13px;
+    };
+    @media (max-width: 600px) {
+        font-size: 12px;
+    };
+    @media (max-width: 500px) {
+        font-size: 11px;
+    };
+    @media (max-width: 400px) {
+       font-size: 10px;
+    };
+    @media (max-width: 300px) {
+        width: 55%;
+        font-size: 8px;
+    };
+}
+
+.exel_input:focus {
+    background: rgba(108, 205, 236, 0.5);
+}
+
+.exel_inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-bottom: 2%;
+    font-size: 19px;
+    @media (max-width: 1600px) {
+        font-size: 17px;
+    };
+    @media (max-width: 1400px) {
+        font-size: 16px;
+    };
+    @media (max-width: 1200px) {
+        font-size: 15px;
+    };
+    @media (max-width: 1000px) {
+        font-size: 15px;
+    };
+    @media (max-width: 900px) {
+        font-size: 14px;
+    };
+    @media (max-width: 800px) {
+        font-size: 14px;
+        margin-top: 1%;
+    };
+    @media (max-width: 700px) {
+        font-size: 13px;
+        margin-top: 2%;
+    };
+    @media (max-width: 600px) {
+        font-size: 12px;
+        margin-top: 3%;
+    };
+    @media (max-width: 500px) {
+        font-size: 11px;
+        margin-top: 5%;
+    };
+    @media (max-width: 400px) {
+       font-size: 10px;
+       margin-top: 8%;
+    };
+    @media (max-width: 300px) {
+       font-size: 8px;
+       margin-top: 10%;
+    };
+}
+
+.exel_input_block {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1%;
 }
 
 #krest {
@@ -83,7 +258,7 @@ body {
 }
 
 .head_container img {
-    width: 18%;
+    width: 80%;
 }
 
 /* main */
@@ -110,20 +285,48 @@ main {
     overflow: auto;
     display: flex;
     padding: 0 1%;
-    @media (max-height: 780px) {
-        height: 350px;
+    height: 380px;
+    @media (max-width: 1600px) {
+        height: 325px;
     };
-    @media (min-height: 781px) {
-        height: 380px;
+    @media (max-width: 1500px) {
+        height: 320px;
     };
-    @media (min-height: 871px) {
-        height: 420px;
+    @media (max-width: 1400px) {
+        height: 315px;
     };
-    @media (min-height: 931px) {
-        height: 500px;
+    @media (max-width: 1300px) {
+        height: 270px;
     };
-    @media (min-height: 991px) {
-        height: 560px;
+    @media (max-width: 1200px) {
+        height: 260px;
+    };
+    @media (max-width: 1100px) {
+        height: 245px;
+    };
+    @media (max-width: 1000px) {
+        height: 235px;
+    };
+    @media (max-width: 900px) {
+        height: 230px;
+    };
+    @media (max-width: 800px) {
+        height: 220px;
+    };
+    @media (max-width: 700px) {
+        height: 210px;
+    };
+    @media (max-width: 600px) {
+        height: 200px;
+    };
+    @media (max-width: 500px) {
+        height: 190px;
+    };
+    @media (max-width: 400px) {
+        height: 180px;
+    };
+    @media (max-width: 300px) {
+        height: 170px;
     };
 }
 
@@ -161,6 +364,15 @@ main {
     color: black;
     opacity: 0;
     transition: opacity 0.5s linear;
+    @media (max-width: 900px) {
+        font-size: 10px;
+    };
+    @media (max-width: 600px) {
+        font-size: 8px;
+    };
+    @media (max-width: 400px) {
+        font-size: 7px;
+    };
 }
 
 .signals ul {
@@ -170,26 +382,133 @@ main {
 .parameters_container {
     border: 1px solid silver;
     width: 25%;
+    height: 380px;
     padding-left: 2%;
+    padding-bottom: 2%;
     background: #FFF;
     color: #000;
     font-size: 12px;
     overflow: auto;
-    @media (max-height: 780px) {
-        height: 350px;
+    @media (max-width: 1600px) {
+        height: 325px;
+        font-size: 12px;
     };
-    @media (min-height: 781px) {
-        height: 380px;
+    @media (max-width: 1500px) {
+        height: 320px;
     };
-    @media (min-height: 871px) {
-        height: 420px;
+    @media (max-width: 1400px) {
+        height: 315px;
     };
-    @media (min-height: 931px) {
-        height: 500px;
+    @media (max-width: 1300px) {
+        height: 270px;
     };
-    @media (min-height: 991px) {
-        height: 560px;
+    @media (max-width: 1200px) {
+        height: 260px;
     };
+    @media (max-width: 1100px) {
+        height: 245px;
+        font-size: 11px;
+    };
+    @media (max-width: 1000px) {
+        height: 235px;
+        font-size: 11px;
+    };
+    @media (max-width: 900px) {
+        height: 230px;
+    };
+    @media (max-width: 800px) {
+        height: 220px;
+        font-size: 10px;
+    };
+    @media (max-width: 700px) {
+        height: 210px;
+        width: 50%;
+    };
+    @media (max-width: 600px) {
+        height: 200px;
+        font-size: 8px;
+    };
+    @media (max-width: 500px) {
+        height: 190px;
+    };
+    @media (max-width: 400px) {
+        height: 180px;
+        font-size: 7px;
+    };
+    @media (max-width: 300px) {
+        height: 170px;
+    };
+}
+
+.cabinet_select,
+.out_filter_select,
+.in_filter_select,
+.in_damper_select,
+.in_damper_heat_select,
+.in_damper_heat_range,
+.out_damper_select,
+.out_damper_heat_select,
+.out_damper_heat_range,
+.cool_select,
+.heater_type_first,
+.first_electrical_select,
+.first_water_select,
+.first_electrical_range,
+.heater_type_second,
+.second_water_select,
+.second_electrical_select,
+.second_electrical_range,
+.vent_range_info_in,
+.vent_range_info_out {
+    @media (max-width: 1600px) {
+        font-size: 14px;
+    };
+    @media (max-width: 1000px) {
+        font-size: 12px;
+    };
+    @media (max-width: 700px) {
+        font-size: 10px;
+    };
+    @media (max-width: 500px) {
+        font-size: 8px;
+    };
+    @media (max-width: 400px) {
+        font-size: 7px;
+    };
+}
+
+.add_signals_block {
+    display: flex;
+    flex-direction: column;
+    padding: 2% 5%;
+    width: 40%;
+}
+
+.vent_range_info_in,
+.vent_range_info_out,
+.electrical_first_step_power,
+.electrical_second_step_power,
+.out_damper_heat_power,
+.in_damper_heat_power {
+    width: 50%;
+    margin: 3% 0;
+}
+
+.in_damper_voltage,
+.out_damper_voltage,
+.heater_type_first,
+.electrical_first_steps,
+.electrical_first_step_signal,
+.heater_type_second,
+.electrical_second_steps,
+.electrical_second_step_signal {
+    margin-bottom: 3%;
+}
+
+.in_damper_type,
+.out_damper_type {
+    width: 70%;
+    margin-bottom: 3%;
 }
 
 .disabled {
@@ -207,40 +526,129 @@ footer {
     display: flex;
     justify-content: space-between;
     color: #FFF;
+    @media (max-width: 700px) {
+        flex-wrap: wrap;
+    };
 }
 
 .options {
     display: flex;
     flex-direction: column;
+    position: relative;
+    @media (max-width: 1600px) {
+       font-size: 17px;
+    };
+    @media (max-width: 1400px) {
+       font-size: 16px;
+    };
+    @media (max-width: 1200px) {
+        font-size: 12px;
+    };
+    @media (max-width: 1000px) {
+        font-size: 10px;
+    };
+    @media (max-width: 900px) {
+        font-size: 10px;
+    };
+    @media (max-width: 700px) {
+        font-size: 8px;
+    };
+    @media (max-width: 500px) {
+        margin-bottom: 3%;
+    };
 }
 
 .options button{
     position: absolute;
-    bottom: 0px;
+    bottom: -15px;
     background: #6CCDEC;
     color: #FFF;
     border: 1px solid #FFF;
     border-radius: 20px;
     font-size: 12px;
-    padding: 0.5% 1%;
+    padding: 5% 7%;
     transition: all 0.3s linear;
+    @media (max-width: 1600px) {
+       font-size: 12px;
+    };
+    @media (max-width: 1400px) {
+       font-size: 11px;
+    };
+    @media (max-width: 1200px) {
+        font-size: 10px;
+    };
+    @media (max-width: 1000px) {
+        font-size: 9px;
+    };
+    @media (max-width: 900px) {
+        font-size: 8px;
+    };
+    @media (max-width: 900px) {
+        font-size: 7px;
+    };
 }
 
 .options button:hover {
     background: #00AEEF;
 }
 
+
 .select_style {
     background: #C7F1FF;
     border: none;
+    @media (max-width: 1600px) {
+       font-size: 14px;
+    };
+    @media (max-width: 1400px) {
+       font-size: 13px;
+    };
+    @media (max-width: 1200px) {
+        font-size: 12px;
+    };
+    @media (max-width: 1000px) {
+        font-size: 11px;
+    };
+    @media (max-width: 900px) {
+        font-size: 8px;
+    };
 }
 
 .check{
     font-size: 12px;
+    @media (max-width: 1600px) {
+       font-size: 12px;
+    };
+    @media (max-width: 1400px) {
+       font-size: 11px;
+    };
+    @media (max-width: 1200px) {
+        font-size: 10px;
+    };
+    @media (max-width: 1000px) {
+        font-size: 9px;
+    };
+    @media (max-width: 900px) {
+        font-size: 8px;
+    };
 }
 
 .price_box {
     padding-left: 10px;
+    @media (max-width: 1600px) {
+       font-size: 19px;
+    };
+    @media (max-width: 1400px) {
+       font-size: 17px;
+    };
+    @media (max-width: 1200px) {
+        font-size: 14px;
+    };
+    @media (max-width: 1000px) {
+        font-size: 13px;
+    };
+    @media (max-width: 900px) {
+        font-size: 12px;
+    };
 }
 
 .PV,
@@ -256,4 +664,45 @@ footer {
     transition: opacity 0.5s linear;
 }
 
+/* systemconfig */
 
+#systemConfig {
+    display: none;
+}
+
+.modal {
+    background: #6CCDEC;
+    width: 20%;
+    text-align: center;
+    border: 1px solid silver;
+    border-radius: 10px;
+    position: absolute;
+    top: 10%;
+    left: 40%;
+    color: white;
+    z-index: 500;
+    transition: all 0.8s linear;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.rowband {
+    position: absolute;
+    left: 5.5%;
+    font-size: 19px;
+    cursor: pointer;
+    transition: all 0.5s linear;
+}
+
+.rowband a {
+    text-decoration: none;
+    color: white;
+}
+
+.rowband span{
+    font-weight: 900;
+}
+
+.rowband:hover{
+    font-size: 20px;
+}

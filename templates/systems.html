@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="static/systems.css">
+    <title>Altair</title>
+</head>
+<body>
+    <header>
+        <div class="head_container">
+            <a href="{{ url_for ('main') }}"><img src="static/image/image1.png" alt="logo"></a>
+        </div>
+    </header>
+    <main>
+        <div class="project_frame">
+            <img src="/static/image/krest.png" id="krest">
+            <form id="project_form" method="post">
+                <div class="project_input_block">
+                    <label for="system_name">Введите название системы</label><br>
+                    <input type="text" class="system_name project_input" id="system_name" name="system_name">
+                </div>
+                <button class="project_button" type="submit">Добавить</button>
+            </form>
+        </div>
+        <div class="right_side">
+            <h2>ТКП Номер: <span id="tcp_number">{{ tcp_number }}</span></h2>
+            <span id="tcp_id">{{ tcp_id }}</span>
+            <div class="system_list_container">
+                <div class="system_list_row_1">
+                    <div class="system_list_row system_list_head">
+                        <span class="system_list_block">Название системы</span>
+                        <span class="system_list_block">Тип системы</span>
+                    </div>
+                    <div class="price_row system_list_head">
+                        <span class="system_list_block">Количество</span>
+                        <span class="system_list_block">Цена</span>
+                    </div>
+                </div>
+                {% for dat in data %}
+                    <div class="system_list_row_1">
+                        <span class="system_id">{{ dat[0] }}</span>
+                        <a href="{{ url_for ('configurator', id=dat[0]) }}" class="system_list_row system_list_link">
+                            <span class="system_list_block">{{ dat[2] }}</span>
+                            <span class="system_list_block">{{ dat[6] }}</span>
+                        </a>
+                        <div class="price_row">
+                            <input type="number" class="system_list_block input_quant" value="{{ dat[3] }}">
+                            <span class="system_list_block">{{ dat[7] }}руб.</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            </div>
+        <div class="left_side">
+            <div class="butt_cont">
+                <button class="update_button config_button">Сохранить</button>
+            </div>
+            <div class="butt_cont">
+                <a href="{{ url_for ('download_general_tcp', tcp_id=tcp_id) }}" target="_blank" class="config_button">Скачать ТКП</a>
+            </div>
+            <div class="butt_cont">
+                <button class="config_button" id="config_button">Добавить систему</button>
+            </div>
+            <div class="butt_cont">
+                <a href="{{ url_for ('main') }}" class="config_button">Возврат к списку ТКП</a>
+            </div>
+        </div>
+    </main>
+<script src="/static/systems.js"></script>
+</body>
+</html>

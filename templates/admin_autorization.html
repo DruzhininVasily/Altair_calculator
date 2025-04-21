@@ -11,9 +11,9 @@
 <body>
     <img src="static/image/image1.png" alt="logo" class="logo">
     <h1 class="admin_head">Авторизация</h1>
-    <h3 class="admin_head_1">Введите пароль</h3>
     <form method="post">
-        <input name="pass" type="text" class="admin_pass" value=""></br>
+        <input name="name" type="text" placeholder="Логин" class="admin_pass" value=""></br>
+        <input name="pass" type="text" placeholder="Пароль" class="admin_pass" value=""></br><br>
         <button type="submit" class="admin_button">Войти</button>
     </form>
     {% with messages = get_flashed_messages() %}

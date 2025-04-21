@@ -13,7 +13,11 @@
     {% for table in tables_list %}
         <div class="tables_hrefs_container">
             <span>{{ table[0] }}</span>
+            {% if table[0] == 'Tcp' %}
+            <a class="tables_button" href="{{ url_for('systems_admin', table_name=table[0]) }}">Перейти</a>
+            {% else %}
             <a class="tables_button" href="{{ url_for('table_data', table_name=table[0]) }}">Перейти</a>
+            {% endif %}
         </div>
     {% endfor %}
 </body>

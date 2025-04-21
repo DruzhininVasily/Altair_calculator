@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='tables.css') }}">
+    <title>Altair_admin</title>
+</head>
+<body>
+    <h1 class="table_detail_h">Таблица {{ table_name }}</h1>
+    <a class="tables_button" href="{{ url_for ('tables') }}">К списку таблиц</a>
+    <div class="table_detail_container">
+        <div class="table_detail_row">
+            <span>Id</span>
+            <span>Наименование</span>
+            <span>Производитель</span>
+            <span>Артикул</span>
+            <span>Параметр</span>
+            <span>Цена</span>
+            <span>Группа</span>
+            <span>Код 1С</span>
+        </div>
+        <form id="table_form">
+            {% for row in table_list %}
+                <div class="table_detail_row">
+                    {% for elem in row  %}
+                        <span><input name="{{ loop.index }}" type="text" value="{{ elem }}"></span>
+                    {% endfor %}
+                    <a class="tables_button" href="{{ url_for ('delete_tcp', tcp_id=row[0])}}">Удалить</a>
+                </div>
+            {% endfor %}
+        </form>
+    </div>
+</body>

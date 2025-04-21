@@ -2,16 +2,17 @@ from img_data import img_data
 import event_handling
 import create_specification
 import db_handler
+import json
 
 
 class Plc:
     def __init__(self, system_type):
         self.config = [0, 0, 0, 0, 0, 0]
-        self.di = 3 if system_type == "In_out" else 2
+        self.di = 0
         self.pt = 0
         self.ai = 0
-        self.ao = 1
-        self.do = 4 if system_type == "In_out" else 2
+        self.ao = 0
+        self.do = 0
 
     def add_signals(self, di=0, pt=0, ai=0, ao=0, do=0):
         self.di += di
@@ -52,7 +53,8 @@ class MessageHandler:
 
     FUNCTIONS = [event_handling.vent_in, event_handling.vent_out, event_handling.first_heater, event_handling.cooler,
                  event_handling.second_heater, event_handling.dampers, event_handling.filters,
-                 event_handling.cabinet, event_handling.vent_power_in, event_handling.vent_power_out]
+                 event_handling.cabinet, event_handling.vent_power_in, event_handling.vent_power_out,
+                 event_handling.get_panel, event_handling.humid]
 
     def __init__(self):
         self.price = 0
@@ -106,8 +108,23 @@ class MessageHandler:
         self.specification.extend(self.plc.get_spec_plc(self.data_base))
         return price, self.plc.get_signals()
 
-    def create_docs(self):
-        create_specification.create_exel(self.specification, self.static_elements)
+    def create_docs(self, rate):
+        shau_name = create_specification.get_shau_name(self)
+        create_specification.create_exel(self.specification, self.static_elements, rate, shau_name)
         create_specification.create_pdf(self.img_list)
+        file_name = create_specification.get_scheme(self.system_type, self.parameters, self.numer_param)
         price, signals = self.calculate()
-        return {"href": "specification.xlsx", 'href2': "TCP.xlsx", "href3": 'schema.pdf', 'price': price, 'signals': signals}
+        return {"href": "specification.xlsx", 'href2': "TCP.xlsx", "href3": 'schema.pdf', 'href4': file_name, 'price': int(price*rate), 'signals': signals}
+
+    def get_configuration(self):
+        param_for_db = {}
+        for param in self.parameters:
+            param_for_db[param] = 'true'
+        param_for_db = json.dumps(param_for_db)
+        num_param_for_db = json.dumps(self.numer_param)
+        sys_type = json.dumps({"type": self.system_type})
+        return param_for_db, num_param_for_db, sys_type
+
+    def get_elements_list(self):
+        shau_name = create_specification.get_shau_name(self)
+        return {'spec': self.specification, 'static': self.static_elements, 'shau_name': shau_name}

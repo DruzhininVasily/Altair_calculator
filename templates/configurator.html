@@ -1,0 +1,1001 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Altair</title>
+</head>
+<body>
+    <div class="exel_frame">
+        <img src="/static/image/krest.png" id="krest">
+        <div class="exel_inputs">
+            <div class="exel_input_block">
+                <label for="company_name">Название компании</label>
+                <input type="text" class="company_name exel_input" id="company_name" disabled>
+            </div>
+            <div class="exel_input_block">
+                <label for="company_object">Объект</label>
+                <input type="text" class="company_object exel_input" id="company_object" disabled>
+            </div>
+            <div class="exel_input_block">
+                <label for="tcp_number">Номер ТКП</label>
+                <input type="text" class="tcp_number exel_input" id="tcp_number" disabled>
+            </div>
+            <div class="exel_input_block">
+                <label for="customer">Заказчик</label>
+                <input type="text" class="customer exel_input" id="customer" disabled>
+            </div>
+            <div class="exel_input_block">
+                <label for="executor">Исполнитель</label>
+                <input type="text" class="executor exel_input" id="executor" disabled>
+            </div>
+            <div class="exel_input_block">
+                <label for="system_name">Название системы</label>
+                <input type="text" class="system_name exel_input" id="system_name">
+            </div>
+        </div>
+        <div class="butts_document">
+            <a href ="" id="spec_button" target="_blank" class="exel_button">Спецификация</a>
+            <a href ="" id="tcp_button" target="_blank" class="exel_button">ТКП</a>
+            <a href ="" id="pdf_button" target="_blank" class="exel_button">Функциональная схема</a>
+            <a href ="" id="scheme_button" target="_blank" class="exel_button">Электрическая схема</a>
+        </div>
+        <button class="exel_button" id="config_button">Сохранить конфигурацию</button>
+    </div>
+    <div class="modal">
+        <p>Конфигурация сохранена</p>
+    </div>
+    <header>
+        <div class="head_container">
+            <a href="{{ url_for('main') }}"><img src="/static/image/image1.png" alt="logo"></a>
+            <span class="disabled">Система</span>
+            <span class="disabled">Схема</span>
+            <span class="disabled">Подключение</span>
+            <button id="spec">Действия</button>
+        </div>
+        <div class="rowband"><a href="{{ url_for('systems', tcp_id=prev[0], tcp_number=prev[1]) }}"><span><---</span>  Назад</a></div>
+    </header>
+    <main>
+        <h2>Конфигуратор системы вентиляции</h2>
+        <div class="main_container">
+            <div class="cont">
+                <div class="img_container"></div>
+                <div class="signals">
+                        <ul>
+                            <li>di - <span class="sig_list"></span></li>
+                            <li>do - <span class="sig_list"></span></li>
+                            <li>ai - <span class="sig_list"></span></li>
+                            <li>ao - <span class="sig_list"></span></li>
+                            <li>pt - <span class="sig_list"></span></li>
+                        </ul>
+                </div>
+            </div>
+            <div class="parameters_container">
+                <div class="paramVent_in hide_param disabled">
+                    <h3>Приточный вентилятор</h3>
+                    <div class="voltage_in_block">
+                        <div>
+                            <input class="vent_radio_info_in" type="radio" id="in_220" name="voltage_vent_in" value="220">
+                            <label for="in_220">220 В</label>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_in" type="radio" id="in_380" name="voltage_vent_in" value="380">
+                            <label for="in_380">380 В</label>
+                        </div><br>
+                    </div>
+                    <div>
+                        <label for="vent_quant_in">Количество вентиляторов: </label><span id="quant_span_in"></span><br>
+                        <select class="vent_quant_in" name="vent_quant_in" id="vent_quant_in">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="power_in">Мощность: </label><span id="pow_span_in"></span><br>
+                        <select class="vent_range_info_in" name="vent_power_in" id="power_in" size="4">
+                            <option value="0">0.75 кВт</option>
+                            <option value="1">1.5 кВт</option>
+                            <option value="2">2.2 кВт</option>
+                            <option value="3">4 кВт</option>
+                            <option value="4">5.5 кВт</option>
+                            <option value="5">7.5 кВт</option>
+                            <option value="6">11 кВт</option>
+                            <option value="7">15 кВт</option>
+                            <option value="8">18.5 кВт</option>
+                            <option value="9">22 кВт</option>
+                            <option value="10">30 кВт</option>
+                            <option value="11">37 кВт</option>
+                            <option value="12">45 кВт</option>
+                            <option value="13">55 кВт</option>
+                        </select>
+                    </div>
+                    <div class="vent_type_in">
+                        <div class="not_fc_in">
+                            <input class="vent_radio_info_in" type="radio" id="Not_fc_in" name="FC_in" value="NOT_FC">
+                            <label for="Not_fc_in">Без регулирования</label>
+                        </div>
+                        <div class="potentiometr_in_block disabled">
+                            <input class="vent_radio_info_in" type="radio" id="potentiometr_in" name="FC_in" value="potentiometr">
+                            <label for="potentiometr_in">Потенциометр</label>
+                        </div>
+                        <div class="fc_in_block">
+                            <input class="vent_radio_info_in default" type="radio" id="FC_in" name="FC_in" value="FC">
+                            <label for="FC_in">Преобразователь частоты</label>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_in" type="radio" id="EC_in" name="FC_in" value="EC">
+                            <label for="EC_in">ЕС двигатель</label>
+                        </div><br>
+                    </div>
+                    <div class="vent_reserv_block_in">
+                        <h4>Резерв</h4>
+                        <div>
+                            <input class="vent_radio_info_in" type="radio" id="no_reserv_in" name="reserv_in" value="no_reserv">
+                            <label for="no_reserv_in">Без резерва</label>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_in" type="radio" id="motor_reserv_in" name="reserv_in" value="motor_reserv_in">
+                            <label for="motor_reserv_in">Резерв двигателя</label>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_in" type="radio" id="vent_reserv_in" name="reserv_in" value="vent_reserv_in">
+                            <label for="vent_reserv_in">Резерв вентилятора</label>
+                        </div>
+                        <div class="damp_vent_quant_in_block disabled">
+                            <h4>Задвижки:</h4>
+                            <label for="damp_vent_quant_in">Количество</label>
+                            <select class="damp_vent_quant_in vent_in_reserv_selects" name="damp_vent_quant_in" id="damp_vent_quant_in">
+                                <option value="0">0</option>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                            </select><br><br>
+                            <div>
+                                <span>Питание заслонки</span>
+                                <select class="damp_vent_voltage_in vent_in_reserv_selects" name="damp_vent_voltage_in">
+                                    <option value="false">24 В</option>
+                                    <option value="true">220 В</option>
+                                </select>
+                             </div><br>
+                            <label for="vent_damp_type_in">Тип привода заслонки: </label><br>
+                            <select class="vent_damp_type_in vent_in_reserv_selects" name="vent_damp_type_in" id="vent_damp_type_in" size="3">
+                                <option value="0">С возвратной пружиной 5Нм</option>
+                                <option value="1">С возвратной пружиной 10Нм</option>
+                                <option value="2">С возвратной пружиной 15Нм</option>
+                                <option value="3">С возвратной пружиной 20Нм</option>
+                                <option value="4">Реверсивный 4Нм</option>
+                                <option value="5">Реверсивный 8Нм</option>
+                                <option value="6">Реверсивный 16Нм</option>
+                                <option value="7">Реверсивный 24Нм</option>
+                                <option value="8">Реверсивный 32Нм</option>
+                                <option value="9">реверсивный 4Нм, плавное регулирование</option>
+                                <option value="10">реверсивный 8Нм, плавное регулирование</option>
+                            </select>
+                            <div>
+                                <input class="vent_check_info_in" name="vent_damp_confirm_in" type="checkbox" id="vent_damp_confirm_in">
+                                <label for="vent_damp_confirm_in">Подтверждение открытия</label>
+                            </div>
+                            <div>
+                                <input class="vent_check_info_in vent_damp_heat_in" name="vent_damp_heat_in" type="checkbox" id="vent_damp_heat_in">
+                                <label for="vent_damp_heat_in">Обогрев заслонки</label>
+                            </div>
+                            <div class="vent_damp_heat_block_in disabled">
+                                <div>
+                                    <span>Питание обогрева</span>
+                                    <select class="vent_in_reserv_selects vent_damp_heat_voltage_in" name="vent_damp_heat_voltage_in" id="vent_damp_heat_voltage_in">
+                                        <option value="false">220 В</option>
+                                        <option value="true">380 В</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="vent_damp_heat_power_in">Мощность обогрева: </label><br>
+                                    <select class="vent_in_reserv_selects vent_damp_heat_power_in" name="vent_damp_heat_power_in" id="vent_damp_heat_power_in" size="4">
+                                        <option value="0">0.1 кВт</option>
+                                        <option value="1">0.2 кВт</option>
+                                        <option value="2">0.3 кВт</option>
+                                        <option value="3">0.4 кВт</option>
+                                        <option value="4">0.5 кВт</option>
+                                        <option value="5">0.6 кВт</option>
+                                        <option value="6">0.7 кВт</option>
+                                        <option value="7">0.8 кВт</option>
+                                        <option value="8">0.9 кВт</option>
+                                        <option value="9">1.0 кВт</option>
+                                        <option value="10">1.1 кВт</option>
+                                        <option value="11">1.2 кВт</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_in" type="radio" id="dual_vent_in" name="reserv_in" value="dual_vent_in">
+                            <label for="dual_vent_in">Сдвоенный вентилятор</label>
+                        </div>
+                    </div><br><br>
+                    <div id="smooth_in_container">
+                        <input class="vent_check_info_in" name="smooth_in" type="checkbox" id="smooth_in">
+                        <label for="smooth_in">Регулировка скорости 0-10В</label>
+                    </div>
+                    <div>
+                        <input class="vent_check_info_in" name="dif_in" type="checkbox" id="dif_in">
+                        <label for="dif_in">Подтверждение работы (дифф манометр)</label>
+                    </div>
+                    <div class="quant_dif_in_block disabled">
+                        <label for="quant_dif_in">Количество</label>
+                        <select class="quant_dif_in vent_in_reserv_selects" name="quant_dif_in" id="quant_dif_in">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select><br>
+                    </div>
+                    <div id="maint_in_container" class="disabled">
+                        <input class="vent_check_info_in" name="pressure_maint_in" type="checkbox" id="pressure_maint_in">
+                        <label for="pressure_maint_in">Поддержание давления/расхода</label>
+                    </div>
+                    <br>
+                    <div>
+                        <h4>Термозащита</h4>
+                        <div>
+                                <input class="vent_radio_info_in" type="radio" id="vent_termo_none_in" name="vent_termo_protect_in" value="no_protect">
+                                <label for="vent_termo_none_in">Без защиты</label>
+                        </div>
+                        <div>
+                                <input class="vent_radio_info_in" type="radio" id="vent_termo_in" name="vent_termo_protect_in" value="thermo">
+                                <label for="vent_termo_in">Термоконтакт</label>
+                        </div>
+                        <div>
+                                <input class="vent_radio_info_in" type="radio" id="vent_termistor_in" name="vent_termo_protect_in" value="thermistor">
+                                <label for="vent_termistor_in">Термистор</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="paramVent_out hide_param disabled">
+                    <h3>Вытяжной вентилятор</h3>
+                    <div class="voltage_out_block">
+                        <div>
+                            <input class="vent_radio_info_out" type="radio" id="out_220" name="voltage_vent_out" value="220">
+                            <label for="out_220">220 В</label>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_out" type="radio" id="out_380" name="voltage_vent_out" value="380">
+                            <label for="out_380">380 В</label>
+                        </div><br>
+                    </div>
+                    <div>
+                        <label for="vent_quant_out">Количество вентиляторов: </label><span id="quant_span_out"></span><br>
+                        <select class="vent_quant_out" name="vent_quant_out" id="vent_quant_out">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="power_out">Мощность: </label><span id="pow_span_out"></span><br>
+                        <select class="vent_range_info_out" name="vent_power_out" id="power_out" size="4">
+                            <option value="0">0.75 кВт</option>
+                            <option value="1">1.5 кВт</option>
+                            <option value="2">2.2 кВт</option>
+                            <option value="3">4 кВт</option>
+                            <option value="4">5.5 кВт</option>
+                            <option value="5">7.5 кВт</option>
+                            <option value="6">11 кВт</option>
+                            <option value="7">15 кВт</option>
+                            <option value="8">18.5 кВт</option>
+                            <option value="9">22 кВт</option>
+                            <option value="10">30 кВт</option>
+                            <option value="11">37 кВт</option>
+                            <option value="12">45 кВт</option>
+                            <option value="13">55 кВт</option>
+                        </select>
+                    </div>
+                    <div class="vent_type_out">
+                        <div>
+                            <input class="vent_radio_info_out" type="radio" id="Not_fc_out" name="FC_out" value="NOT_FC">
+                            <label for="Not_fc_out">Без регулирования</label>
+                        </div>
+                        <div class="potentiometr_out_block disabled">
+                            <input class="vent_radio_info_out" type="radio" id="potentiometr_out" name="FC_out" value="potentiometr">
+                            <label for="potentiometr_out">Потенциометр</label>
+                        </div>
+                        <div class="fc_out_block">
+                            <input class="vent_radio_info_out default" type="radio" id="FC_out" name="FC_out" value="FC">
+                            <label for="FC_out">Преобразователь частоты</label>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_out" type="radio" id="EC_out" name="FC_out" value="EC">
+                            <label for="EC_out">ЕС двигатель</label>
+                        </div><br>
+                    </div>
+                    <div class="vent_reserv_block_out">
+                        <h4>Резерв</h4>
+                        <div>
+                            <input class="vent_radio_info_out" type="radio" id="no_reserv_out" name="reserv_out" value="no_reserv">
+                            <label for="no_reserv_out">Без резерва</label>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_out" type="radio" id="motor_reserv_out" name="reserv_out" value="motor_reserv_out">
+                            <label for="motor_reserv_out">Резерв двигателя</label>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_out" type="radio" id="vent_reserv_out" name="reserv_out" value="vent_reserv_out">
+                            <label for="vent_reserv_out">Резерв вентилятора</label>
+                        </div>
+                        <div class="damp_vent_quant_out_block disabled">
+                            <h4>Задвижки:</h4>
+                            <label for="damp_vent_quant_out">Количество</label>
+                            <select class="damp_vent_quant_out vent_out_reserv_selects" name="damp_vent_quant_out" id="damp_vent_quant_out">
+                                <option value="0">0</option>
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                            </select><br><br>
+                            <div>
+                                <span>Питание заслонки</span>
+                                <select class="damp_vent_voltage_out vent_out_reserv_selects" name="damp_vent_voltage_out">
+                                    <option value="false">24 В</option>
+                                    <option value="true">220 В</option>
+                                </select>
+                             </div><br>
+                            <label for="vent_damp_type_out">Тип привода заслонки: </label><br>
+                            <select class="vent_damp_type_out vent_out_reserv_selects" name="vent_damp_type_out" id="vent_damp_type_out" size="3">
+                                <option value="0">С возвратной пружиной 5Нм</option>
+                                <option value="1">С возвратной пружиной 10Нм</option>
+                                <option value="2">С возвратной пружиной 15Нм</option>
+                                <option value="3">С возвратной пружиной 20Нм</option>
+                                <option value="4">Реверсивный 4Нм</option>
+                                <option value="5">Реверсивный 8Нм</option>
+                                <option value="6">Реверсивный 16Нм</option>
+                                <option value="7">Реверсивный 24Нм</option>
+                                <option value="8">Реверсивный 32Нм</option>
+                                <option value="9">реверсивный 4Нм, плавное регулирование</option>
+                                <option value="10">реверсивный 8Нм, плавное регулирование</option>
+                            </select>
+                            <div>
+                                <input class="vent_check_info_out" name="vent_damp_confirm_out" type="checkbox" id="vent_damp_confirm_out">
+                                <label for="vent_damp_confirm_out">Подтверждение открытия</label>
+                            </div>
+                            <div>
+                                <input class="vent_check_info_out vent_damp_heat_out" name="vent_damp_heat_out" type="checkbox" id="vent_damp_heat_out">
+                                <label for="vent_damp_heat_out">Обогрев заслонки</label>
+                            </div>
+                            <div class="vent_damp_heat_block_out disabled">
+                                <div>
+                                    <span>Питание обогрева</span>
+                                    <select class="vent_out_reserv_selects vent_damp_heat_voltage_out" name="vent_damp_heat_voltage_out" id="vent_damp_heat_voltage_out">
+                                        <option value="false">220 В</option>
+                                        <option value="true">380 В</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="vent_damp_heat_power_out">Мощность обогрева: </label><br>
+                                    <select class="vent_out_reserv_selects vent_damp_heat_power_out" name="vent_damp_heat_power_out" id="vent_damp_heat_power_out" size="4">
+                                        <option value="0">0.1 кВт</option>
+                                        <option value="1">0.2 кВт</option>
+                                        <option value="2">0.3 кВт</option>
+                                        <option value="3">0.4 кВт</option>
+                                        <option value="4">0.5 кВт</option>
+                                        <option value="5">0.6 кВт</option>
+                                        <option value="6">0.7 кВт</option>
+                                        <option value="7">0.8 кВт</option>
+                                        <option value="8">0.9 кВт</option>
+                                        <option value="9">1.0 кВт</option>
+                                        <option value="10">1.1 кВт</option>
+                                        <option value="11">1.2 кВт</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input class="vent_radio_info_out" type="radio" id="dual_vent_out" name="reserv_out" value="dual_vent_out">
+                            <label for="dual_vent_out">Сдвоенный вентилятор</label>
+                        </div>
+                    </div><br><br>
+                    <div id="smooth_out_container">
+                        <input class="vent_check_info_out" name="smooth_out" type="checkbox" id="smooth_out">
+                        <label for="smooth_out">Регулировка скорости 0-10В</label>
+                    </div>
+                    <div>
+                        <input class="vent_check_info_out" type="checkbox" id="dif_out" name="dif_out">
+                        <label for="dif_out">Подтверждение работы (дифф манометр)</label>
+                    </div>
+                    <div class="quant_dif_out_block disabled">
+                        <label for="quant_dif_out">Количество</label>
+                        <select class="quant_dif_out vent_out_reserv_selects" name="quant_dif_out" id="quant_dif_out">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select><br>
+                    </div>
+                    <div id="maint_out_container" class="disabled">
+                        <input class="vent_check_info_out" name="pressure_maint_out" type="checkbox" id="pressure_maint_out">
+                        <label for="pressure_maint_out">Поддержание давления/расхода</label>
+                    </div>
+                    <div>
+                        <h4>Термозащита</h4>
+                        <div>
+                                <input class="vent_radio_info_out" type="radio" id="vent_termo_none_out" name="vent_termo_protect_out" value="no_protect">
+                                <label for="vent_termo_none_out">Без защиты</label>
+                        </div>
+                        <div>
+                                <input class="vent_radio_info_out" type="radio" id="vent_termo_out" name="vent_termo_protect_out" value="thermo">
+                                <label for="vent_termo_out">Термоконтакт</label>
+                        </div>
+                        <div>
+                                <input class="vent_radio_info_out" type="radio" id="vent_termistor_out" name="vent_termo_protect_out" value="thermistor">
+                                <label for="vent_termistor_out">Термистор</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="heat_container hide_param disabled">
+                    <div class="first_container">
+                        <h3>Нагреватель</h3>
+                        <h4>Тип нагревателя</h4>
+                        <select class="heater_type_first" name="first_heater_type" >
+                            <option value="false">Водяной</option>
+                            <option value="true">Электрический</option>
+                        </select>
+                        <div class="water_first_container">
+                            <div>
+                                <input class="water_first_pump first_water_checkbox" name="first_pump" type="checkbox" id="first_pump" checked disabled>
+                                <label for="first_pump">Циркуляционный насос</label>
+                            </div>
+                            <div>
+                                <input class="water_first_signal first_water_checkbox" name="first_signal" type="checkbox" id="first_signal" checked disabled>
+                                <label for="first_signal">Управляющий сигнал 0-10В</label>
+                            </div>
+                            <div>
+                                <input class="water_first_sensor first_water_checkbox" name="first_sensor" type="checkbox" id="first_sensor" checked disabled>
+                                <label for="first_sensor">Датчик температуры обр. воды</label>
+                            </div>
+                            <div>
+                                <input class="water_first_thermostat first_water_checkbox" name="first_thermostat" type="checkbox" id="first_thermostat" checked>
+                                <label for="first_thermostat">Воздушный термостат</label>
+                            </div>
+                            <div class="first_thermostat_options_block disabled">
+                                <label for="first_thermostat_quant">Количество</label>
+                                <select class="first_thermostat_quant first_thermostat_options" name="first_thermostat_quant" id="first_thermostat_quant">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select><br>
+                                <label for="first_thermostat_length">Длина термостата</label>
+                                <select class="first_thermostat_length first_thermostat_options" name="first_thermostat_length" id="first_thermostat_length">
+                                    <option value="1">3 метров</option>
+                                    <option value="2">4 метров</option>
+                                    <option value="3">6 метров</option>
+                                    <option value="4">12 метров</option>
+                                </select><br>
+                            </div>
+                            <div>
+                                <span>Питание насоса</span>
+                                <select class="water_first_pump_voltage first_water_select" name="first_pump_voltage">
+                                    <option value="false">220 В</option>
+                                    <option value="true">380 В</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="electrical_first_container disabled">
+                            <span>Количество ступеней: </span>
+                            <select class="electrical_first_steps first_electrical_select" name="first_steps">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                                <option value="4">5</option>
+                                <option value="5">6</option>
+                                <option value="6">7</option>
+                                <option value="7">8</option>
+                                <option value="8">9</option>
+                                <option value="9">10</option>
+                                <option value="10">11</option>
+                                <option value="11">12</option>
+                        </select>
+                            <span class="disabled" id="test"></span>
+                            <div>
+                                <label for="electrical_first_step_power">Мощность ступени</label><br>
+                                <select class="electrical_first_step_power first_electrical_range" name="electrical_first_step_power" id="electrical_first_step_power" size="4">
+                                    <option value="0">3 кВт</option>
+                                    <option value="1">6 кВт</option>
+                                    <option value="2">9 кВт</option>
+                                    <option value="3">12 кВт</option>
+                                    <option value="4">15 кВт</option>
+                                    <option value="5">18 кВт</option>
+                                    <option value="6">24 кВт</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input class="electrical_first_step_signal first_electrical_checkbox" name="electrical_first_step_signal" type="checkbox" id="electrical_first_step_signal">
+                                <label for="electrical_first_step_signal">Первая ступень 0-10В</label>
+                            </div>
+                            <span>Количество термовыключателей: </span>
+                            <select class="electrical_first_thermal first_electrical_select" name="first_electrical_thermal">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        <div>
+                                <input class="second_heat_choice" name="second_heat_choice" type="checkbox" id="second_heat_choice">
+                                <label for="second_heat_choice">Второй нагреватель</label>
+                        </div>
+                    </div>
+                    <div class="second_container disabled">
+                        <h4>Тип нагревателя</h4>
+                        <select class="heater_type_second" name="second_heat_type">
+                            <option value="false">Водяной</option>
+                            <option value="true">Электрический</option>
+                        </select>
+                        <div class="water_second_container">
+                            <div>
+                                <input class="water_second_pump second_water_checkbox" name="second_pump" type="checkbox" id="second_pump" checked disabled>
+                                <label for="second_pump">Циркуляционный насос</label>
+                            </div>
+                            <div>
+                                <input class="water_second_signal second_water_checkbox" name="second_signal" type="checkbox" id="second_signal" checked disabled>
+                                <label for="second_signal">Управляющий сигнал 0-10В</label>
+                            </div>
+                            <div>
+                                <input class="water_second_sensor second_water_checkbox" name="second_sensor" type="checkbox" id="second_sensor">
+                                <label for="second_sensor">Датчик температуры обр. воды</label>
+                            </div>
+                            <div>
+                                <input class="water_second_thermostat second_water_checkbox" name="second_thermostat" type="checkbox" id="second_thermostat">
+                                <label for="second_thermostat">Воздушный термостат</label>
+                            </div>
+                            <div class="second_thermostat_options_block disabled">
+                                <label for="second_thermostat_quant">Количество</label>
+                                <select class="second_thermostat_quant second_thermostat_options" name="second_thermostat_quant" id="second_thermostat_quant">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select><br>
+                                <label for="second_thermostat_length">Длина термостата</label>
+                                <select class="second_thermostat_length second_thermostat_options" name="second_thermostat_length" id="second_thermostat_length">
+                                    <option value="1">3 метров</option>
+                                    <option value="2">4 метров</option>
+                                    <option value="3">6 метров</option>
+                                    <option value="4">12 метров</option>
+                                </select><br>
+                            </div>
+                            <div>
+                                <span>Питание насоса</span>
+                                <select class="water_second_pump_voltage second_water_select" name="second_pump_voltage">
+                                    <option value="false">220 В</option>
+                                    <option value="true">380 В</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="electrical_second_container disabled">
+                            <span>Количество ступеней: </span>
+                            <select class="electrical_second_steps second_electrical_select" name="second_steps">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                                <option value="4">5</option>
+                                <option value="5">6</option>
+                                <option value="6">7</option>
+                                <option value="7">8</option>
+                                <option value="8">9</option>
+                                <option value="9">10</option>
+                                <option value="10">11</option>
+                                <option value="11">12</option>
+                        </select>
+                            <div>
+                                <label for="electrical_second_step_power">Мощность ступени</label><br>
+                                <select class="electrical_second_step_power second_electrical_range" name="electrical_second_step_power" id="electrical_second_step_power" size="4">
+                                    <option value="0">3 кВт</option>
+                                    <option value="1">6 кВт</option>
+                                    <option value="2">9 кВт</option>
+                                    <option value="3">12 кВт</option>
+                                    <option value="4">15 кВт</option>
+                                    <option value="5">18 кВт</option>
+                                    <option value="6">24 кВт</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input class="electrical_second_step_signal second_electrical_checkbox" name="electrical_second_step_signal" type="checkbox" id="electrical_second_step_signal">
+                                <label for="electrical_second_step_signal">Первая ступень 0-10В</label>
+                            </div>
+                            <span>Количество термовыключателей: </span>
+                            <select class="electrical_second_thermal second_electrical_select" name="second_electrical_thermal">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                        <div>
+                                <input class="add_thermo_sensor" name="add_thermo_sensor" type="checkbox" id="add_thermo_sensor">
+                                <label for="add_thermo_sensor">Дополнительный канальный датчик температуры</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="cool_container hide_param disabled">
+                    <div>
+                        <h5>Тип охладителя</h5>
+                        <select class="cool_type cool_select" name="cool_type">
+                            <option value="frion">Фреоновый</option>
+                            <option value="water">Водяной</option>
+                        </select>
+                    </div>
+                    <div class="cool_alarm_block">
+                        <input class="cool_alarm cool_checkbox" name="cool_alarm" type="checkbox" id="cool_alarm">
+                        <label for="cool_alarm">Аварийный сигнал</label>
+                    </div>
+                </div>
+                <div class="dampers_container hide_param disabled">
+                    <div class="in_damper_container disabled">
+                        <h3>Приточная воздушная заслонка</h3>
+                        <div>
+                            <span>Питание заслонки</span>
+                            <select class="in_damper_voltage in_damper_select" name="in_damper_voltage">
+                                <option value="false">24 В</option>
+                                <option value="true">220 В</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="in_damper_type">Тип привода заслонки: </label><br>
+                            <select class="in_damper_type in_damper_select" name="in_damper_type" id="in_damper_type" size="4">
+                                <option value="0">С возвратной пружиной 5Нм</option>
+                                <option value="1">С возвратной пружиной 10Нм</option>
+                                <option value="2">С возвратной пружиной 15Нм</option>
+                                <option value="3">С возвратной пружиной 20Нм</option>
+                                <option value="4">Реверсивный 4Нм</option>
+                                <option value="5">Реверсивный 8Нм</option>
+                                <option value="6">Реверсивный 16Нм</option>
+                                <option value="7">Реверсивный 24Нм</option>
+                                <option value="8">Реверсивный 32Нм</option>
+                                <option value="9">реверсивный 4Нм, плавное регулирование</option>
+                                <option value="10">реверсивный 8Нм, плавное регулирование</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input class="in_damper_confirm in_damper_checkbox" name="in_damper_confirm" type="checkbox" id="in_damper_confirm">
+                            <label for="in_damper_confirm">Подтверждение открытия</label>
+                        </div>
+                        <div>
+                            <input class="in_damper_heat" name="in_damper_heat" type="checkbox" id="in_damper_heat">
+                            <label for="in_damper_heat">Обогрев заслонки</label>
+                        </div>
+                        <div class="in_damper_heat_parameter_container disabled">
+                            <div>
+                                <span>Питание обогрева</span>
+                                <select class="in_damper_heat_voltage in_damper_heat_select" name="in_damper_heat_voltage" id="in_damper_heat_voltage">
+                                    <option value="false">220 В</option>
+                                    <option value="true">380 В</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="in_damper_heat_power">Мощность обогрева: </label><br>
+                                <select class="in_damper_heat_power in_damper_heat_range" name="in_damper_heat_power" id="in_damper_heat_power" size="4">
+                                    <option value="0">0.1 кВт</option>
+                                    <option value="1">0.2 кВт</option>
+                                    <option value="2">0.3 кВт</option>
+                                    <option value="3">0.4 кВт</option>
+                                    <option value="4">0.5 кВт</option>
+                                    <option value="5">0.6 кВт</option>
+                                    <option value="6">0.7 кВт</option>
+                                    <option value="7">0.8 кВт</option>
+                                    <option value="8">0.9 кВт</option>
+                                    <option value="9">1.0 кВт</option>
+                                    <option value="10">1.1 кВт</option>
+                                    <option value="11">1.2 кВт</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="out_damper_container disabled">
+                        <h3>Вытяжная воздушная заслонка</h3>
+                        <div>
+                            <span>Питание заслонки</span>
+                            <select class="out_damper_voltage out_damper_select" name="out_damper_voltage">
+                                <option value="false">24 В</option>
+                                <option value="true">220 В</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="out_damper_type">Тип привода заслонки: </label><br>
+                            <select class="out_damper_type out_damper_select" name="out_damper_type" id="out_damper_type" size="4">
+                                <option value="0">С возвратной пружиной 5Нм</option>
+                                <option value="1">С возвратной пружиной 10Нм</option>
+                                <option value="2">С возвратной пружиной 15Нм</option>
+                                <option value="3">С возвратной пружиной 20Нм</option>
+                                <option value="4">Реверсивный 4Нм</option>
+                                <option value="5">Реверсивный 8Нм</option>
+                                <option value="6">Реверсивный 16Нм</option>
+                                <option value="7">Реверсивный 24Нм</option>
+                                <option value="8">Реверсивный 32Нм</option>
+                                <option value="9">реверсивный 4Нм, плавное регулирование</option>
+                                <option value="10">реверсивный 8Нм, плавное регулирование</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input class="out_damper_confirm out_damper_checkbox" name="out_damper_confirm" type="checkbox" id="out_damper_confirm">
+                            <label for="out_damper_confirm">Подтверждение открытия</label>
+                        </div>
+                        <div>
+                            <input class="out_damper_heat" name="out_damper_heat" type="checkbox" id="out_damper_heat">
+                            <label for="out_damper_heat">Обогрев заслонки</label>
+                        </div>
+                        <div class="out_damper_heat_parameter_container disabled">
+                            <div>
+                                <span>Питание обогрева</span>
+                                <select class="out_damper_heat_voltage out_damper_heat_select" name="out_damper_heat_voltage" id="out_damper_heat_voltage">
+                                    <option value="false">220 В</option>
+                                    <option value="true">380 В</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="out_damper_heat_power">Мощность обогрева: </label><br>
+                                <select class="out_damper_heat_power out_damper_heat_range" name="out_damper_heat_power" id="out_damper_heat_power" size="4">
+                                    <option value="0">0.1 кВт</option>
+                                    <option value="1">0.2 кВт</option>
+                                    <option value="2">0.3 кВт</option>
+                                    <option value="3">0.4 кВт</option>
+                                    <option value="4">0.5 кВт</option>
+                                    <option value="5">0.6 кВт</option>
+                                    <option value="6">0.7 кВт</option>
+                                    <option value="7">0.8 кВт</option>
+                                    <option value="8">0.9 кВт</option>
+                                    <option value="9">1.0 кВт</option>
+                                    <option value="10">1.1 кВт</option>
+                                    <option value="11">1.2 кВт</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filters_container hide_param disabled">
+                    <div class="in_filter disabled">
+                        <h3>Приточный воздушный фильтр</h3>
+                        <div>
+                            <p>Количество приточных фильтров</p>
+                            <select class="in_filter_quantity in_filter_select" name="in_filter_quantity">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                                <option value="4">5</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input class="in_hepa_filter filters_checkbox" name="in_hepa_filter" type="checkbox" id="in_hepa_filter">
+                            <label for="in_hepa_filter">Добавить HEPA-фильтр</label>
+                        </div>
+                        <div>
+                            <input class="filt_in_indication filters_checkbox" name="filt_in_indication" type="checkbox" id="filt_in_indication">
+                            <label for="filt_in_indication">Индикация загрязнения фильтра</label>
+                        </div>
+                    </div>
+                    <div class="out_filter disabled">
+                        <h3>Вытяжной воздушный фильтр</h3>
+                        <div>
+                            <p>Количество вытяжных фильтров</p>
+                            <select class="out_filter_quantity out_filter_select" name="out_filter_quantity">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                                <option value="4">5</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input class="out_hepa_filter filters_checkbox" name="out_hepa_filter" type="checkbox" id="out_hepa_filter">
+                            <label for="out_hepa_filter">Добавить HEPA-фильтр</label>
+                        </div>
+                        <div>
+                            <input class="filt_out_indication filters_checkbox" name="filt_out_indication" type="checkbox" id="filt_out_indication">
+                            <label for="filt_out_indication">Индикация загрязнения фильтра</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="dehumids_container hide_param disabled">
+                    <div>
+                        <h4>Увлажнитель</h4>
+                        <input class="humid_alarm humid_checkbox" name="humid_alarm" type="checkbox" id="humid_alarm">
+                        <label for="humid_alarm">Аварийный сигнал</label>
+                    </div>
+                </div>
+                <div class="cabinet_container hide_param disabled">
+                    <h3>Параметры</h3>
+                    <div>
+                        <span>Тип переключения</span>
+                        <select class="switch_type cabinet_select" name="switch_type">
+                            <option value="false">Переключатель Пуск/Стоп</option>
+                            <option value="true">Кнопки Пуск/Стоп</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Базовый контроллер</p>
+                        <select class="base_controller cabinet_select" name="base_controller" disabled>
+                            <option value="0">Контроллер EKF F200-16-R-P20</option>
+                            <option value="1">Контроллер 2</option>
+                            <option value="2">Контроллер 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Протокол диспетчеризации</p>
+                        <select class="disp_protocol cabinet_select" name="disp_protocol">
+                            <option value="1">Modbus</option>
+                            <option value="2">Ethernet</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input class="shutdown_fire_signal cabinet_checkbox" name="shutdown_fire_signal" type="checkbox" id="shutdown_fire_signal">
+                        <label for="shutdown_fire_signal">Отключение по сигналу пожар</label>
+                    </div>
+                    <div>
+                        <input class="sensor_temp_outdoor cabinet_checkbox" name="sensor_temp_outdoor" type="checkbox" id="sensor_temp_outdoor">
+                        <label for="sensor_temp_outdoor">Датчик наружной температуры</label>
+                    </div>
+                        <div class="sensor_temp_outdoor_type_block disabled">
+                            <span>Тип датчика</span>
+                            <select class="sensor_temp_outdoor_type cabinet_select" name="sensor_temp_outdoor_type">
+                                <option value="outdoor">Уличный</option>
+                                <option value="chanel">Канальный</option>
+                            </select>
+                        </div>
+                    <div>
+                        <input class="sensor_temp_indoor cabinet_checkbox" name="sensor_temp_indoor" type="checkbox" id="sensor_temp_indoor">
+                        <label for="sensor_temp_indoor">Комнатный датчик температуры</label>
+                    </div>
+                    <div>
+                        <input class="sensor_humid cabinet_checkbox" name="sensor_humid" type="checkbox" id="sensor_humid">
+                        <label for="sensor_humid">Канальный датчик влажности</label>
+                    </div>
+                    <div class="sensor_hood_in_block">
+                        <input class="sensor_hood_in cabinet_checkbox" name="sensor_hood_in" type="checkbox" id="sensor_hood_in">
+                        <label for="sensor_hood_in">Канальный датчик температуры приточный</label>
+                    </div>
+                    <div class="sensor_hood_out_block">
+                        <input class="sensor_hood_out cabinet_checkbox" name="sensor_hood_out" type="checkbox" id="sensor_hood_out">
+                        <label for="sensor_hood_out">Канальный датчик температуры вытяжной</label>
+                    </div>
+                    <div>
+                        <input class="signal_work cabinet_checkbox" name="signal_work" type="checkbox" id="signal_work">
+                        <label for="signal_work">Сигнал "Работа"</label>
+                    </div>
+                    <div>
+                        <input class="signal_alarm cabinet_checkbox" name="signal_alarm" type="checkbox" id="signal_alarm">
+                        <label for="signal_alarm">Сигнал "Авария"</label>
+                    </div>
+                    <div>
+                        <input class="touchpad cabinet_checkbox" name="touchpad" type="checkbox" id="touchpad">
+                        <label for="touchpad">Панель оператора</label>
+                    </div>
+                    <div>
+                        <input class="remote_control cabinet_checkbox" name="remote_control" type="checkbox" id="remote_control">
+                        <label for="remote_control">Дистанционное управление</label>
+                    </div>
+                    <div>
+                        <input class="add_signals cabinet_checkbox" name="add_signals" type="checkbox" id="add_signals">
+                        <label for="add_signals">Добавить дополнительные сигналы</label>
+                    </div>
+                    <div class="add_signals_block disabled">
+                        <label for="di_signal">DI</label>
+                        <input type="number" class="di_signal cabinet_select" name="di_signal" value="0" id="di_signal"><br>
+                        <label for="do_signal">DO</label>
+                        <input type="number" class="do_signal cabinet_select" name="do_signal" value="0" id="do_signal"><br>
+                        <label for="ai_signal">AI</label>
+                        <input type="number" class="ai_signal cabinet_select" name="ai_signal" value="0" id="ai_signal"><br>
+                        <label for="ao_signal">AO</label>
+                        <input type="number" class="ao_signal cabinet_select" name="ao_signal" value="0" id="ao_signal"><br>
+                        <label for="pt_signal">PT</label>
+                        <input type="number" class="pt_signal cabinet_select" name="pt_signal" value="0" id="pt_signal">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="type options">
+            <h4>Тип системы</h4>
+            <div class="check radio">
+            <input type="radio" id="in_out" name="type_radio" value="In_out">
+            <label for="in_out">Приточно-вытяжная</label>
+            </div>
+            <div class="check radio">
+            <input type="radio" id="in" name="type_radio" value="In">
+            <label for="in">Приточная</label>
+            </div>
+            <div class="check radio">
+            <input type="radio" id="out" name="type_radio" value="Out">
+            <label for="out">Вытяжная</label>
+            </div>
+        </div>
+        <div class="ventilators options PV P V">
+            <h4>Вентиляторы</h4>
+            <button class="btn_PV btn_V" value="vents" disabled>Настройка</button>
+        </div>
+        <div class="heater options PV P">
+            <h4>Нагреватель</h4>
+            <select class="select select_style heater_action" disabled>
+                <option value="false">Нет</option>
+                <option value="true">Да</option>
+            </select>
+            <button class="btn_PV" value="heaters" disabled>Настройка</button>
+        </div>
+        <div class="cooler options PV P">
+            <h4>Охладитель</h4>
+            <select class="select select_style cool_action" disabled>
+                <option value="false">Нет</option>
+                <option value="true">Да</option>
+            </select>
+            <button class="btn_PV" value="coolers">Настройка</button>
+        </div>
+        <div class="dehumid options PV P">
+            <h4>Осушитель</h4>
+            <select class="select select_style" disabled>
+                <option value="false">Нет</option>
+                <option value="true">Да</option>
+            </select>
+            <button class="btn_PV" value="dehumids">Настройка</button>
+        </div>
+        <div class="recuperator options">
+            <h4>Рекуператор</h4>
+<!--            <select class="select_style" disabled>-->
+<!--                <option value="false">Нет</option>-->
+<!--                <option value=true">Да</option>-->
+<!--            </select>-->
+            <button>Настройка</button>
+        </div>
+        <div class="recyrcling options">
+            <h4>Рециркуляция</h4>
+<!--            <select class="select_style" disabled>-->
+<!--                <option value="false">Нет</option>-->
+<!--                <option value="true">Да</option>-->
+<!--            </select>-->
+            <button>Настройка</button>
+        </div>
+        <div class="damper options PV P V">
+            <h4>Заслонки</h4>
+            <div class="check hide_V">
+            <input type="checkbox" id="damp_in">
+            <label for="damp_in">Приточная</label>
+            </div>
+            <div class="check hide_P">
+            <input type="checkbox" id="damp_out">
+            <label for="damp_out">Вытяжная</label>
+            </div>
+            <button class="btn_PV btn_V" value="dampers" disabled>Настройка</button>
+        </div>
+        <div class="filters options PV P V">
+            <h4>Фильтры</h4>
+            <div class="check hide_V">
+            <input type="checkbox" id="filt_in">
+            <label for="filt_in">Приточная</label>
+            </div>
+            <div class="check hide_P">
+            <input type="checkbox" id="filt_out">
+            <label for="filt_out">Вытяжная</label>
+            </div>
+            <button class="btn_PV btn_V" value="filters" disabled>Настройка</button>
+        </div>
+        <div class="reserve options">
+            <h4>Резерв</h4>
+            <div class="check hide_V">
+            <input type="checkbox" id="res_in">
+            <label for="res_in">Приточная</label>
+            </div>
+            <div class="check hide_P">
+            <input type="checkbox" id="res_out">
+            <label for="res_out">Вытяжная</label>
+            </div>
+            <button class="btn_PV btn_V" value="reserve" disabled>Настройка</button>
+        </div>
+        <div class="params options PV P V">
+            <h4>Параметры</h4>
+            <button class="btn_PV btn_V" value="cabinet" disabled>Настройка</button>
+        </div>
+        <div class="price_box">
+            <h4>Цена: </h4>
+            <p id="price"></p>
+        </div>
+    </footer>
+    <input type="text" value="{{ system }}" id="systemConfig" disabled>
+<script src="/static/main.js"></script>
+</body>
+</html>
